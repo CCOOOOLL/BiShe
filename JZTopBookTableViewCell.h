@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "JZBooksStore.h"
-#import "JZBookView.h"
+@class JZBookView;
 @interface JZTopBookTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *category;
-@property(nonatomic,strong)NSArray<JZBookView*> *bookViews;
-@property(nonatomic,strong)NSArray<BookData *> *bookViewModels;
+@property (weak, nonatomic) IBOutlet UILabel *category;/**< 榜单类别 */
+@property(nonatomic,strong)NSArray<JZBookView*> *bookViews; /**< 图书界面数组 */
+@property(nonatomic,strong)NSArray<id<BookViewProtocol>> *bookViewModels;/**< 拥有BookViewProtocol的对象 */
 @property(nonatomic,assign)NSInteger tagWithButton;/**< 内容的查询id */
 @end

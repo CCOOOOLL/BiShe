@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class BookData;
+#import "JZBooksStore.h"
 @interface JZTopBookCollectionViewCell : UICollectionViewCell
 
-- (void)setBookViewModels:(BookData *) bookViewModels;
+- (void)setBookViewModels:(id<BookViewProtocol>) bookViewModels; /**<  拥有BookViewProtocol的对象 */
 @end

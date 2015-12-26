@@ -69,31 +69,6 @@
     
 
 }
-//- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(success) success{
-//    NSString *url = [NSString stringWithFormat:@"http://topbook.zconly.com/v1/top/category/%@/books?start=%@&count=%@",number,start,end];
-//    NSURL *urlpath = [NSURL URLWithString:url];
-//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-//    NSURLRequest *quest = [NSURLRequest requestWithURL:urlpath];
-//    session
-//    session
-//    [JZBooksStore mj_setupObjectClassInArray:^NSDictionary *{
-//        return @{
-//                 @"books" : @"BookData",
-//                 };
-//    }];
-//    [self.manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        
-//        
-//        JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
-//        
-//        success(booksStore);
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"%@",error);
-//    }];
-//    
-//    
-//}
 
 
 @end

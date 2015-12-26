@@ -17,9 +17,8 @@
 
 @implementation JZTopBookCollectionViewCell
 
-- (void)setBookViewModels:(BookData *)bookViewModels{
-    self.bookView.Model = bookViewModels;
-    
-}
 
+- (void)setBookViewModels:(id<BookViewProtocol>)bookViewModels{
+    self.bookView.Model = bookViewModels;
+}
 @end

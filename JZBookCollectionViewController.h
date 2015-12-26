@@ -10,6 +10,6 @@
 
 @interface JZBookCollectionViewController : UICollectionViewController
 
-@property(nonatomic,strong)NSDictionary *contentData;
+@property(nonatomic,strong)NSDictionary *contentData; /**< 内容数据 */
 
 @end

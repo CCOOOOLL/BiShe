@@ -10,6 +10,6 @@
 
 @interface JZBookTableViewController : UITableViewController
 
-@property(nonatomic,strong)NSArray *Category;
-@property(nonatomic,copy)NSString *name;
+@property(nonatomic,strong)NSArray *Category; /**< 图书top类别数组 */
+@property(nonatomic,copy)NSString *name; 
 @end

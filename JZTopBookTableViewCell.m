@@ -36,9 +36,10 @@
     }
     return _bookViews;
 }
-- (void)setBookViewModels:(NSArray *)bookViewModels{
-    _bookViewModels = bookViewModels;
 
+- (void)setBookViewModels:(NSArray<id<BookViewProtocol>> *)bookViewModels{
+    _bookViewModels = bookViewModels;
+    
     [self.bookViews enumerateObjectsUsingBlock:^(JZBookView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         obj.Model = bookViewModels[idx];
     }];
