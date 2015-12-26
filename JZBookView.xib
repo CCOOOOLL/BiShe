@@ -65,6 +65,7 @@
                 <constraint firstItem="lp7-W6-SKa" firstAttribute="leading" secondItem="wdO-FC-XSj" secondAttribute="trailing" id="vbE-Kt-tTg"/>
                 <constraint firstItem="Abe-Gl-ABr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xnH-eD-FGv"/>
             </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
@@ -72,7 +73,7 @@
                     <exclude reference="Q2p-vV-Lyr"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="307" y="366.5"/>
+            <point key="canvasLocation" x="231" y="364.5"/>
         </view>
     </objects>
 </document>

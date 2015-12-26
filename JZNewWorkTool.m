@@ -65,9 +65,24 @@
             NSLog(@"%@",error);
     }];
     
+}
 
-    
 
+- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(success)success{
+    NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/search?q='%@'&start=%@&count=%@",name,start,count];
+    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    [JZBooksStore mj_setupObjectClassInArray:^NSDictionary *{
+        return @{
+                 @"books" : @"Book",
+                 };
+    }];
+    [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
+        success(booksStore);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 

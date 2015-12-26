@@ -15,6 +15,6 @@ IB_DESIGNABLE
 @property(nonatomic, strong)NSNumber *showStar;
 @property(nonatomic, strong)UIColor *emptyColor;
 @property(nonatomic, strong)UIColor *fullColor;
-@property(nonatomic,assign)CGFloat starSize;
+@property(nonatomic,assign)IBInspectable CGFloat starSize;
 
 @end

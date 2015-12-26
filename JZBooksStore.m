@@ -21,6 +21,32 @@ MJCodingImplementation
 
 MJCodingImplementation
 
+- (NSString *)bookViewId{
+    return [self.id copy];
+}
+- (NSString *)bookViewImageUrl{
+    return [self.image copy];
+}
+- (NSString *)bookViewtitle{
+    return [self.title copy];
+}
+- (NSString *)bookViewaverage{
+    return [self.rating.average copy];
+}
+
+- (NSString *)bookViewnumRaters{
+    return [self.rating.numRaters copy];
+}
+- (NSString *)bookViewAuthor{
+    __block NSString *author = @"";
+    [self.author enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        author = [NSString stringWithFormat:@"%@ %@",author,obj];
+    }];
+    author = [NSString stringWithFormat:@"%@/%@",author,self.publisher];
+    author = [NSString stringWithFormat:@"%@/%@",author,self.pubdate];
+    return author;
+}
+
 @end
 
 

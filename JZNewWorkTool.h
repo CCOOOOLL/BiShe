@@ -9,10 +9,13 @@
 #import <Foundation/Foundation.h>
 @class JZBooksStore;
 @class AFHTTPSessionManager;
-typedef void(^success)(JZBooksStore* booksStore);
+typedef void(^success)(id obj);
 typedef void(^block)();
 @interface JZNewWorkTool : NSObject
-
+/**
+ *  单例
+ */
++(instancetype)workTool;
 /**
  *  加载top图书数据
  *
@@ -22,10 +25,11 @@ typedef void(^block)();
  *  @param success 成功代码块
  */
 - (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(success) success;
-/**
- *  单例
- */
-+(instancetype)workTool;
+
+- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(success) success;
+
+
+
 
 
 

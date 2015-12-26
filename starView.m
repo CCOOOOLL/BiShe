@@ -51,6 +51,7 @@
     NSString* stars = @"★★★★★";
     
     rect = self.bounds;
+//    rect.origin.y += (rect.size.height - self.starSize)/2.0;
     NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:self.starSize],NSForegroundColorAttributeName:self.emptyColor};
     CGSize starSize = [stars sizeWithAttributes:dict];
     rect.size=starSize;

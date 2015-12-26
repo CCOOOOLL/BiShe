@@ -14,7 +14,29 @@
 - (NSString *)bookViewImageUrl;
 - (NSString *)bookViewtitle;
 - (NSString *)bookViewaverage;
+@optional
 
+- (NSString *)bookViewnumRaters;
+- (NSString *)bookViewAuthor;
+
+@end
+
+@interface Author : NSObject
+
+@end
+
+@interface Images : NSObject
+
+@property(nonatomic,strong)NSString *small;/**<小图 */
+@property(nonatomic,strong)NSString *large;/**<大图 */
+@property(nonatomic,strong)NSString *medium;/**<中图 */
+
+@end
+
+@interface tag : NSObject
+@property(nonatomic,assign)NSInteger count;/**< 数量 */
+@property(nonatomic,strong)NSString *name;/**<名字 */
+@property(nonatomic,strong)NSString *title;/**<标题 */
 @end
 
 @interface Rating : NSObject
@@ -23,9 +45,25 @@
 @property(nonatomic,copy)NSString *numRaters;/**< 评价人数 */
 @end
 
-@interface Book :NSObject
+@interface Book :NSObject<BookViewProtocol>
 
 @property(nonatomic,strong)Rating *rating;/**< 评分数据 */
+@property(nonatomic,strong)NSArray *author;/**<作者们 */
+@property(nonatomic,strong)NSArray<tag*> *tags;/**<标签集 */
+@property(nonatomic,strong)NSString *origin_title;/**<<#text#> */
+@property(nonatomic,strong)NSString *binding;/**<版本 */
+@property(nonatomic,strong)NSString *pubdate;/**<出版时间 */
+@property(nonatomic,strong)NSArray *translator;/**<翻译人员 */
+@property(nonatomic,strong)NSString *catalog;/**<<#text#> */
+@property(nonatomic,strong)NSString *pages;/**<页数 */
+@property(nonatomic,strong)Images *images;/**<各种图片 */
+@property(nonatomic,strong)NSString *alt;/**<<#text#> */
+@property(nonatomic,strong)NSString *id;/**<<#text#> */
+@property(nonatomic,strong)NSString *publisher;/**<出版社 */
+@property(nonatomic,strong)NSString *isbn10;/**<<#text#> */
+@property(nonatomic,strong)NSString *isbn13;/**<<#text#> */
+@property(nonatomic,strong)NSString *summary;/**<简介 */
+@property(nonatomic,strong)NSString *price;/**<价格 */
 @property(nonatomic,copy)NSString *title;/**< 图书名字 */
 @property(nonatomic,copy)NSString *image;/**< 图片地址 */
 @end
@@ -41,7 +79,7 @@
 
 @interface JZBooksStore : NSObject
 
-@property(nonatomic,strong)NSMutableArray<BookData*> *books;/**< 图书数据模型数组 */
+@property(nonatomic,strong)NSMutableArray<id<BookViewProtocol>> *books;/**< 图书数据模型数组 */
 
 
 @end
