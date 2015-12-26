@@ -58,6 +58,8 @@ static NSString * const reuseIdentifier = @"cell";
     }];
     refresh.triggerAutomaticallyRefreshPercent = -20;
     self.collectionView.mj_footer = refresh;
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
 
 }
 
@@ -81,7 +83,6 @@ static NSString * const reuseIdentifier = @"cell";
         [self.collectionView.mj_footer endRefreshing];
     }];
 }
-
 
 
 

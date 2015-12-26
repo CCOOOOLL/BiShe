@@ -14,12 +14,13 @@
 #import "JZBooksStore.h"
 #import "MJRefresh.h"
 #import "JZBookCollectionViewController.h"
-
-#define file [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.data",self.name]]
+#import "JZLoadingView.h"
+#define file [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.data",self.name]]
 
 @interface JZBookTableViewController ()
 
 @property (nonatomic, strong)NSMutableArray<JZBooksStore *> *section;
+@property (nonatomic, strong)JZLoadingView *loadingView;
 
 @end
 
@@ -36,17 +37,30 @@
 #pragma mark -生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.section = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
+  
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-       
         [self LoadDataWithnumber:0];
-
     }];
 
-    [self.tableView.mj_header beginRefreshing];
     
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setUpLoadView];
+    if([NSKeyedUnarchiver unarchiveObjectWithFile:file] == nil){
+        //    [self.tableView.mj_header beginRefreshing];
+        [self.loadingView startAnimation];
+        [self LoadDataWithnumber:0];
+    }else{
+        self.section = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
+        [self.tableView reloadData];
+    }
+}
 
+-  (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [self.loadingView removeFromSuperview];
+}
 
 #pragma mark -其他
 /**
@@ -66,10 +80,20 @@
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
             [NSKeyedArchiver archiveRootObject:self.section toFile:file];
+            [self.loadingView stopAnimating];
         }
     }];
 }
 
+-(void)setUpLoadView{
+    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
+    CGRect rect = window.bounds;
+    CGPoint point = CGPointMake(rect.size.width/2, rect.size.height/2);
+    rect.size = CGSizeMake(60, 60);
+    _loadingView = [[JZLoadingView alloc]initWithFrame:rect];
+    _loadingView.center = point;
+    [window addSubview:_loadingView];
+}
 
 
 #pragma mark - Table view data source
@@ -77,7 +101,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    self.tableView.hidden = self.section.count == 0?YES:NO;
     return self.section.count;
 }
 
@@ -104,6 +128,8 @@
         
     }
 }
+
+
 
 /*
 // Override to support conditional editing of the table view.

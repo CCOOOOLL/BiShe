@@ -10,12 +10,13 @@
 #import "JZBooksStore.h"
 #import "JZSearchBookTableViewCell.h"
 #import "JZNewWorkTool.h"
+#import "JZLoadingView.h"
 @interface JZSearchViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchView;
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
 @property (weak, nonatomic) IBOutlet UITableView *searchTableView;
 @property (weak, nonatomic) IBOutlet UIView *nullView;
-
+@property (nonatomic,strong)JZLoadingView *loadingView;
 @property(nonatomic,strong) JZBooksStore * booksStore;/**<数据源 */
 @end
 
@@ -28,6 +29,7 @@ static NSString *const Identifier = @"cell";
     // Do any additional setup after loading the view.
     [self.navigationItem setHidesBackButton:YES];
     [self setUpWithTextFiled];
+    [self setUpLoadView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,11 +54,18 @@ static NSString *const Identifier = @"cell";
 
 
 
+
 }
 
-- (void)setUpWithTableView{
-
-    
+-(void)setUpLoadView{
+//    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
+    CGRect rect = self.nullView.bounds;
+    CGPoint point = CGPointMake(rect.size.width/2.0, rect.size.height/2.0 -60);
+    rect.size = CGSizeMake(60, 60);
+    rect.origin = point;
+    _loadingView = [[JZLoadingView alloc]initWithFrame:rect];
+//    _loadingView.center = point;
+    [self.nullView addSubview:_loadingView];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -79,13 +88,16 @@ static NSString *const Identifier = @"cell";
     // Pass the selected object to the new view controller.
 }
 */
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.searchView resignFirstResponder];
+}
 
 - (IBAction)searchTextDidChanged:(id)sender {
     if ([self.searchView.text isEqualToString:@""]) {
         self.searchTableView.hidden =YES;
         return;
     }
+    [self.loadingView startAnimation];
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
     [tool dataWithBookName:self.searchView.text start:@0 count:@20 success:^(id obj) {
         self.booksStore = obj;
@@ -93,8 +105,12 @@ static NSString *const Identifier = @"cell";
         CGPoint point = self.searchTableView.contentOffset;
         point.y = 0;
         self.searchTableView.contentOffset = point;
-//        self.searchTableView.contentOffset = CGPointMake(0, 0);
+        [self.loadingView stopAnimating];
     }];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.searchView resignFirstResponder];
+    return YES;
 }
 
 - (IBAction)dissWIthController:(id)sender {

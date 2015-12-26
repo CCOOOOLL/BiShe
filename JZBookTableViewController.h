@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 @interface JZBookTableViewController : UITableViewController
 
 @property(nonatomic,strong)NSArray *Category; /**< 图书top类别数组 */
