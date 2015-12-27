@@ -11,18 +11,37 @@
 #import "JZSearchBookTableViewCell.h"
 #import "JZNewWorkTool.h"
 #import "JZLoadingView.h"
+#import "MJRefresh.h"
+#import "JZBasicBookViewController.h"
 @interface JZSearchViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchView;
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
 @property (weak, nonatomic) IBOutlet UITableView *searchTableView;
 @property (weak, nonatomic) IBOutlet UIView *nullView;
-@property (nonatomic,strong)JZLoadingView *loadingView;
+
+@property (nonatomic,strong)JZLoadingView *loadingView;/**< 加载动画 */
 @property(nonatomic,strong) JZBooksStore * booksStore;/**<数据源 */
+@property(nonatomic, assign)NSNumber *start;
 @end
 
 @implementation JZSearchViewController
 
 static NSString *const Identifier = @"cell";
+
+- (NSNumber *)start{
+    if (!_start) {
+        _start = @0;
+    }
+    return _start;
+}
+
+- (JZBooksStore *)booksStore{
+    if (!_booksStore) {
+        _booksStore = [[JZBooksStore alloc]init];
+        _booksStore.books = [NSMutableArray array];
+    }
+    return _booksStore;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +49,14 @@ static NSString *const Identifier = @"cell";
     [self.navigationItem setHidesBackButton:YES];
     [self setUpWithTextFiled];
     [self setUpLoadView];
+    
+    MJRefreshAutoNormalFooter *refresh = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self loadMoreData];
+        
+    }];
+    refresh.triggerAutomaticallyRefreshPercent = -20;
+    self.searchTableView.mj_footer = refresh;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +84,9 @@ static NSString *const Identifier = @"cell";
 
 }
 
+
+
+
 -(void)setUpLoadView{
 //    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
     CGRect rect = self.nullView.bounds;
@@ -77,17 +107,13 @@ static NSString *const Identifier = @"cell";
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JZSearchBookTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier forIndexPath:indexPath];
     cell.bookDataModel = self.booksStore.books[indexPath.row];
+    cell.tag = 100+indexPath.row;
     return cell;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
+
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.searchView resignFirstResponder];
 }
@@ -98,16 +124,38 @@ static NSString *const Identifier = @"cell";
         return;
     }
     [self.loadingView startAnimation];
+    self.searchTableView.hidden = YES;
+    self.booksStore = nil;
+    self.start = @0;
+    [self loadMoreData];
+    CGPoint point = self.searchTableView.contentOffset;
+    point.y = 0;
+    self.searchTableView.contentOffset = point;
+}
+
+- (void)loadMoreData{
+
+
+    NSNumber *end = [NSNumber numberWithInt:[self.start intValue] + 10];
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
-    [tool dataWithBookName:self.searchView.text start:@0 count:@20 success:^(id obj) {
-        self.booksStore = obj;
+    [tool dataWithBookName:self.searchView.text start:self.start count:end success:^(id obj) {
+        if (!_booksStore) {
+            _booksStore = [[JZBooksStore alloc]init];
+            _booksStore.books = [NSMutableArray array];
+        }
+        JZBooksStore *booksStore = (JZBooksStore *)obj;
+
+        for (Book *book in booksStore.books) {
+            [self.booksStore.books addObject:book];
+        }
+        self.start = [NSNumber numberWithInt:[end intValue] + 1];
         [self.searchTableView reloadData];
-        CGPoint point = self.searchTableView.contentOffset;
-        point.y = 0;
-        self.searchTableView.contentOffset = point;
         [self.loadingView stopAnimating];
+        self.searchTableView.hidden = NO;
+        [self.searchTableView.mj_footer endRefreshing];
     }];
 }
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.searchView resignFirstResponder];
     return YES;
@@ -115,6 +163,15 @@ static NSString *const Identifier = @"cell";
 
 - (IBAction)dissWIthController:(id)sender {
     [self.navigationController popViewControllerAnimated:NO];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"serachView2BookView"]) {
+        JZBasicBookViewController *vc = segue.destinationViewController;
+        UIView *view = sender;
+        vc.bookData = self.booksStore.books[view.tag-100];
+    }
 }
 
 @end

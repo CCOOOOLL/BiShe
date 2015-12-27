@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
@@ -12,6 +11,7 @@
                 <outlet property="average" destination="lp7-W6-SKa" id="oG9-iK-gNU"/>
                 <outlet property="bookStar" destination="wdO-FC-XSj" id="xW8-ru-MxE"/>
                 <outlet property="bookTitle" destination="Sh5-xc-T5S" id="he3-Va-Uga"/>
+                <outlet property="button" destination="AXG-UO-Bcb" id="osb-UF-rbI"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="H6l-QH-eT2"/>
             </connections>
         </placeholder>
@@ -49,20 +49,27 @@
                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXG-UO-Bcb">
+                    <rect key="frame" x="0.0" y="0.0" width="118" height="177"/>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Sh5-xc-T5S" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6jQ-7l-ugi"/>
+                <constraint firstItem="AXG-UO-Bcb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BAh-7V-8Id"/>
                 <constraint firstItem="Sh5-xc-T5S" firstAttribute="top" secondItem="Abe-Gl-ABr" secondAttribute="bottom" id="Ecs-AG-mju"/>
                 <constraint firstAttribute="trailing" secondItem="lp7-W6-SKa" secondAttribute="trailing" constant="8" id="Q2p-vV-Lyr"/>
                 <constraint firstItem="wdO-FC-XSj" firstAttribute="top" secondItem="Sh5-xc-T5S" secondAttribute="bottom" id="TYa-Ik-EMF"/>
                 <constraint firstAttribute="trailing" secondItem="Sh5-xc-T5S" secondAttribute="trailing" id="cOY-f0-L6N"/>
                 <constraint firstAttribute="trailing" secondItem="Abe-Gl-ABr" secondAttribute="trailing" id="eJR-Yg-jpl"/>
                 <constraint firstItem="lp7-W6-SKa" firstAttribute="centerY" secondItem="wdO-FC-XSj" secondAttribute="centerY" id="ilq-CL-F8J"/>
+                <constraint firstItem="AXG-UO-Bcb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oPu-4B-QE8"/>
                 <constraint firstItem="Abe-Gl-ABr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="q13-9D-sGl"/>
                 <constraint firstItem="wdO-FC-XSj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="u0M-mb-cKl"/>
                 <constraint firstAttribute="trailing" secondItem="wdO-FC-XSj" secondAttribute="trailing" id="ugf-hZ-ygM"/>
+                <constraint firstItem="Sh5-xc-T5S" firstAttribute="top" secondItem="AXG-UO-Bcb" secondAttribute="bottom" id="uk0-zc-tpY"/>
                 <constraint firstItem="lp7-W6-SKa" firstAttribute="leading" secondItem="wdO-FC-XSj" secondAttribute="trailing" id="vbE-Kt-tTg"/>
+                <constraint firstAttribute="trailing" secondItem="AXG-UO-Bcb" secondAttribute="trailing" id="vdI-VQ-jV8"/>
                 <constraint firstItem="Abe-Gl-ABr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xnH-eD-FGv"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

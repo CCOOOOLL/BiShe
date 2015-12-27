@@ -24,7 +24,7 @@
         self.maxStar         = 10.0;
         self.emptyColor      = [UIColor colorWithRed:217/255.0 green:217/255.0  blue:217/255.0  alpha:1];
         self.fullColor       = [UIColor orangeColor];
-        self.starSize        = 13;
+        self.starSize        = 8;
         self.showStar        = 0;
     }
     return self;
@@ -51,7 +51,6 @@
     NSString* stars = @"★★★★★";
     
     rect = self.bounds;
-//    rect.origin.y += (rect.size.height - self.starSize)/2.0;
     NSDictionary *dict = @{NSFontAttributeName:[UIFont systemFontOfSize:self.starSize],NSForegroundColorAttributeName:self.emptyColor};
     CGSize starSize = [stars sizeWithAttributes:dict];
     rect.size=starSize;

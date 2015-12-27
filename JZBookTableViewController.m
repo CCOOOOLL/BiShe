@@ -15,6 +15,7 @@
 #import "MJRefresh.h"
 #import "JZBookCollectionViewController.h"
 #import "JZLoadingView.h"
+#import "JZBasicBookViewController.h"
 #define file [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.data",self.name]]
 
 @interface JZBookTableViewController ()
@@ -112,6 +113,13 @@
         cell.bookViewModels = self.section[indexPath.row].books;
         cell.category.text = self.Category[indexPath.row][@"name"];
         cell.tagWithButton = indexPath.row;
+        __weak JZBookTableViewController * wself = self;
+        cell.clickBlock = ^(NSInteger index){
+            JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
+            BookData *data = (BookData *)wself.section[indexPath.row].books[index];
+            vc.idUrl = data.bookid;
+            [self.navigationController pushViewController:vc animated:YES];
+        };
     }
 
 

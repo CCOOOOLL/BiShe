@@ -36,6 +36,7 @@
         _mymanager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _mymanager.operationQueue.maxConcurrentOperationCount = 1;
         
+        
 
         
     }
@@ -80,6 +81,18 @@
     [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
         success(booksStore);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)dataWithBookid:(NSString* )number  success:(success) success{
+    NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/%@",number];
+//    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+       Book *book = [Book mj_objectWithKeyValues:responseObject];
+        success(book);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];

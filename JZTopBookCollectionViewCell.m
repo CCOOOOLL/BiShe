@@ -20,5 +20,10 @@
 
 - (void)setBookViewModels:(id<BookViewProtocol>)bookViewModels{
     self.bookView.Model = bookViewModels;
+    [self.bookView.button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchDown];
+}
+
+- (void)click:(UIButton *)button{
+    self.clickBlock();
 }
 @end

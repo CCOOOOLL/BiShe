@@ -29,7 +29,7 @@ typedef void(^block)();
 - (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(success) success;
 
 
-
+- (void)dataWithBookid:(NSString* )number  success:(success) success;
 
 
 

@@ -25,7 +25,7 @@
 */
 
 - (BOOL)isIsAnimating{
-    if (_isAnimating) {
+    if (!_isAnimating) {
         _isAnimating = NO;
     }
     return _isAnimating;

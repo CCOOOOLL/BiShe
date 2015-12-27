@@ -67,6 +67,7 @@ IB_DESIGNABLE
     self.searchView.leftViewMode = UITextFieldViewModeAlways;
     [view addSubview:image];
     self.navBarView.frame = self.navigationController.navigationBar.frame;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
 }
 /**

@@ -33,10 +33,18 @@
 -(NSArray<JZBookView *> *)bookViews{
     if (!_bookViews) {
         _bookViews = @[self.bookView1,self.bookView2,self.bookView3];
+        int index = 0;
+        for (JZBookView *view in _bookViews) {
+            view.button.tag =150 + index;
+            [view.button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchDown];
+            index++;
+        }
     }
     return _bookViews;
 }
-
+- (void)click:(UIButton *)button{
+    self.clickBlock(button.tag-150);
+}
 - (void)setBookViewModels:(NSArray<id<BookViewProtocol>> *)bookViewModels{
     _bookViewModels = bookViewModels;
     
