@@ -97,6 +97,8 @@
         NSLog(@"%@",error);
     }];
 }
-
+- (void)endRequest{
+    [self.mymanager.operationQueue cancelAllOperations];
+}
 
 @end

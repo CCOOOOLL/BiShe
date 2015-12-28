@@ -45,6 +45,21 @@ IB_DESIGNABLE
     [self setUpWithSlip];
     [self setUpWithContetView];
     [self barClickDidWithButton:self.buttons[0]];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
+                                                         forBarMetrics:UIBarMetricsDefault];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+
+   
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent =NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,8 +83,10 @@ IB_DESIGNABLE
     [view addSubview:image];
     self.navBarView.frame = self.navigationController.navigationBar.frame;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+
     
 }
+
 /**
  *  设置导航栏视图
  */

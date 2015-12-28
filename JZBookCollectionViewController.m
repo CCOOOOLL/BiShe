@@ -47,13 +47,7 @@ static NSString * const reuseIdentifier = @"cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpLoadView];
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-//    [self.collectionView registerClass:[JZTopBookCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    // Do any additional setup after loading the view.
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 
     MJRefreshAutoNormalFooter *refresh = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self loadMoreData];
@@ -61,9 +55,15 @@ static NSString * const reuseIdentifier = @"cell";
     }];
     refresh.triggerAutomaticallyRefreshPercent = -20;
     self.collectionView.mj_footer = refresh;
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
-                                                         forBarMetrics:UIBarMetricsDefault];
-    
+
+
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent =NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 #pragma mark -其他

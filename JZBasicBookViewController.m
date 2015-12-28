@@ -32,9 +32,22 @@
     [self loadData];
     self.contentHeight.constant = CGRectGetMaxY(self.lastView.frame);
 
+
+
+
+//    self.edgesForExtendedLayout = UIRectEdgeTop;
+    
 //    self.navigationController.navigationBar.translucent = YES;
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent =YES;
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1];
+    
+}
+
 
 
 /**

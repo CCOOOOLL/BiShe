@@ -61,6 +61,11 @@
     return self;
 }
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    [self.layer addSublayer:self.loadView];
+}
+
 - (void)startAnimation{
     if (self.isAnimating){
         return;

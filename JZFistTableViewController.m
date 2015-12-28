@@ -9,6 +9,7 @@
 #import "JZFistTableViewController.h"
 #import "starView.h"
 #import "JZBooksStore.h"
+#import "JZWebViewController.h"
 @interface JZFistTableViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *bookTitle;
 @property (weak, nonatomic) IBOutlet UILabel *otherData;
@@ -24,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpData];
+
 }
 - (void)setUpData{
     NSLog(@"%@",self.bookDataModel);
@@ -55,8 +57,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"fistView2WebView"]) {
+        JZWebViewController *vc = segue.destinationViewController;
+        vc.bookId = [self.bookDataModel bookViewId];
+    }
 }
 
 

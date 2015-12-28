@@ -13,6 +13,7 @@
 #import "JZLoadingView.h"
 #import "MJRefresh.h"
 #import "JZBasicBookViewController.h"
+
 @interface JZSearchViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchView;
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
@@ -57,6 +58,12 @@ static NSString *const Identifier = @"cell";
     refresh.triggerAutomaticallyRefreshPercent = -20;
     self.searchTableView.mj_footer = refresh;
 
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent =NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,18 +126,41 @@ static NSString *const Identifier = @"cell";
 }
 
 - (IBAction)searchTextDidChanged:(id)sender {
+    [[JZNewWorkTool workTool] endRequest];
+    self.searchTableView.hidden =YES;
+    self.booksStore = nil;
+    self.start = @0;
     if ([self.searchView.text isEqualToString:@""]) {
-        self.searchTableView.hidden =YES;
         return;
     }
     [self.loadingView startAnimation];
-    self.searchTableView.hidden = YES;
-    self.booksStore = nil;
-    self.start = @0;
-    [self loadMoreData];
+    [self loadData];
     CGPoint point = self.searchTableView.contentOffset;
     point.y = 0;
     self.searchTableView.contentOffset = point;
+}
+
+- (void)loadData{
+    JZNewWorkTool *tool = [JZNewWorkTool workTool];
+    [tool dataWithBookName:self.searchView.text start:@0 count:@10 success:^(id obj) {
+
+        if (!_booksStore) {
+            _booksStore = [[JZBooksStore alloc]init];
+            _booksStore.books = [NSMutableArray array];
+        }
+        JZBooksStore *booksStore = (JZBooksStore *)obj;
+        
+        self.booksStore = booksStore;
+        [self.searchTableView reloadData];
+        [self.loadingView stopAnimating];
+        if (self.booksStore.books.count!=0&&![self.searchView.text isEqualToString:@""]){
+             self.searchTableView.hidden = NO;
+            return ;
+        }
+        
+        self.searchTableView.hidden = YES;
+       
+    }];
 }
 
 - (void)loadMoreData{
@@ -139,18 +169,12 @@ static NSString *const Identifier = @"cell";
     NSNumber *end = [NSNumber numberWithInt:[self.start intValue] + 10];
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
     [tool dataWithBookName:self.searchView.text start:self.start count:end success:^(id obj) {
-        if (!_booksStore) {
-            _booksStore = [[JZBooksStore alloc]init];
-            _booksStore.books = [NSMutableArray array];
-        }
         JZBooksStore *booksStore = (JZBooksStore *)obj;
-
         for (Book *book in booksStore.books) {
             [self.booksStore.books addObject:book];
         }
         self.start = [NSNumber numberWithInt:[end intValue] + 1];
         [self.searchTableView reloadData];
-        [self.loadingView stopAnimating];
         self.searchTableView.hidden = NO;
         [self.searchTableView.mj_footer endRefreshing];
     }];
