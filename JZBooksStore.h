@@ -69,7 +69,7 @@
 @property(nonatomic,strong)NSString *pages;/**<页数 */
 @property(nonatomic,strong)Images *images;/**<各种图片 */
 @property(nonatomic,strong)NSString *alt;/**<<#text#> */
-@property(nonatomic,strong)NSString *id;/**<<#text#> */
+@property(nonatomic,strong)NSString *ID;/**<图书id */
 @property(nonatomic,strong)NSString *publisher;/**<出版社 */
 @property(nonatomic,strong)NSString *isbn10;/**<<#text#> */
 @property(nonatomic,strong)NSString *isbn13;/**<<#text#> */

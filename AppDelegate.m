@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "GKHScanQCodeViewController.h"
+#import "JZSearchViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,6 +16,22 @@
 
 @implementation AppDelegate
 
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler{
+    if ([shortcutItem.type isEqualToString:@"one"]) {
+        GKHScanQCodeViewController *vc = [[GKHScanQCodeViewController alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+        [self.window.rootViewController presentViewController:nav animated:YES completion:nil];
+    }
+    if([shortcutItem.type isEqualToString:@"two"]){
+        JZSearchViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"JZSearchViewController"];
+//        [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
+
+        UINavigationController *nav = (UINavigationController *)self.window.rootViewController.childViewControllers[0];
+        
+        [nav pushViewController:vc animated:YES];
+    }
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

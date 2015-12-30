@@ -58,7 +58,6 @@
 }
 
 - (void)setUpData{
-    NSLog(@"%@",[self.bookData bookAuthor]);
     self.author.text       = [NSString stringWithFormat:@"%@ %@",self.author.text,[self.bookData bookAuthor]];
     self.publisher.text    = [NSString stringWithFormat:@"%@ %@",self.publisher.text,[self.bookData bookPublisher]];
     if ([[self.bookData bookOriginTitle] isEqualToString:@""]) {

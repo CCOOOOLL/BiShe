@@ -192,6 +192,7 @@ static NSString *const Identifier = @"cell";
         JZBasicBookViewController *vc = segue.destinationViewController;
         UIView *view = sender;
         vc.bookData = self.booksStore.books[view.tag-100];
+        vc.idUrl = vc.bookData.ID;
     }
 }
 

@@ -2,6 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>one</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>扫书</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>搜书</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>two</string>
+		</dict>
+	</array>
+	<key>NSSupportsSuddenTermination</key>
+	<false/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>view controller -base status bar </key>
 	<false/>
 	<key>NSAppTransportSecurity</key>

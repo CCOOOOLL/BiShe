@@ -11,7 +11,8 @@
 #import "JZFistTableViewController.h"
 #import "JZNewWorkTool.h"
 #import "JZLoadingView.h"
-@interface JZBasicBookViewController ()<UIGestureRecognizerDelegate>
+#import "JZShortCommentaryTableViewController.h"
+@interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fistTableViewHeght;/**< 第一个tableview的高度 */
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeight;/**< 内容高度 */
 @property (weak, nonatomic) IBOutlet UIView *lastView;/**< 笔记视图 */
 @property (weak, nonatomic) IBOutlet UIScrollView *contentView;/**< 内容容器 */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentVIewHeght;
 @property (nonatomic, strong)JZLoadingView *loadingView;
 @end
 
@@ -43,10 +45,12 @@
 #pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [self.loadingView startAnimation];
     [self loadData];
     self.contentHeight.constant = CGRectGetMaxY(self.lastView.frame);
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
+
 
 
 
@@ -109,6 +113,8 @@
         //加载简介
         self.synopsis.text = self.bookData.summary;
         [self.loadingView stopAnimating];
+
+     
     }
 
 }
@@ -132,18 +138,32 @@
             vc.bookDataModel = self.bookData;
         }
     }
+    if ([segue.identifier isEqualToString:@"baseView2duanping"]){
+        JZShortCommentaryTableViewController *vc = segue.destinationViewController;
+        vc.BookID = self.idUrl;
+        vc.commentDeleage = self;
+
+    }
+
 }
 
+- (void)tableViewWihtHegiht:(CGFloat)heght{
+    CGFloat fist = self.commentVIewHeght.constant;
+    self.commentVIewHeght.constant = heght;
+     self.contentHeight.constant += (heght-fist);
+    [self.view layoutIfNeeded];
+   
+}
+- (void)fistheight:(CGFloat)fist lastHeght:(CGFloat)last{
+    
+}
 - (IBAction)zhankaiDidClick:(UIButton *)sender {
     sender.selected = !sender.selected;
     CGFloat height1 = self.synopsis.bounds.size.height;
     self.synopsisLableHeight.constant = sender.selected? 500:50;
     [self.view layoutIfNeeded];
     CGFloat height2 = self.synopsis.bounds.size.height;
-    CGSize size = self.contentView.contentSize;
-    size.height += height2-height1;
-    self.contentView.contentSize = size;
-
+    self.contentHeight.constant += height2 - height1;
     
 
 }

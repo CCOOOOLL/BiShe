@@ -68,7 +68,7 @@
     }else if ([segue.identifier isEqualToString:@"fistTableVIew2BookDataView"]){
         JZBookDataViewController *vc = segue.destinationViewController;
         vc.bookData = self.bookDataModel;
-        NSLog(@"%@",vc.bookData);
+
     }
 }
 

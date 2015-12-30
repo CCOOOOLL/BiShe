@@ -22,7 +22,7 @@ MJCodingImplementation
 MJCodingImplementation
 
 - (NSString *)bookViewId{
-    return [self.id copy];
+    return [self.ID copy];
 }
 - (NSString *)bookViewImageUrl{
     return [self.image copy];
