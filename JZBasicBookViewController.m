@@ -10,27 +10,43 @@
 #import "YYWebImage.h"
 #import "JZFistTableViewController.h"
 #import "JZNewWorkTool.h"
-
-@interface JZBasicBookViewController ()
+#import "JZLoadingView.h"
+@interface JZBasicBookViewController ()<UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fistTableViewHeght;/**< 第一个tableview的高度 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *synopsisLableHeight;
-@property (weak, nonatomic) IBOutlet UILabel *synopsis;/**< 简介
- */
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeight;
-@property (weak, nonatomic) IBOutlet UIView *lastView;
-@property (weak, nonatomic) IBOutlet UIScrollView *contentView;
-
+@property (weak, nonatomic) IBOutlet UILabel *synopsis;/**< 简介 */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentHeight;/**< 内容高度 */
+@property (weak, nonatomic) IBOutlet UIView *lastView;/**< 笔记视图 */
+@property (weak, nonatomic) IBOutlet UIScrollView *contentView;/**< 内容容器 */
+@property (nonatomic, strong)JZLoadingView *loadingView;
 @end
 
 @implementation JZBasicBookViewController
 
+
+#pragma mark懒加载
+
+- (JZLoadingView *)loadingView{
+    if (!_loadingView) {
+        CGRect rect         = self.view.bounds;
+        CGPoint point       = CGPointMake(rect.size.width/2.0, rect.size.height/2.0-60);
+        rect.size           = CGSizeMake(60, 60);
+        _loadingView        = [[JZLoadingView alloc]initWithFrame:rect];
+        _loadingView.center = point;
+        [self.view addSubview:_loadingView];
+    }
+    return _loadingView;
+}
+
+#pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.loadingView startAnimation];
     [self loadData];
     self.contentHeight.constant = CGRectGetMaxY(self.lastView.frame);
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
 
 
 
@@ -40,14 +56,30 @@
 //    self.navigationController.navigationBar.translucent = YES;
     // Do any additional setup after loading the view.
 }
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.translucent =YES;
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1];
-    
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
+    self.navigationController.navigationBar.tintColor   = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+
+
+- (UIStatusBarStyle) preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 
 
 /**
@@ -68,13 +100,17 @@
 
 - (void) setUpWithData{
     //加载图片
-    NSURL *path = [NSURL URLWithString:self.bookData.image];
-    [self.bookImage yy_setImageWithURL:path placeholder:nil options:YYWebImageOptionProgressive|YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
-        
-    }];
-    [self.backImage yy_setImageWithURL:path options:YYWebImageOptionAllowBackgroundTask];
-    //加载简介
-    self.synopsis.text = self.bookData.summary;
+    if (_bookData) {
+        NSURL *path = [NSURL URLWithString:self.bookData.image];
+        [self.bookImage yy_setImageWithURL:path placeholder:nil options:YYWebImageOptionProgressive|YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+            
+        }];
+        [self.backImage yy_setImageWithURL:path options:YYWebImageOptionAllowBackgroundTask];
+        //加载简介
+        self.synopsis.text = self.bookData.summary;
+        [self.loadingView stopAnimating];
+    }
+
 }
 
 
@@ -110,6 +146,10 @@
 
     
 
+}
+- (IBAction)back:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+        self.navigationController.navigationBarHidden = NO;
 }
 
 @end

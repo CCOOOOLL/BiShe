@@ -36,7 +36,7 @@
         int index = 0;
         for (JZBookView *view in _bookViews) {
             view.button.tag =150 + index;
-            [view.button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchDown];
+            [view.button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
             index++;
         }
     }

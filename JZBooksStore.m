@@ -47,6 +47,47 @@ MJCodingImplementation
     return author;
 }
 
+- (NSString *)bookAuthor{
+    NSString *author = @"";
+    for (NSString *authorname in self.author) {
+        author = [NSString stringWithFormat:@"%@ %@",author,authorname];
+    }
+    return [author copy];
+}
+- (NSString *)bookPublisher{
+    return [self.publisher copy];
+}
+- (NSString *)bookOriginTitle{
+    return [self.origin_title copy];
+}
+- (NSString *)bookTranslator{
+    NSString *translator = @"";
+    for (NSString *translatorname in self.translator) {
+        translator = [NSString stringWithFormat:@"%@ %@",translator,translatorname];
+    }
+    return [translator copy];
+}
+- (NSString *)bookPages{
+    return [self.pages copy];
+}
+- (NSString *)bookPrice{
+    return [self.price copy];
+}
+- (NSString *)bookPubdate{
+    return [self.pubdate copy];
+}
+- (NSString *)bookBinding{
+    return [self.binding copy];
+}
+- (NSString *)bookISBN{
+    if (self.isbn10) {
+        return [self.isbn10 copy];
+    }else{
+        return [self.isbn13 copy];
+    }
+    
+}
+
 @end
 
 

@@ -31,6 +31,8 @@ typedef void(^block)();
 
 - (void)dataWithBookid:(NSString* )number  success:(success) success;
 
+- (void)datawithISBN:(NSString *)number success:(success)success;
+
 - (void)endRequest;
 
 @property(nonatomic,strong)AFHTTPSessionManager *mymanager;

@@ -59,12 +59,6 @@ static NSString * const reuseIdentifier = @"cell";
 
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent =NO;
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-}
 
 #pragma mark -其他
 

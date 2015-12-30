@@ -23,15 +23,24 @@ static NSString *const basePath = @"http://frodo.douban.com/h5/book/%@/buylinks"
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
     NSString *urlPath = [NSString stringWithFormat:basePath,self.bookId];
     NSURL *url = [NSURL URLWithString:urlPath];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleDefault;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
+    self.navigationController.navigationBar.tintColor   = [UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -20,7 +20,7 @@
 
 - (void)setBookViewModels:(id<BookViewProtocol>)bookViewModels{
     self.bookView.Model = bookViewModels;
-    [self.bookView.button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchDown];
+    [self.bookView.button addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)click:(UIButton *)button{

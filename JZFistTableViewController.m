@@ -10,6 +10,8 @@
 #import "starView.h"
 #import "JZBooksStore.h"
 #import "JZWebViewController.h"
+#import "JZBookDataViewController.h"
+
 @interface JZFistTableViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *bookTitle;
 @property (weak, nonatomic) IBOutlet UILabel *otherData;
@@ -28,11 +30,14 @@
 
 }
 - (void)setUpData{
-    NSLog(@"%@",self.bookDataModel);
-    self.bookTitle.text = [self.bookDataModel bookViewtitle];
-    self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
-    self.average.text = [NSString stringWithFormat:@"%@(%@人评价)",[self.bookDataModel bookViewaverage],[self.bookDataModel bookViewnumRaters]];
-    self.otherData.text = [self.bookDataModel bookViewAuthor];
+    if (_bookDataModel) {
+
+        self.bookTitle.text = [self.bookDataModel bookViewtitle];
+        self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
+        self.average.text = [NSString stringWithFormat:@"%@(%@人评价)",[self.bookDataModel bookViewaverage],[self.bookDataModel bookViewnumRaters]];
+        self.otherData.text = [self.bookDataModel bookViewAuthor];
+    }
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -60,6 +65,10 @@
     if ([segue.identifier isEqualToString:@"fistView2WebView"]) {
         JZWebViewController *vc = segue.destinationViewController;
         vc.bookId = [self.bookDataModel bookViewId];
+    }else if ([segue.identifier isEqualToString:@"fistTableVIew2BookDataView"]){
+        JZBookDataViewController *vc = segue.destinationViewController;
+        vc.bookData = self.bookDataModel;
+        NSLog(@"%@",vc.bookData);
     }
 }
 

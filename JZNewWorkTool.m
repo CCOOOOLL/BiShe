@@ -97,6 +97,18 @@
         NSLog(@"%@",error);
     }];
 }
+
+- (void)datawithISBN:(NSString *)number success:(success)success{
+    NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/isbn/%@",number];
+    //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        Book *book = [Book mj_objectWithKeyValues:responseObject];
+        success(book);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
 - (void)endRequest{
     [self.mymanager.operationQueue cancelAllOperations];
 }

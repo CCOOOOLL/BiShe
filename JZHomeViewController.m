@@ -8,8 +8,11 @@
 
 #import "JZHomeViewController.h"
 #import "JZBookTableViewController.h"
+#import "GKHScanQCodeViewController.h"
+#import "JZNewWorkTool.h"
+#import "JZBasicBookViewController.h"
 IB_DESIGNABLE
-@interface JZHomeViewController ()<UIScrollViewDelegate>
+@interface JZHomeViewController ()<UIScrollViewDelegate,QRScanViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *barScrollView;/**< 导航视图 */
 @property (weak, nonatomic) IBOutlet UIScrollView *contentView;/**< 内容视图 */
 @property (nonatomic,strong)NSArray<NSArray*> *barItems;/**< 导航名称数组 */
@@ -18,7 +21,6 @@ IB_DESIGNABLE
 @property(nonatomic,strong)NSMutableArray<JZBookTableViewController*> *controllers;/**< 自控制器数组 */
 @property(nonatomic,strong)UIView *	slip;/**< 下滑快 */
 @property (weak, nonatomic) IBOutlet UITextField *searchView;/**< 搜索文本视图 */
-
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
 @property(nonatomic,strong)NSMutableDictionary *views;/**< 缓存数组 */
 @end
@@ -45,23 +47,33 @@ IB_DESIGNABLE
     [self setUpWithSlip];
     [self setUpWithContetView];
     [self barClickDidWithButton:self.buttons[0]];
+    
+
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-//     self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
-   
+
+
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent =NO;
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    self.navigationController.navigationBar.translucent = NO;
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
+//    self.navigationController.navigationBar.tintColor   = [UIColor whiteColor];
+//     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 
 }
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
  
@@ -181,6 +193,17 @@ IB_DESIGNABLE
     
 
 }
+/**
+ *  扫描条形码
+ *
+ *  @param sender <#sender description#>
+ */
+- (IBAction)searchWithISBN:(id)sender {
+    GKHScanQCodeViewController *vc = [[GKHScanQCodeViewController alloc]init];
+    UINavigationController *nav    = [[UINavigationController alloc]initWithRootViewController:vc];
+    vc.delegate                    = self;
+    [self presentViewController:nav animated:YES completion:nil];
+}
 /**< 显示内容界面 */
 - (void)showViewByNumber:(NSInteger)number{
     self.contentView.contentOffset =CGPointMake((number)*self.view.bounds.size.width, 0) ;
@@ -196,12 +219,25 @@ IB_DESIGNABLE
     }
 }
 
-#pragma mark - scrollViewDelegate;
+
+#pragma mark - scrollViewDelegate
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     NSInteger index = scrollView.contentOffset.x / scrollView.bounds.size.width;
     [self barClickDidWithButton:self.buttons[(int)index]];
 }
+
+#pragma mark -QRScanViewDelegate
+- (void)GKHScanQCodeViewController:(GKHScanQCodeViewController *)lhScanQCodeViewController readerScanResult:(NSString *)result{
+    JZNewWorkTool *tool =[JZNewWorkTool workTool];
+    [tool datawithISBN:result success:^(id obj) {
+        JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
+        vc.bookData = obj;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+}
+
+
 /*
 #pragma mark - Navigation
 

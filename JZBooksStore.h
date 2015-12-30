@@ -19,6 +19,17 @@
 - (NSString *)bookViewnumRaters;
 - (NSString *)bookViewAuthor;
 
+- (NSString *)bookAuthor;/**< 作者 */
+- (NSString *)bookPublisher;/**< 出版社 */
+- (NSString *)bookOriginTitle;/**< 原作名 */
+- (NSString *)bookTranslator;/**< 翻译人员 */
+- (NSString *)bookPages;/**< 页数 */
+- (NSString *)bookPrice;/**< 价格 */
+- (NSString *)bookPubdate;/**< 出版时间 */
+- (NSString *)bookBinding;/**< 版本 */
+- (NSString *)bookISBN;
+
+
 @end
 
 @interface Author : NSObject
@@ -50,7 +61,7 @@
 @property(nonatomic,strong)Rating *rating;/**< 评分数据 */
 @property(nonatomic,strong)NSArray *author;/**<作者们 */
 @property(nonatomic,strong)NSArray<tag*> *tags;/**<标签集 */
-@property(nonatomic,strong)NSString *origin_title;/**<<#text#> */
+@property(nonatomic,strong)NSString *origin_title;/**<原作名 */
 @property(nonatomic,strong)NSString *binding;/**<版本 */
 @property(nonatomic,strong)NSString *pubdate;/**<出版时间 */
 @property(nonatomic,strong)NSArray *translator;/**<翻译人员 */
