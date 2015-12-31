@@ -20,6 +20,8 @@
 
 static NSString *const shortComments = @"http://book.douban.com/subject/%@/comments?p=%ld";
 
+static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=%ld";
+
 @implementation JZNewWorkTool
 
 +(instancetype)workTool{
@@ -131,13 +133,43 @@ static NSString *const shortComments = @"http://book.douban.com/subject/%@/comme
     [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
          NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
 //
-        JZShortCommentsStore *shortComents =  [[JZShortCommentsStore alloc]initWithHtml:result];
+        JZShortCommentsStore *shortComents =  [[JZShortCommentsStore alloc]initShortCommentWithHtml:result];
 
         success(shortComents);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
+}
+
+- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(success)success{
+    NSString *url = [NSString stringWithFormat:Comments,number,page];
+    //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        //
+        JZShortCommentsStore *shortComents =  [[JZShortCommentsStore alloc]initCommentWithHtml:result];
+        
+        success(shortComents);
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(success)success{
+    NSString *start = [NSString stringWithFormat:@"%ld",page*100];
+//    NSDictionary *parametes = @{@"start":start};
+     NSString *urlpath = [NSString stringWithFormat:@"%@?start=%@",url,start];
+    [self.mymanager GET:urlpath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+         NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+        JZShortComment *comment = [[JZShortComment alloc]initWithContent:result];
+        success(comment);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+
 }
 
 - (void)endRequest{

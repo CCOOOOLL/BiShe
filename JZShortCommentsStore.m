@@ -11,11 +11,35 @@
 
 @implementation JZShortComment
 
+-(instancetype)initWithContent:(NSString *)html{
+    self = [super init];
+    if (self) {
+        [self findContentWithHtml:html];
+    }
+    return self;
+}
+
+-(void)findContentWithHtml:(NSString *)html{
+
+    NSString *pattern = @"<span property=\"v:description\" class=\"\">(.*?)<div class=\"clear\"></div></span>";
+
+   NSRegularExpression *regex   = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:nil];
+   NSTextCheckingResult *result = [regex firstMatchInString:html options:NSMatchingReportCompletion range:NSMakeRange(0, html.length)];
+   self.content                 = [html substringWithRange:[result rangeAtIndex:1]];
+    
+}
+
+
 - (void)setStar:(NSString *)star{
     NSInteger number = [star intValue] *2;
     _star =  [NSString stringWithFormat:@"%ld",number];
 }
-
+- (void)setContent:(NSString *)content{
+    content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    content = [content stringByReplacingOccurrencesOfString:@"<br>" withString:@"\n"];
+    content = [content stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+    _content =content;
+}
 - (NSString *)commentImageUrl{
     return [self.imageUrl copy];
 }
@@ -37,6 +61,9 @@
 - (NSString *)commentassist{
     return [self.assist copy];
 }
+- (NSString *)commenCOntentUrl{
+    return [self.contentUrl copy];
+}
 
 @end
 
@@ -44,39 +71,31 @@
 
 
 
-- (instancetype)initWithHtml:(NSString *)html{
+- (instancetype)initShortCommentWithHtml:(NSString *)html{
     self = [super init];
     if (self) {
         _shortComments = [NSMutableArray array];
-        [self findDataInHTML:html];
+        [self findShotCommentInHTML:html];
     }
     
     return self;
 }
 
-- (void)findDataInHTML:(NSString *)html {
+- (instancetype)initCommentWithHtml:(NSString *)html{
+    self = [super init];
+    if (self) {
+        _shortComments = [NSMutableArray array];
+        [self findCommentInHTML:html];
+    }
+    
+    return self;
+}
 
-//    格式
-//    <li class="comment-item">
-//    <div class="avatar">
-//    <a title="今天小熊不吃糖" href="http://www.douban.com/people/2018008/">
-//    <img src="http://img3.doubanio.com/icon/u2018008-399.jpg">
-//    </a>
-//    </div>
-//    <h3>
-//    <span class="comment-vote">
-//    <span id="c-54006670" class="vote-count">3</span>
-//    <a href="javascript:;" id="btn-54006670" class="j vote-comment" data-cid="54006670">有用</a>
-//    </span>
-//    <span class="comment-info">
-//    <a href="http://www.douban.com/people/2018008/">今天小熊不吃糖</a>
-//    <span class="user-stars allstar50 rating" title="力荐"></span>
-//    <span>2008-08-12</span>
-//    </span>
-//    </h3>
-//    <p class="comment-content">还记得那天晚上陪他加班，这本书让我泪流满面……怀念那个夜晚</p>
-//    </li>
-    //将需要取出的用(.*?)代替. 大空格换行等用.*?代替,表示忽略.
+
+- (void)findShotCommentInHTML:(NSString *)html {
+
+
+
     NSString *pattern = @"<li class=\"comment-item\">.*?<a title=\"(.*?)\" href=.*?<img src=\"(.*?)\">.*?class=\"vote-count\">(.*?)</span>.*?user-stars allstar(.*?)0 rating.*?<span>(.*?)</span>.*?comment-content\">(.*?)</p>.*?";
     
     //实例化正则表达式，需要指定两个选项
@@ -100,4 +119,29 @@
 
 }
 
+- (void)findCommentInHTML:(NSString *)html {
+
+
+    NSString *pattern = @"<div class='ctsh'>.*?title=\"(.*?)\".*?<img class=\"pil\" src=\"(.*?)\" alt.*?href=\"(.*?)\".*?<a title=\"(.*?)\" class.*?<span class=\"allstar(.*?)0\" title.*?class=\"review-short\">.*?>(.*?)<div.*?class=\"fleft\">.*?class=\"\">(.*?) .*?<span class=\"\">(.*?)/.*?";
+    
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:nil];
+    NSArray<NSTextCheckingResult *> * array = [regex matchesInString:html options:NSMatchingReportCompletion range:NSMakeRange(0, html.length)];
+    if(!array){
+
+    }
+    for (NSTextCheckingResult *obj in array) {
+        JZShortComment *comment = [[JZShortComment alloc]init];
+        comment.name            = [html substringWithRange:[obj rangeAtIndex:1]];
+        comment.imageUrl        = [html substringWithRange:[obj rangeAtIndex:2]];
+        comment.contentUrl      = [html substringWithRange:[obj rangeAtIndex:3]];
+        comment.title           = [html substringWithRange:[obj rangeAtIndex:4]];
+        comment.star            = [html substringWithRange:[obj rangeAtIndex:5]];
+        comment.content         = [html substringWithRange:[obj rangeAtIndex:6]];
+        comment.time            = [html substringWithRange:[obj rangeAtIndex:7]];
+        comment.assist          = [html substringWithRange:[obj rangeAtIndex:8]];
+
+        [self.shortComments addObject:comment];
+    }
+
+}
 @end

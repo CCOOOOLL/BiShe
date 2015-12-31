@@ -38,12 +38,12 @@
 #pragma mark -生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    MJRefreshNormalHeader *refresh = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self LoadDataWithnumber:0];
     }];
-
-    
+    refresh.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = refresh;
+                                      
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

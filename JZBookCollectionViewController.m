@@ -48,14 +48,14 @@ static NSString * const reuseIdentifier = @"cell";
     [super viewDidLoad];
     [self setUpLoadView];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-
     MJRefreshAutoNormalFooter *refresh = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self loadMoreData];
 
     }];
     refresh.triggerAutomaticallyRefreshPercent = -20;
+    refresh.refreshingTitleHidden = YES;
     self.collectionView.mj_footer = refresh;
-
+    
 
 }
 

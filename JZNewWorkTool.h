@@ -35,6 +35,10 @@ typedef void(^block)();
 
 - (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(success)success;
 
+- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(success)success;
+
+
+- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(success)success;
 - (void)endRequest;
 
 @property(nonatomic,strong)AFHTTPSessionManager *mymanager;

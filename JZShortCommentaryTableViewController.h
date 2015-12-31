@@ -17,5 +17,6 @@
 @interface JZShortCommentaryTableViewController : UITableViewController
 
 @property(nonatomic,copy)NSString *BookID;/**<图书ID */
+
 @property (nonatomic,weak) id <JZShortCommentaryTableViewControllerDeleage> commentDeleage;
 @end

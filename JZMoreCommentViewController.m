@@ -1,26 +1,28 @@
 //
-//  JZMoreCommentTableViewController.m
+//  JZMoreCommentViewController.m
 //  BiShe
 //
-//  Created by Jz on 15/12/30.
+//  Created by Jz on 15/12/31.
 //  Copyright © 2015年 Jz. All rights reserved.
 //
 
-#import "JZMoreCommentTableViewController.h"
+#import "JZMoreCommentViewController.h"
 #import "JZNewWorkTool.h"
 #import "JZShortCommentsStore.h"
 #import "JZLoadingView.h"
 #import <MJRefresh.h>
-#import "JZShortCommentsTableViewCell.h"
-@interface JZMoreCommentTableViewController ()
+#import "JZCommentsTableViewCell.h"
+#import "JZParticularComentViewController.h"
+
+@interface JZMoreCommentViewController ()
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
 @property(nonatomic,strong)JZLoadingView *loadingView;/**<<#text#> */
 @property(nonatomic,assign)NSInteger start;/**<<#text#> */
-
 @end
-static NSString *const identifier = @"shortCommentCell";
-@implementation JZMoreCommentTableViewController
 
+static NSString *const identifier = @"CommentCell";
+
+@implementation JZMoreCommentViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,24 +33,15 @@ static NSString *const identifier = @"shortCommentCell";
         [self loadMoreData];
         
     }];
-    refresh.refreshingTitleHidden = YES;
     refresh.triggerAutomaticallyRefreshPercent = -20;
     self.tableView.mj_footer = refresh;
     [self loadMoreData];
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 - (void)loadMoreData{
-    JZNewWorkTool *tool = [JZNewWorkTool workTool];
     [self.loadingView startAnimation];
-    
-    [tool datawithshortComments:self.BookID page:self.start success:^(id obj) {
+    [[JZNewWorkTool workTool]datawithComments:self.BookID page:self.start success:^(id obj) {
         if (!self.commentStore.shortComments) {
             self.commentStore.shortComments = [NSMutableArray array];
         }
@@ -60,9 +53,13 @@ static NSString *const identifier = @"shortCommentCell";
         [self.loadingView stopAnimating];
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
-
     }];
+    
+}
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 -(void)setUpLoadView{
@@ -82,6 +79,7 @@ static NSString *const identifier = @"shortCommentCell";
     return _commentStore;
 }
 
+
 #pragma mark - Table view data source
 
 
@@ -96,12 +94,20 @@ static NSString *const identifier = @"shortCommentCell";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    JZShortCommentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    JZCommentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     
     cell.data = self.commentStore.shortComments[indexPath.row];
     return cell;
 }
 
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    JZParticularComentViewController *vc =[[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"JZParticularComentViewController"];
+    vc.data = self.commentStore.shortComments[indexPath.row];
+    vc.imageUrl = self.imageUrl;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 
 /*
 // Override to support conditional editing of the table view.

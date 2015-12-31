@@ -12,7 +12,8 @@
 #import "JZNewWorkTool.h"
 #import "JZLoadingView.h"
 #import "JZShortCommentaryTableViewController.h"
-@interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage>
+#import "JZBookCommentViewController.h"
+@interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage,JZBookCommentViewControllerhDeleage>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *fistTableViewHeght;/**< 第一个tableview的高度 */
@@ -22,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIView *lastView;/**< 笔记视图 */
 @property (weak, nonatomic) IBOutlet UIScrollView *contentView;/**< 内容容器 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentVIewHeght;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *BookReviewViewHeight;
 @property (nonatomic, strong)JZLoadingView *loadingView;
 @end
 
@@ -47,9 +49,11 @@
     [super viewDidLoad];
 
     [self.loadingView startAnimation];
+    self.contentView.hidden = YES;
     [self loadData];
     self.contentHeight.constant = CGRectGetMaxY(self.lastView.frame);
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    self.contentView.scrollsToTop = YES;
 
 
 
@@ -95,6 +99,7 @@
         [tool dataWithBookid:self.idUrl success:^(id obj) {
             _bookData = obj;
             [self setUpWithData];
+            
         }];
     }else{
         [self setUpWithData];
@@ -113,6 +118,7 @@
         //加载简介
         self.synopsis.text = self.bookData.summary;
         [self.loadingView stopAnimating];
+        self.contentView.hidden = NO;
 
      
     }
@@ -144,7 +150,34 @@
         vc.commentDeleage = self;
 
     }
+    if ([segue.identifier isEqualToString:@"baseView2shuping"]) {
+        JZBookCommentViewController *vc = segue.destinationViewController;
+        vc.BookID = self.idUrl;
+        if (!_bookData) {
+            JZNewWorkTool *tool = [JZNewWorkTool workTool];
+            [tool dataWithBookid:self.idUrl success:^(id obj) {
+                _bookData = obj;
+                
+                vc.imageUrl = self.bookData.image;
+                NSLog(@"%@",vc.BookID);
+                vc.commentDeleage = self;
+            }];
+            
+        }else{
+            vc.BookID = self.idUrl;
+            vc.imageUrl = self.bookData.image;
+            vc.commentDeleage = self;
+        }
 
+    }
+
+}
+
+- (void)CommenttableViewWihtHegiht:(CGFloat)heght{
+    CGFloat fist = self.BookReviewViewHeight.constant;
+    self.BookReviewViewHeight.constant = heght;
+    self.contentHeight.constant += (heght-fist)+30;
+    [self.view layoutIfNeeded];
 }
 
 - (void)tableViewWihtHegiht:(CGFloat)heght{
