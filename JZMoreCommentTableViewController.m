@@ -12,6 +12,7 @@
 #import "JZLoadingView.h"
 #import <MJRefresh.h>
 #import "JZShortCommentsTableViewCell.h"
+#import "JZWildDog.h"
 @interface JZMoreCommentTableViewController ()
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
 @property(nonatomic,strong)JZLoadingView *loadingView;/**<<#text#> */
@@ -47,7 +48,7 @@ static NSString *const identifier = @"shortCommentCell";
 - (void)loadMoreData{
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
     [self.loadingView startAnimation];
-    
+//
     [tool datawithshortComments:self.BookID page:self.start success:^(id obj) {
         if (!self.commentStore.shortComments) {
             self.commentStore.shortComments = [NSMutableArray array];
@@ -62,7 +63,18 @@ static NSString *const identifier = @"shortCommentCell";
         [self.tableView.mj_footer endRefreshing];
 
     }];
-
+//    [[JZWildDog WildDog]updeBookShortCommentWithBookId:self.BookID page:self.start withSuccess:^(JZShortCommentsStore *store) {
+//        if (!self.commentStore.shortComments) {
+//            self.commentStore.shortComments = [NSMutableArray array];
+//        }
+//        for (JZShortComment *comment in store.shortComments) {
+//            [self.commentStore.shortComments addObject:comment];
+//        }
+//        self.start += 1;
+//        [self.loadingView stopAnimating];
+//        [self.tableView reloadData];
+//        [self.tableView.mj_footer endRefreshing];
+//    } fail:nil];
 }
 
 -(void)setUpLoadView{

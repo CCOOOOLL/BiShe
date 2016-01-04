@@ -17,9 +17,22 @@ MJCodingImplementation
 
 @end
 
+
+@implementation tag
+
+
+
+@end
+
 @implementation Book
 
 MJCodingImplementation
+
+
+
+-(NSMutableArray *)bookViewTags{
+    return self.tags;
+}
 
 - (NSString *)bookViewId{
     return [self.ID copy];

@@ -11,6 +11,7 @@
 #import "JZShortCommentsStore.h"
 #import "JZShortCommentsTableViewCell.h"
 #import "JZMoreCommentTableViewController.h"
+#import "JZWildDog.h"
 @interface JZShortCommentaryTableViewController ()
 
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
@@ -26,6 +27,8 @@ static NSString *const identifier = @"shortCommentCell";
 
 static NSString *const more = @"moreCell";
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -40,6 +43,19 @@ static NSString *const more = @"moreCell";
             [self.commentDeleage tableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
         }
     }];
+//    [[JZWildDog WildDog]updeBookShortCommentWithBookId:self.BookID page:1 withSuccess:^(JZShortCommentsStore *store) {
+//        self.commentStore = store;
+//        self.tableView.estimatedRowHeight = 155.0;
+//        self.tableView.rowHeight = UITableViewAutomaticDimension;
+//        [self.tableView reloadData];
+//        if ([self.commentDeleage respondsToSelector:@selector(tableViewWihtHegiht:)]) {
+//            [self.commentDeleage tableViewWihtHegiht:1500];
+//            CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:self.indexpath];
+//            [self.commentDeleage tableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
+//        }
+//    } fail:^(NSError *error) {
+//        
+//    }];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,9 +82,10 @@ static NSString *const more = @"moreCell";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.indexpath = indexPath;
     if (indexPath.row == 5) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:more forIndexPath:indexPath];
-        self.indexpath = indexPath;
+        
         return cell;
 
     }

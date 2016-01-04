@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JZBooksStore.h"
+
+typedef id<BookViewProtocol>(^model)();
+
 @interface JZFistTableViewController : UITableViewController
 @property(nonatomic,strong)id<BookViewProtocol> bookDataModel;/**<<#text#> */
-
 @end

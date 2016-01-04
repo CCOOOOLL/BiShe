@@ -11,6 +11,7 @@
 #import "GKHScanQCodeViewController.h"
 #import "JZNewWorkTool.h"
 #import "JZBasicBookViewController.h"
+#import "Wilddog.h"
 IB_DESIGNABLE
 @interface JZHomeViewController ()<UIScrollViewDelegate,QRScanViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *barScrollView;/**< 导航视图 */
@@ -51,7 +52,6 @@ IB_DESIGNABLE
 
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
 
 
@@ -61,24 +61,7 @@ IB_DESIGNABLE
     return UIStatusBarStyleLightContent;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.translucent = NO;
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
-//    self.navigationController.navigationBar.tintColor   = [UIColor whiteColor];
-//     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-//    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 
-}
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
- 
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark -初始化
 /**
@@ -233,6 +216,7 @@ IB_DESIGNABLE
     [tool datawithISBN:result success:^(id obj) {
         JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
         vc.bookData = obj;
+        vc.idUrl = vc.bookData.ID;
         [self.navigationController pushViewController:vc animated:YES];
     }];
 }

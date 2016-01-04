@@ -18,9 +18,11 @@
 
 @end
 
-static NSString *const shortComments = @"http://book.douban.com/subject/%@/comments?p=%ld";
+static NSString *const shortComments = @"http://book.douban.com/subject/%@/comments?p=%ld";/**< 短评地址 */
 
-static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=%ld";
+static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=%ld";/**< 书评地址 */
+
+static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 标签数据 */
 
 @implementation JZNewWorkTool
 
@@ -50,7 +52,7 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
    
 
 
-- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(success) success{
+- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success{
     NSString *url = [NSString stringWithFormat:@"http://topbook.zconly.com/v1/top/category/%@/books?start=%@&count=%@",number,start,end];
     
 
@@ -72,7 +74,7 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
 }
 
 
-- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(success)success{
+- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(Jz_success)success{
     NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/search?q='%@'&start=%@&count=%@",name,start,count];
     url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
@@ -94,7 +96,7 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
     }];
 }
 
-- (void)dataWithBookid:(NSString* )number  success:(success) success{
+- (void)dataWithBookid:(NSString* )number  success:(Jz_success) success{
     NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/%@",number];
 //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Book mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
@@ -110,7 +112,7 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
     }];
 }
 
-- (void)datawithISBN:(NSString *)number success:(success)success{
+- (void)datawithISBN:(NSString *)number success:(Jz_success)success{
     NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/isbn/%@",number];
     //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [Book mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
@@ -120,13 +122,14 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
     }];
     [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         Book *book = [Book mj_objectWithKeyValues:responseObject];
+
         success(book);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
 }
 
-- (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(success)success{
+- (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success{
     NSString *url = [NSString stringWithFormat:shortComments,number,page];
     //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -142,7 +145,7 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
     }];
 }
 
-- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(success)success{
+- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success{
     NSString *url = [NSString stringWithFormat:Comments,number,page];
     //    url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -158,7 +161,7 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
     }];
 }
 
-- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(success)success{
+- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(Jz_success)success{
     NSString *start = [NSString stringWithFormat:@"%ld",page*100];
 //    NSDictionary *parametes = @{@"start":start};
      NSString *urlpath = [NSString stringWithFormat:@"%@?start=%@",url,start];
@@ -171,7 +174,20 @@ static NSString *const Comments = @"http://book.douban.com/subject/%@/reviews?p=
     }];
 
 }
-
+- (void)tagsDataWihtBookId:(NSString *)bookId success:(Jz_success)success{
+    NSString *url = [NSString stringWithFormat:tagsData,bookId];
+    [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [Book mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"tags" : @"tag",
+                     };
+        }];
+        Book *booksStore = [Book mj_objectWithKeyValues:responseObject];
+        success(booksStore.tags);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
 - (void)endRequest{
     [self.mymanager.operationQueue cancelAllOperations];
 }

@@ -33,9 +33,12 @@ static NSString *const more = @"moreCell";
     self.tableView.mj_header = refresh;
     refresh.stateLabel.hidden = YES;
     refresh.lastUpdatedTimeLabel.hidden = YES;
+
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

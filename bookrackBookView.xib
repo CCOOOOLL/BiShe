@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="bookrackBookView">
+            <connections>
+                <outlet property="booTitle" destination="FYk-nc-r2C" id="tty-N0-4AV"/>
+                <outlet property="bookImage" destination="tqX-GL-5zc" id="deO-o5-Tda"/>
+                <outlet property="contentView" destination="PhA-mn-SKh" id="EGB-tR-jtT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="PhA-mn-SKh">
+            <rect key="frame" x="0.0" y="0.0" width="118" height="205"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tqX-GL-5zc">
+                    <rect key="frame" x="0.0" y="0.0" width="118" height="177"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="tqX-GL-5zc" secondAttribute="height" multiplier="2:3" id="P0b-ce-ZsP"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYk-nc-r2C">
+                    <rect key="frame" x="0.0" y="177" width="118" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="YAf-Iy-vgd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHe-65-gNX">
+                    <rect key="frame" x="0.0" y="0.0" width="118" height="177"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="tqX-GL-5zc" firstAttribute="top" secondItem="PhA-mn-SKh" secondAttribute="top" id="2l9-93-BVN"/>
+                <constraint firstItem="FYk-nc-r2C" firstAttribute="top" secondItem="tqX-GL-5zc" secondAttribute="bottom" id="4cY-vY-DnA"/>
+                <constraint firstAttribute="trailing" secondItem="hHe-65-gNX" secondAttribute="trailing" id="BxW-SN-5sp"/>
+                <constraint firstItem="FYk-nc-r2C" firstAttribute="leading" secondItem="PhA-mn-SKh" secondAttribute="leading" id="NZo-lF-b2n"/>
+                <constraint firstItem="hHe-65-gNX" firstAttribute="leading" secondItem="PhA-mn-SKh" secondAttribute="leading" id="T1R-9T-b2L"/>
+                <constraint firstItem="hHe-65-gNX" firstAttribute="top" secondItem="PhA-mn-SKh" secondAttribute="top" id="VdM-4n-Qlh"/>
+                <constraint firstAttribute="bottom" secondItem="FYk-nc-r2C" secondAttribute="bottom" constant="4" id="cBk-At-bFg"/>
+                <constraint firstItem="tqX-GL-5zc" firstAttribute="leading" secondItem="PhA-mn-SKh" secondAttribute="leading" id="haE-x9-fLo"/>
+                <constraint firstAttribute="trailing" secondItem="tqX-GL-5zc" secondAttribute="trailing" id="jid-cF-fop"/>
+                <constraint firstItem="FYk-nc-r2C" firstAttribute="top" secondItem="hHe-65-gNX" secondAttribute="bottom" id="kOh-sD-XrP"/>
+                <constraint firstAttribute="trailing" secondItem="FYk-nc-r2C" secondAttribute="trailing" id="xyq-ld-XA9"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="264" y="181.5"/>
+        </view>
+    </objects>
+</document>

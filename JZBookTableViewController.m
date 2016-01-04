@@ -118,6 +118,7 @@
             JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
             BookData *data = (BookData *)wself.section[indexPath.row].books[index];
             vc.idUrl = data.bookid;
+            vc.imageUrl = data.book.image;
             [self.navigationController pushViewController:vc animated:YES];
         };
     }

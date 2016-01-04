@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 @class JZBooksStore;
 @class AFHTTPSessionManager;
-typedef void(^success)(id obj);
+typedef void(^Jz_success)(id obj);
+typedef void(^JZ_failure)(id obj);
 typedef void(^block)();
 @interface JZNewWorkTool : NSObject
 /**
@@ -24,21 +25,24 @@ typedef void(^block)();
  *  @param end     结束
  *  @param success 成功代码块
  */
-- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(success) success;
+- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success;
 
-- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(success) success;
-
-
-- (void)dataWithBookid:(NSString* )number  success:(success) success;
-
-- (void)datawithISBN:(NSString *)number success:(success)success;
-
-- (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(success)success;
-
-- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(success)success;
+- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(Jz_success) success;
 
 
-- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(success)success;
+- (void)dataWithBookid:(NSString* )number  success:(Jz_success) success;
+
+- (void)datawithISBN:(NSString *)number success:(Jz_success)success;
+
+- (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success;
+
+- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success;
+
+
+- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(Jz_success)success;
+
+- (void)tagsDataWihtBookId:(NSString *)bookId success:(Jz_success)success;
+
 - (void)endRequest;
 
 @property(nonatomic,strong)AFHTTPSessionManager *mymanager;

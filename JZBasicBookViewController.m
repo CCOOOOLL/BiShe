@@ -13,6 +13,8 @@
 #import "JZLoadingView.h"
 #import "JZShortCommentaryTableViewController.h"
 #import "JZBookCommentViewController.h"
+#import "JZWildDog.h"
+#import "JZShortCommentsStore.h"
 @interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage,JZBookCommentViewControllerhDeleage>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
@@ -47,13 +49,15 @@
 #pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self.loadingView startAnimation];
     self.contentView.hidden = YES;
-    [self loadData];
+//    [self loadData];
     self.contentHeight.constant = CGRectGetMaxY(self.lastView.frame);
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     self.contentView.scrollsToTop = YES;
+    
+
 
 
 
@@ -86,7 +90,7 @@
 
 
 - (UIStatusBarStyle) preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 
@@ -95,12 +99,16 @@
  */
 -(Book *)loadData{
     if (!_bookData) {
-        JZNewWorkTool *tool = [JZNewWorkTool workTool];
-        [tool dataWithBookid:self.idUrl success:^(id obj) {
-            _bookData = obj;
+//        JZNewWorkTool *tool = [JZNewWorkTool workTool];
+//        [tool dataWithBookid:self.idUrl success:^(id obj) {
+//            _bookData = obj;
+//            [self setUpWithData];
+//            
+//        }];
+        [[JZWildDog WildDog]getBookWithBookId:self.idUrl withSuccess:^(Book *book) {
+            _bookData = book;
             [self setUpWithData];
-            
-        }];
+        } fail:nil];
     }else{
         [self setUpWithData];
     }
@@ -134,10 +142,12 @@
         JZFistTableViewController *vc= segue.destinationViewController;
         
         if (!_bookData) {
-            JZNewWorkTool *tool = [JZNewWorkTool workTool];
-            [tool dataWithBookid:self.idUrl success:^(id obj) {
-                _bookData = obj;
-                vc.bookDataModel = _bookData;
+            [[JZWildDog WildDog]getBookWithBookId:self.idUrl withSuccess:^(Book *book) {
+                _bookData = book;
+                [self setUpWithData];
+                vc.bookDataModel = book;
+            } fail:^(NSError *error) {
+                NSLog(@"%@",error);
             }];
 
         }else{
@@ -152,22 +162,9 @@
     }
     if ([segue.identifier isEqualToString:@"baseView2shuping"]) {
         JZBookCommentViewController *vc = segue.destinationViewController;
+        vc.commentDeleage = self;
         vc.BookID = self.idUrl;
-        if (!_bookData) {
-            JZNewWorkTool *tool = [JZNewWorkTool workTool];
-            [tool dataWithBookid:self.idUrl success:^(id obj) {
-                _bookData = obj;
-                
-                vc.imageUrl = self.bookData.image;
-                NSLog(@"%@",vc.BookID);
-                vc.commentDeleage = self;
-            }];
-            
-        }else{
-            vc.BookID = self.idUrl;
-            vc.imageUrl = self.bookData.image;
-            vc.commentDeleage = self;
-        }
+        vc.imageUrl = self.imageUrl;
 
     }
 
@@ -178,13 +175,15 @@
     self.BookReviewViewHeight.constant = heght;
     self.contentHeight.constant += (heght-fist)+30;
     [self.view layoutIfNeeded];
+
 }
 
 - (void)tableViewWihtHegiht:(CGFloat)heght{
     CGFloat fist = self.commentVIewHeght.constant;
     self.commentVIewHeght.constant = heght;
      self.contentHeight.constant += (heght-fist);
-    [self.view layoutIfNeeded];
+        [self.view layoutIfNeeded];
+  
    
 }
 - (void)fistheight:(CGFloat)fist lastHeght:(CGFloat)last{

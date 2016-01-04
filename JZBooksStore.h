@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger,GradeType){
+    GradeTypeXiangDu,
+    GradeTypeZaiDu,
+    GradeTypeYiDu,
+};
+
 @protocol BookViewProtocol <NSObject>
 
 - (NSString *)bookViewId;
@@ -28,8 +34,7 @@
 - (NSString *)bookPubdate;/**< 出版时间 */
 - (NSString *)bookBinding;/**< 版本 */
 - (NSString *)bookISBN;
-
-
+- (NSMutableArray *)bookViewTags;
 @end
 
 @interface Author : NSObject
@@ -60,7 +65,7 @@
 
 @property(nonatomic,strong)Rating *rating;/**< 评分数据 */
 @property(nonatomic,strong)NSArray *author;/**<作者们 */
-@property(nonatomic,strong)NSArray<tag*> *tags;/**<标签集 */
+@property(nonatomic,strong)NSMutableArray<tag*> *tags;/**<标签集 */
 @property(nonatomic,strong)NSString *origin_title;/**<原作名 */
 @property(nonatomic,strong)NSString *binding;/**<版本 */
 @property(nonatomic,strong)NSString *pubdate;/**<出版时间 */
