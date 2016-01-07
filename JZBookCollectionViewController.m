@@ -13,6 +13,7 @@
 #import "MJRefresh.h"
 #import "JZLoadingView.h"
 #import "JZBasicBookViewController.h"
+#import "JZWildDog.h"
 
 @interface JZBookCollectionViewController ()
 

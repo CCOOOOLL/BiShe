@@ -38,16 +38,7 @@ static NSString *const addIdentifier = @"addCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(evaluateBook)];
-    [[JZWildDog WildDog]getGradeWihtBookId:self.bookId withSuccess:^(JZShortComment *Comment) {
-        self.contextView.text = Comment.content;
-        self.gradeStar.grade = [Comment.star intValue];
-        NSLog(@"%@",Comment.star);
-//        for (<#type *object#> in <#collection#>) {
-//            <#statements#>
-//        }
-    } fail:^{
-        
-    }];
+
    
 
 

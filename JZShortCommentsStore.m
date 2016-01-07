@@ -96,7 +96,7 @@
 
 
 
-    NSString *pattern = @"<li class=\"comment-item\">.*?<a title=\"(.*?)\" href=.*?<img src=\"(.*?)\">.*?class=\"vote-count\">(.*?)data-cid=\"(.*?)\".*?</span>.*?user-stars allstar(.*?)0 rating.*?<span>(.*?)</span>.*?comment-content\">(.*?)</p>.*?";
+    NSString *pattern = @"<li class=\"comment-item\">.*?<a title=\"(.*?)\" href=.*?<img src=\"(.*?)\">.*?class=\"vote-count\">(.*?)</span>.*?data-cid=\"(.*?)\".*?</span>.*?user-stars allstar(.*?)0 rating.*?<span>(.*?)</span>.*?comment-content\">(.*?)</p>.*?";
     
     //实例化正则表达式，需要指定两个选项
     //NSRegularExpressionCaseInsensitive  忽略大小写

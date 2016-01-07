@@ -41,9 +41,12 @@
         self.userName.text = user.name;
         self.haveUser = YES;
         self.edit.enabled =YES;
-        NSData *imageData   = [[NSData alloc]initWithBase64EncodedString:user.imageString options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        UIImage *userImage      = [UIImage imageWithData:imageData];
-        [self.userImage setImage:userImage];
+        if (user.imageString) {
+            NSData *imageData  = [[NSData alloc]initWithBase64EncodedString:user.imageString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            UIImage *userImage = [UIImage imageWithData:imageData];
+            [self.userImage setImage:userImage];
+        }
+
     }else{
         self.edit.enabled =NO;
         self.userName.text = @"立即登陆";

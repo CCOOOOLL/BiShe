@@ -10,6 +10,12 @@
 #import "MJExtension.h"
 #define IWAccountFile [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"user.data"]
 
+@implementation book
+
+
+
+@end
+
 @implementation userStroe
 MJCodingImplementation
 

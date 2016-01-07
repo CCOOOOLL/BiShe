@@ -57,7 +57,11 @@
         [self.tableView reloadData];
     }
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.loadingView removeFromSuperview];
 
+}
 -  (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.loadingView removeFromSuperview];
@@ -89,6 +93,7 @@
 -(void)setUpLoadView{
     UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
     CGRect rect = window.bounds;
+//    CGRect rect = self.view.bounds;
     CGPoint point = CGPointMake(rect.size.width/2, rect.size.height/2);
     rect.size = CGSizeMake(60, 60);
     _loadingView = [[JZLoadingView alloc]initWithFrame:rect];

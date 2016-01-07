@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "JZBooksStore.h"
 
 @interface book : NSObject
 @property(nonatomic,copy)NSString *average;/**<评分 */
-@property(nonatomic,copy)NSString *type;/**<类型 */
+//@property(nonatomic,copy)NSString *type;/**<类型 */
 @property(nonatomic,copy)NSString *content;/**<内容 */
+@property(nonatomic,assign)GradeType type;
 @end
 
 @interface userStroe : NSObject

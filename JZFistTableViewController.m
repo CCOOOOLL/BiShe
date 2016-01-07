@@ -13,6 +13,7 @@
 #import "JZBookDataViewController.h"
 #import "JZGradeViewController.h"
 #import "JZWildDog.h"
+#import "userStroe.h"
 
 @interface JZFistTableViewController ()<JZGradeViewControllerDeleage>
 @property (weak, nonatomic) IBOutlet UILabel *bookTitle;
@@ -20,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet starView *star;
 @property (weak, nonatomic) IBOutlet UILabel *average;
 @property (weak, nonatomic) IBOutlet UITableViewCell *collectView;
-
+@property (nonatomic, assign)GradeType type;
 @property (weak, nonatomic) IBOutlet UIView *gradeView;
 
 @end
@@ -32,6 +33,7 @@
     [self setUpData];
 //    [JZWildDog WildDog]
 
+
 }
 - (void)setUpData{
     if (_bookDataModel) {
@@ -39,6 +41,20 @@
         self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
         self.average.text = [NSString stringWithFormat:@"%@(%@人评价)",[self.bookDataModel bookViewaverage],[self.bookDataModel bookViewnumRaters]];
         self.otherData.text = [self.bookDataModel bookViewAuthor];
+        [[JZWildDog WildDog]getGradeWihtBookId:[self.bookDataModel bookViewId]withSuccess:^(book *data) {
+            GradeType type = data.type;
+            self.type = data.type;
+            switch (type) {
+                case GradeTypeYiDu:
+                    self.gradeView.hidden = YES;
+                    break;
+                    
+                default:
+                    break;
+            }
+        } fail:^{
+            
+        }];
     }
 
 }
@@ -78,6 +94,7 @@
     JZGradeViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"JZGradeViewController"];
     vc.gradeType = sender.tag;
     vc.bookId = [self.bookDataModel bookViewId];
+    NSLog(@"%@",vc.bookId);
     vc.deleage = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
