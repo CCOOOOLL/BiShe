@@ -12,4 +12,7 @@
 
 - (void)stopAnimating;
 - (void)startAnimation;
+
++ (instancetype)loadingWithParentView:(UIView *)parentView;
++ (instancetype)loadingWithParentView:(UIView *)parentView andSize:(CGSize )viewSize;
 @end

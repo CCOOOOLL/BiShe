@@ -24,6 +24,23 @@
 }
 */
 
++ (instancetype)loadingWithParentView:(UIView *)parentView andSize:(CGSize )viewSize{
+
+    CGRect rect         = parentView.bounds;
+    CGPoint point       = CGPointMake(rect.size.width/2.0,rect.size.height/2.0-viewSize.height/2.0);
+    rect.size           = viewSize;
+    JZLoadingView *view = [[JZLoadingView alloc]initWithFrame:rect];
+    view.center         = point;
+    [parentView addSubview:view];
+    return view;
+}
+
++ (instancetype)loadingWithParentView:(UIView *)parentView{
+    JZLoadingView *view = [JZLoadingView loadingWithParentView:parentView andSize:CGSizeMake(60, 60)];
+    return view;
+}
+
+
 - (BOOL)isIsAnimating{
     if (!_isAnimating) {
         _isAnimating = NO;

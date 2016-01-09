@@ -10,10 +10,10 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
+        <!--首页-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="JZHomeViewController" sceneMemberID="viewController">
+                <viewController title="首页" automaticallyAdjustsScrollViewInsets="NO" id="9pv-A4-QxB" customClass="JZHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ia1-K6-d13"/>
                         <viewControllerLayoutGuide type="bottom" id="4ug-Mw-9AY"/>
@@ -110,10 +110,10 @@
             </objects>
             <point key="canvasLocation" x="999" y="-2300"/>
         </scene>
-        <!--Book Table View Controller-->
+        <!--首页表格-->
         <scene sceneID="6se-ga-seC">
             <objects>
-                <tableViewController storyboardIdentifier="JZBookTableViewController" id="cgd-Fa-qfh" customClass="JZBookTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="JZBookTableViewController" title="首页表格" id="cgd-Fa-qfh" customClass="JZBookTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="263" sectionHeaderHeight="28" sectionFooterHeight="28" id="c6h-Ck-RBD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -200,10 +200,10 @@
             </objects>
             <point key="canvasLocation" x="498" y="-1613"/>
         </scene>
-        <!--Book Collection View Controller-->
+        <!--更多图书界面-->
         <scene sceneID="q2E-cC-RNq">
             <objects>
-                <collectionViewController hidesBottomBarWhenPushed="YES" id="3SH-Kj-Kt1" customClass="JZBookCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController title="更多图书界面" hidesBottomBarWhenPushed="YES" id="3SH-Kj-Kt1" customClass="JZBookCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Gf2-c3-qiS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -252,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="995" y="-1613"/>
         </scene>
-        <!--Basic Book View Controller-->
+        <!--图书信息基本页-->
         <scene sceneID="p1J-OM-lXd">
             <objects>
-                <viewController storyboardIdentifier="JZBasicBookViewController" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="K2Z-21-YKD" customClass="JZBasicBookViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JZBasicBookViewController" title="图书信息基本页" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="K2Z-21-YKD" customClass="JZBasicBookViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="R88-r9-AdF"/>
                         <viewControllerLayoutGuide type="bottom" id="gok-xY-sbr"/>
@@ -484,10 +484,10 @@
             </objects>
             <point key="canvasLocation" x="1512" y="-1463"/>
         </scene>
-        <!--Web View Controller-->
+        <!--图书价格-->
         <scene sceneID="1jv-uh-Ha9">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="U0D-Kl-y4Y" customClass="JZWebViewController" sceneMemberID="viewController">
+                <viewController title="图书价格" automaticallyAdjustsScrollViewInsets="NO" id="U0D-Kl-y4Y" customClass="JZWebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o05-UY-j9M"/>
                         <viewControllerLayoutGuide type="bottom" id="eC8-vI-1Dj"/>
@@ -532,10 +532,10 @@
             </objects>
             <point key="canvasLocation" x="995" y="-786"/>
         </scene>
-        <!--Grade View Controller-->
+        <!--评分界面-->
         <scene sceneID="F99-e2-SaN">
             <objects>
-                <viewController storyboardIdentifier="JZGradeViewController" automaticallyAdjustsScrollViewInsets="NO" id="uxL-HE-Ibv" customClass="JZGradeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JZGradeViewController" title="评分界面" automaticallyAdjustsScrollViewInsets="NO" id="uxL-HE-Ibv" customClass="JZGradeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mIE-Jd-btI"/>
                         <viewControllerLayoutGuide type="bottom" id="pBZ-pP-JpN"/>
@@ -626,10 +626,10 @@
             </objects>
             <point key="canvasLocation" x="498" y="-838"/>
         </scene>
-        <!--Fist Table View Controller-->
+        <!--图书信息界面-->
         <scene sceneID="YEY-8M-EQd">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="bPj-CY-CBo" customClass="JZFistTableViewController" sceneMemberID="viewController">
+                <tableViewController title="图书信息界面" automaticallyAdjustsScrollViewInsets="NO" id="bPj-CY-CBo" customClass="JZFistTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="48" sectionHeaderHeight="28" sectionFooterHeight="28" id="NiC-1o-dah">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -867,10 +867,10 @@
             </objects>
             <point key="canvasLocation" x="995" y="-1141"/>
         </scene>
-        <!--Book Data View Controller-->
+        <!--图书详细信息-->
         <scene sceneID="qBh-ly-joU">
             <objects>
-                <viewController id="No0-y3-h07" customClass="JZBookDataViewController" sceneMemberID="viewController">
+                <viewController title="图书详细信息" id="No0-y3-h07" customClass="JZBookDataViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hig-Ja-X5B"/>
                         <viewControllerLayoutGuide type="bottom" id="SXm-eh-FNV"/>
@@ -1003,10 +1003,10 @@
             </objects>
             <point key="canvasLocation" x="1416" y="-699"/>
         </scene>
-        <!--Short Commentary Table View Controller-->
+        <!--短评界面-->
         <scene sceneID="ctB-yO-koI">
             <objects>
-                <tableViewController id="tUo-8w-SVo" customClass="JZShortCommentaryTableViewController" sceneMemberID="viewController">
+                <tableViewController title="短评界面" id="tUo-8w-SVo" customClass="JZShortCommentaryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="148" sectionHeaderHeight="28" sectionFooterHeight="28" id="D23-JC-stU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1146,10 +1146,10 @@
             </objects>
             <point key="canvasLocation" x="1939" y="-1502"/>
         </scene>
-        <!--Search View Controller-->
+        <!--搜索界面-->
         <scene sceneID="VfK-XZ-aW6">
             <objects>
-                <viewController storyboardIdentifier="JZSearchViewController" hidesBottomBarWhenPushed="YES" id="HuA-F8-nk6" customClass="JZSearchViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JZSearchViewController" title="搜索界面" hidesBottomBarWhenPushed="YES" id="HuA-F8-nk6" customClass="JZSearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RBG-f3-IUe"/>
                         <viewControllerLayoutGuide type="bottom" id="FNG-Jc-vNF"/>
@@ -1385,10 +1385,10 @@
             </objects>
             <point key="canvasLocation" x="-2327" y="1803"/>
         </scene>
-        <!--User Table View Controller-->
+        <!--个人界面-->
         <scene sceneID="FzN-9b-05M">
             <objects>
-                <tableViewController id="Wfl-f3-9Tf" customClass="JZUserTableViewController" sceneMemberID="viewController">
+                <tableViewController title="个人界面" id="Wfl-f3-9Tf" customClass="JZUserTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="dvP-rj-yG6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1760,10 +1760,10 @@
             </objects>
             <point key="canvasLocation" x="-1514" y="1778"/>
         </scene>
-        <!--Edit User View Controller-->
+        <!--修改用户信息-->
         <scene sceneID="OWx-d9-7B0">
             <objects>
-                <viewController id="sTn-hL-eZ3" customClass="JZEditUserViewController" sceneMemberID="viewController">
+                <viewController title="修改用户信息" id="sTn-hL-eZ3" customClass="JZEditUserViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GUS-XY-xwB"/>
                         <viewControllerLayoutGuide type="bottom" id="br6-Vo-89y"/>
@@ -1831,10 +1831,10 @@
             </objects>
             <point key="canvasLocation" x="-1038" y="1149"/>
         </scene>
-        <!--Login View Controller-->
+        <!--登陆界面-->
         <scene sceneID="kdh-j6-QMr">
             <objects>
-                <viewController storyboardIdentifier="JZLoginViewController" hidesBottomBarWhenPushed="YES" id="HhH-gv-nKR" customClass="JZLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JZLoginViewController" title="登陆界面" hidesBottomBarWhenPushed="YES" id="HhH-gv-nKR" customClass="JZLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zc2-yS-34i"/>
                         <viewControllerLayoutGuide type="bottom" id="Rn8-kf-2AO"/>
@@ -1935,10 +1935,10 @@
             </objects>
             <point key="canvasLocation" x="-1038" y="1792"/>
         </scene>
-        <!--Register View Controller-->
+        <!--注册界面-->
         <scene sceneID="rWX-wy-zrH">
             <objects>
-                <viewController id="fkT-Vn-FX9" customClass="JZRegisterViewController" sceneMemberID="viewController">
+                <viewController title="注册界面" id="fkT-Vn-FX9" customClass="JZRegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kp9-I4-UBD"/>
                         <viewControllerLayoutGuide type="bottom" id="EL6-I6-rbn"/>
@@ -2193,10 +2193,10 @@
             </objects>
             <point key="canvasLocation" x="513" y="142"/>
         </scene>
-        <!--More Comment Table View Controller-->
+        <!--更多书评界面-->
         <scene sceneID="kHn-YX-wRu">
             <objects>
-                <tableViewController id="4IQ-HX-9li" customClass="JZMoreCommentTableViewController" sceneMemberID="viewController">
+                <tableViewController title="更多书评界面" id="4IQ-HX-9li" customClass="JZMoreCommentTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="148" sectionHeaderHeight="28" sectionFooterHeight="28" id="8MU-M2-YGK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2311,10 +2311,10 @@
             </objects>
             <point key="canvasLocation" x="2374" y="-1424"/>
         </scene>
-        <!--Particular Coment View Controller-->
+        <!--书评详细页-->
         <scene sceneID="bTT-Hd-0hz">
             <objects>
-                <viewController storyboardIdentifier="JZParticularComentViewController" id="3Sv-oz-Z1S" customClass="JZParticularComentViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JZParticularComentViewController" title="书评详细页" id="3Sv-oz-Z1S" customClass="JZParticularComentViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lGp-5G-913"/>
                         <viewControllerLayoutGuide type="bottom" id="ETO-Jk-JB6"/>
@@ -2451,10 +2451,10 @@
             </objects>
             <point key="canvasLocation" x="1920" y="-711"/>
         </scene>
-        <!--Book Comment View Controller-->
+        <!--书评界面-->
         <scene sceneID="pKp-8v-L73">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="yjy-Cw-833" customClass="JZBookCommentViewController" sceneMemberID="viewController">
+                <tableViewController title="书评界面" automaticallyAdjustsScrollViewInsets="NO" id="yjy-Cw-833" customClass="JZBookCommentViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="148" sectionHeaderHeight="28" sectionFooterHeight="28" id="IoP-2a-lHv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2606,10 +2606,10 @@
             </objects>
             <point key="canvasLocation" x="1920" y="-1135"/>
         </scene>
-        <!--More Comment View Controller-->
+        <!--更多书评界面-->
         <scene sceneID="TM7-lA-Lgo">
             <objects>
-                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="QUD-uj-IAx" customClass="JZMoreCommentViewController" sceneMemberID="viewController">
+                <tableViewController title="更多书评界面" automaticallyAdjustsScrollViewInsets="NO" id="QUD-uj-IAx" customClass="JZMoreCommentViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="148" sectionHeaderHeight="28" sectionFooterHeight="28" id="BeV-og-pPi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

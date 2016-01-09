@@ -13,6 +13,7 @@
 #import "JZTabLabelCell.h"
 #import "JZTagsViewCOntroller.h"
 #import "JZWildDog.h"
+#import "userStroe.h"
 #import "JZShortCommentsStore.h"
 
 static NSString *const identifier = @"tabCell";
@@ -34,12 +35,16 @@ static NSString *const addIdentifier = @"addCell";
     }
     return _selectTags;
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(evaluateBook)];
-
-   
+    if (self.comment) {
+        self.gradeStar.grade = [self.comment.average integerValue];
+        self.contextView.text = self.comment.shortContent;
+    }
 
 
 }
@@ -48,6 +53,7 @@ static NSString *const addIdentifier = @"addCell";
     [super viewDidAppear:animated];
 //    self.collectionViewHeight.constant = self.tagsCollectionView.contentSize.height;
     [self.view layoutIfNeeded];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,12 +72,14 @@ static NSString *const addIdentifier = @"addCell";
     if ([segue.identifier isEqualToString:@"JZTagsViewCOntroller"]) {
         JZTagsViewCOntroller *vc = segue.destinationViewController;
         vc.tagsViewDeleage = self;
+        vc.commentTags = self.comment.tags;
         [[JZNewWorkTool workTool]tagsDataWihtBookId:self.bookId success:^(id obj) {
             self.tags = obj;
             if(self.tags.count>15){
                 NSArray *array = [self.tags subarrayWithRange:NSMakeRange(0, 15)];
                 self.tags = [NSMutableArray arrayWithArray:array];
                 vc.tags = self.tags;
+                
 
             }
             
@@ -84,7 +92,7 @@ static NSString *const addIdentifier = @"addCell";
     [self.view updateConstraints];
 }
 
-- (IBAction)addtag:(id)sender {
+- (void)addtag:(id)sender {
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"添加标签" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *aciton = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *other = [UIAlertAction actionWithTitle:@"添加" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -115,11 +123,6 @@ static NSString *const addIdentifier = @"addCell";
     [self.deleage evaluateBookData];
     [[JZWildDog WildDog]addBookWithType:self.gradeType bookId:self.bookId tags:tags average:self.gradeStar.grade content:self.contextView.text withSuccess:^{
         [self.navigationController popViewControllerAnimated:YES];
-    } fail:^(NSError *error) {
-        
-    }];
-//    [[JZWildDog WildDog]WirteBookGradeWihtBookId:self.bookId range:self.gradeStar.grade tags:tags content:self.contextView.text withSuccess:^{
-//        [self.navigationController popViewControllerAnimated:YES];
-//    } fail:nil];
+    } fail:nil];
 }
 @end

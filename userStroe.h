@@ -11,10 +11,11 @@
 #import "JZBooksStore.h"
 
 @interface book : NSObject
-@property(nonatomic,copy)NSString *average;/**<评分 */
+@property(nonatomic,assign)NSInteger average;/**<评分 */
 //@property(nonatomic,copy)NSString *type;/**<类型 */
 @property(nonatomic,copy)NSString *content;/**<内容 */
 @property(nonatomic,assign)GradeType type;
+@property(nonatomic,strong)NSArray *tags;;/**<<#text#> */
 @end
 
 @interface userStroe : NSObject

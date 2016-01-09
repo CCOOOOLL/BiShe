@@ -93,13 +93,7 @@ static NSString *const Identifier = @"cell";
 
 -(void)setUpLoadView{
 //    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
-    CGRect rect = self.nullView.bounds;
-    CGPoint point = CGPointMake(rect.size.width/2.0, rect.size.height/2.0 -60);
-    rect.size = CGSizeMake(60, 60);
-    rect.origin = point;
-    _loadingView = [[JZLoadingView alloc]initWithFrame:rect];
-//    _loadingView.center = point;
-    [self.nullView addSubview:_loadingView];
+    self.loadingView = [JZLoadingView loadingWithParentView:[UIApplication sharedApplication].windows.lastObject];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

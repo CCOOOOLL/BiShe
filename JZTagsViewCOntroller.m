@@ -8,6 +8,7 @@
 
 #import "JZTagsViewCOntroller.h"
 #import "JZTabButton.h"
+#import "JZTag.h"
 
 @interface JZTagsViewCOntroller ()
 @property(nonatomic,strong)NSMutableSet *Selecttags;
@@ -18,6 +19,25 @@
 
 
 @implementation JZTagsViewCOntroller
+
+- (NSMutableArray<JZTabButton *> *)buttons{
+    if (!_buttons) {
+        _buttons = [NSMutableArray array];
+    }
+    return  _buttons;
+}
+- (void)setTags:(NSMutableArray<tag *> *)tags{
+    _tags = tags;
+    [self setAllTag];
+    [self setSelectTag];
+}
+- (NSMutableSet *)Selecttags{
+    if (!_Selecttags) {
+        _Selecttags = [NSMutableSet set];
+    }
+    return _Selecttags;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,109 +55,80 @@
     }
 }
 
-- (void)setDataWithTags{
-    self.Selecttags = [NSMutableSet set];
-    CGFloat const ViewW = self.view.bounds.size.width;
+- (void)setSelectTag{
 
-    CGFloat x = 8;
-    CGFloat y = 8;
-    CGFloat h = 30;
-    NSInteger index = 0;
-    for (tag *obj in self.tags) {
-
-        CGRect rect = [obj.title boundingRectWithSize:CGSizeMake(1000, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil];
-        rect.size.width += 25;
-        rect.size.height = h;
-        rect.origin.x = x;
-        
-        rect.origin.y = y;
-        if (CGRectGetMaxX(rect)>ViewW) {
-            rect.origin.x = 8;
-            x = 8;
-            y += 34;
-            rect.origin.y = y;
+    for (NSString *str in self.commentTags) {
+        BOOL isHave = NO;
+        for (JZTabButton *button in self.buttons) {
+            if ([button.titleLabel.text isEqualToString:str]) {
+                [button ChangeBackgroudColor];
+                isHave = YES;
+            }
         }
-        x = x + rect.size.width+8;
-
+        if (!isHave) {
+            [[self addTagButtonWithName:str isFist:NO] ChangeBackgroudColor];
+        }
         
-        JZTabButton *button = [[JZTabButton alloc]initWithFrame:rect title:obj.title];
-        __weak typeof(self)weekSelf = self;
-        button.ButtonCanCelClick = ^(NSString *tag){
-            [weekSelf.tagsViewDeleage removeSelectTag:tag];
+        
+    }
+    
+}
 
-        };
-        button.ButtonDidClick = ^(NSString *tag){
-            [weekSelf.tagsViewDeleage addSelectTag:tag];
-        };
-        [self.buttons addObject:button];
-        [self.view addSubview:button];
-        index ++;
-    }
-    if (x+150>ViewW) {
-        x = 8;
-        y+= 34;
-    }
-    JZTabButton *button = [[JZTabButton alloc]initWithFrame:CGRectMake(x, y,150, 30)];
+- (void) setAllTag{
+
+    JZTabButton *button = [[JZTabButton alloc]initWithFrame:CGRectMake(8, 8,150, 30)];
     [self.view addSubview:button];
     [button addTarget:self action:@selector(addTag) forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"添加新标签" forState:UIControlStateNormal];
     [self.buttons addObject:button];
+    for (tag *tag in self.tags) {
+       [self addTagButtonWithName:tag.title isFist:NO];
+    }
+}
+- (JZTabButton *)addTagButtonWithName:(NSString *)name isFist:(BOOL)isFist{
+    CGRect rect = self.buttons.count<2?CGRectMake(0, 8, 0, 30):self.buttons[self.buttons.count-2].frame;
+    CGFloat width         = [name boundingRectWithSize:CGSizeMake(1000, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width+25;
     
     
-
-}
-- (NSMutableArray<JZTabButton *> *)buttons{
-    if (!_buttons) {
-        _buttons = [NSMutableArray array];
+    if (CGRectGetMaxX(rect)+width+8>self.view.bounds.size.width) {
+        rect.origin.x = 8;
+        rect.origin.y += 34;
+    }else{
+        rect.origin.x = CGRectGetMaxX(rect)+8;
     }
-    return  _buttons;
-}
-- (void)setTags:(NSMutableArray<tag *> *)tags{
-    _tags = tags;
-    [self setDataWithTags];
-}
-- (NSMutableSet *)Selecttags{
-    if (!_Selecttags) {
-        _Selecttags = [NSMutableSet set];
+    rect.size.width = width;
+    JZTabButton *button = [[JZTabButton alloc]initWithFrame:rect title:name];
+    [self.view addSubview:button];
+    __weak typeof(self)weekSelf = self;
+    button.ButtonCanCelClick = ^(NSString *tag){
+        
+        [weekSelf.tagsViewDeleage removeSelectTag:tag];
+    };
+    button.ButtonDidClick = ^(NSString *tag){
+        [weekSelf.tagsViewDeleage addSelectTag:tag];
+    };
+    isFist?[self.buttons addObject:button]:[self.buttons insertObject:button atIndex:self.buttons.count-1];
+    if (!isFist) {
+        CGFloat x = CGRectGetMaxX(rect)+8;
+        CGFloat y = rect.origin.y;
+        if (CGRectGetMaxX(rect)+CGRectGetWidth(self.buttons.lastObject.frame)+8>self.view.bounds.size.width) {
+            x = 8;
+            y+= 34;
+        }
+         self.buttons.lastObject.frame = CGRectMake(x, y, self.buttons.lastObject.frame.size.width, 30);
     }
-    return _Selecttags;
-}
 
+
+    return button;
+    
+}
 - (void)addTag{
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"+添加标签" message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *aciton = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *other = [UIAlertAction actionWithTitle:@"添加" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *srt       = ac.textFields.firstObject.text;
-        CGRect rect         = self.buttons[self.buttons.count-2].frame;
-        CGFloat width         = [srt boundingRectWithSize:CGSizeMake(1000, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width+25;
-       
-
-        if (CGRectGetMaxX(rect)+width> self.view.bounds.size.width) {
-            rect.origin.x = 8;
-            rect.origin.y += 34;
-        }else{
-            rect.origin.x = CGRectGetMaxX(rect)+8;
-        }
-         rect.size.width = width;
-        JZTabButton *button = [[JZTabButton alloc]initWithFrame:rect title:srt];
-        __weak typeof(self)weekSelf = self;
-        button.ButtonCanCelClick = ^(NSString *tag){
-            [weekSelf.tagsViewDeleage removeSelectTag:tag];
-            
-        };
-        button.ButtonDidClick = ^(NSString *tag){
-            [weekSelf.tagsViewDeleage addSelectTag:tag];
-        };
-        [self.view addSubview:button];
+        JZTabButton *button =  [self addTagButtonWithName:srt isFist:NO];
         [button ChangeBackgroudColor];
-        [self.buttons insertObject:button atIndex:self.buttons.count-1];
-        CGFloat x = CGRectGetMaxX(rect)+8;
-        CGFloat y = rect.origin.y;
-        if (CGRectGetMaxX(rect)+150>self.view.bounds.size.width) {
-            x = 8;
-            y+= 34;
-        }
-        self.buttons.lastObject.frame = CGRectMake(x, y, 150, 30);
         [self changeHeight];
     }];
     [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {

@@ -49,10 +49,6 @@
 #pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.loadingView startAnimation];
-    self.contentView.hidden = YES;
-//    [self loadData];
     self.contentHeight.constant = CGRectGetMaxY(self.lastView.frame);
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     self.contentView.scrollsToTop = YES;
@@ -94,33 +90,11 @@
 }
 
 
-/**
- *  初始化数据
- */
--(Book *)loadData{
-    if (!_bookData) {
-//        JZNewWorkTool *tool = [JZNewWorkTool workTool];
-//        [tool dataWithBookid:self.idUrl success:^(id obj) {
-//            _bookData = obj;
-//            [self setUpWithData];
-//            
-//        }];
-        [[JZWildDog WildDog]getBookWithBookId:self.idUrl withSuccess:^(Book *book) {
-            _bookData = book;
-            [self setUpWithData];
-        } fail:nil];
-    }else{
-        [self setUpWithData];
-    }
-    return _bookData;
-}
 
 - (void) setUpWithData{
     //加载图片
-    if (_bookData) {
         NSURL *path = [NSURL URLWithString:self.bookData.image];
-        [self.bookImage yy_setImageWithURL:path placeholder:nil options:YYWebImageOptionProgressive|YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
-            
+        [self.bookImage yy_setImageWithURL:path placeholder:nil options:YYWebImageOptionProgressive|YYWebImageOptionSetImageWithFadeAnimation|YYWebImageOptionHandleCookies completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
         }];
         [self.backImage yy_setImageWithURL:path options:YYWebImageOptionAllowBackgroundTask];
         //加载简介
@@ -128,8 +102,8 @@
         [self.loadingView stopAnimating];
         self.contentView.hidden = NO;
 
-     
-    }
+    
+    
 
 }
 
@@ -142,15 +116,17 @@
         JZFistTableViewController *vc= segue.destinationViewController;
         
         if (!_bookData) {
-            [[JZWildDog WildDog]getBookWithBookId:self.idUrl withSuccess:^(Book *book) {
-                _bookData = book;
+            [self.loadingView startAnimation];
+            self.contentView.hidden = YES;
+            JZNewWorkTool *tool = [JZNewWorkTool workTool];
+            [tool dataWithBookid:self.idUrl success:^(id obj) {
+                _bookData = obj;
                 [self setUpWithData];
-                vc.bookDataModel = book;
-            } fail:^(NSError *error) {
-                NSLog(@"%@",error);
+                vc.bookDataModel = obj;
+                
             }];
-
         }else{
+            [self setUpWithData];
             vc.bookDataModel = self.bookData;
         }
     }

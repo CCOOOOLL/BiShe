@@ -91,14 +91,7 @@
 }
 
 -(void)setUpLoadView{
-    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
-    CGRect rect = window.bounds;
-//    CGRect rect = self.view.bounds;
-    CGPoint point = CGPointMake(rect.size.width/2, rect.size.height/2);
-    rect.size = CGSizeMake(60, 60);
-    _loadingView = [[JZLoadingView alloc]initWithFrame:rect];
-    _loadingView.center = point;
-    [window addSubview:_loadingView];
+    self.loadingView =[JZLoadingView loadingWithParentView:[UIApplication sharedApplication].windows.lastObject];
 }
 
 

@@ -20,4 +20,5 @@
 @interface JZTagsViewCOntroller : UIViewController
 @property(nonatomic,strong)NSMutableArray<tag *> *tags;/**<<#text#> */
 @property(nonatomic,weak)id<JZTagsViewCOntrollerDeleage> tagsViewDeleage;/**<<#text#> */
+@property(nonatomic,strong)NSSet *commentTags;
 @end

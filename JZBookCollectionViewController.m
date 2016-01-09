@@ -88,12 +88,13 @@ static NSString * const reuseIdentifier = @"cell";
  *  初始化加载动画
  */
 -(void)setUpLoadView{
-    CGRect rect         = self.collectionView.bounds;
-    CGPoint point       = CGPointMake(rect.size.width/2.0, rect.size.height/2.0-60);
-    rect.size           = CGSizeMake(60, 60);
-    _loadingView        = [[JZLoadingView alloc]initWithFrame:rect];
-    _loadingView.center = point;
-    [self.collectionView addSubview:_loadingView];
+//    CGRect rect         = self.collectionView.bounds;
+//    CGPoint point       = CGPointMake(rect.size.width/2.0, rect.size.height/2.0-60);
+//    rect.size           = CGSizeMake(60, 60);
+//    _loadingView        = [[JZLoadingView alloc]initWithFrame:rect];
+//    _loadingView.center = point;
+//    [self.collectionView addSubview:_loadingView];
+    self.loadingView = [JZLoadingView loadingWithParentView:self.collectionView];
 }
 
 

@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger,GradeType){
 @property(nonatomic,strong)NSString *binding;/**<版本 */
 @property(nonatomic,strong)NSString *pubdate;/**<出版时间 */
 @property(nonatomic,strong)NSArray *translator;/**<翻译人员 */
-@property(nonatomic,strong)NSString *catalog;/**<<#text#> */
+//@property(nonatomic,strong)NSString *catalog;/**<<#text#> */
 @property(nonatomic,strong)NSString *pages;/**<页数 */
 @property(nonatomic,strong)Images *images;/**<各种图片 */
 @property(nonatomic,strong)NSString *alt;/**<<#text#> */

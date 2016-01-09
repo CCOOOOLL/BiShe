@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JZBooksStore.h"
-
+#import "JZComment.h"
 
 @protocol  JZGradeViewControllerDeleage<NSObject>;
 
@@ -19,6 +19,7 @@
 
 @interface JZGradeViewController : UIViewController
 
+@property(nonatomic,strong)JZComment *comment;/**<  */
 @property(nonatomic,assign)GradeType gradeType;/**< <#shuoming#> */
 @property(nonatomic,strong)NSString *bookId;/**<<#text#> */
 @property(nonatomic,weak) id<JZGradeViewControllerDeleage> deleage;

@@ -11,15 +11,23 @@
 #import "JZShortCommentsStore.h"
 #import "MJExtension.h"
 #import "JZNewWorkTool.h"
-
-
-
+#import "CoreDataHelper.h"
+#import "JZComment.h"
 @interface JZWildDog ()
 @property (nonatomic, strong)Wilddog *wilddog;
+@property (nonatomic, strong)CoreDataHelper *helper;
 @end
 
 @implementation JZWildDog
 //- (void)createUserWith
+
+- (CoreDataHelper *)helper{
+    if (!_helper) {
+        _helper = [CoreDataHelper helper];
+    }
+    return _helper;
+}
+
 +(instancetype)WildDog{
     static id dog;
     static dispatch_once_t oneces;
@@ -105,126 +113,98 @@
     }];
 }
 /**
- *  添加收藏
+ *  添加修改收藏
  */
 - (void)addBookWithType:(GradeType)type bookId:(NSString *)bookId tags:(NSArray *)tags average:(NSInteger)average content:(NSString *)content withSuccess:(void (^)())suceess fail:(void(^)(NSError *error)) fail{
-
+    NSMutableDictionary *tag = [NSMutableDictionary dictionary];
+    for (int i=0; i<tags.count; i++) {
+        tag[[NSString stringWithFormat:@"%d",i]] = tags[i];
+    }
     NSDictionary *dict = @{
-                           @"tags":tags,
-                           @"star":@(average),
-                           @"content":content,
-                           @"type":@(type)
+                           @"average":@(average),
+                           @"shortContent":content,
+                           @"gradeType":@(type),
+                           @"bookid":bookId,
+                           @"tags":tag
                            };
-    
-    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/books/%@",[userStroe loadUser].uid,bookId]]setValue:dict withCompletionBlock:^(NSError *error, Wilddog *ref) {
-        suceess();
-    }];
-}
-- (void)addBook:(Book *)book withSuccess:(void (^)())suceess fail:(void(^)(NSError *error)) fail{
-    NSMutableDictionary *dict =[book mj_keyValues];
-    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"Books/%@",book.ID]]setValue:dict withCompletionBlock:^(NSError *error, Wilddog *ref) {
-        
-    }];
-}
-/**
- *  获取图书数据
- *
- *  @param suceess <#suceess description#>
- *  @param fail    <#fail description#>
- */
-- (void)getBookWithBookId:(NSString *)bookId withSuccess:(void (^)(Book* book))success fail:(void(^)(NSError *error)) fail{
-    __block Book *book;
-    __weak typeof(self) weakself = self;
-    [[self.wilddog childByAppendingPath:@"Books"] observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
-         if (![snapshot hasChild:bookId]) {
-             [[JZNewWorkTool workTool]dataWithBookid:bookId success:^(id obj) {
-                 book = obj;
-                 success(book);
-                 [weakself addBook:book withSuccess:nil fail:nil];
-             }];
-         }else{
-             [Book mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
-                 return @{
-                          @"ID" : @"id",
-                          };
-             }];
-             book = [Book mj_objectWithKeyValues:[snapshot childSnapshotForPath:bookId].value];
-             success(book);
-         }
-     }];
+    NSDictionary *coreDict = @{
+                               @"average":@(average),
+                               @"shortContent":content,
+                               @"gradeType":@(type),
+                               @"bookid":bookId,
+                               @"tags":tags
+                               };
+    [self.helper removeCommentWithBookId:bookId];
+    JZComment *comment = [JZComment mj_objectWithKeyValues:coreDict context:self.helper.context];
+    [self.helper addComment:comment];
+    NSLog(@"数据库添加评价啊数据");
 
 
-
-}
-
-- (void)updeBookShortCommentWithBookId:(NSString *)bookId page:(NSInteger)page withSuccess:(void (^)(JZShortCommentsStore *store))suceess fail:(void(^)(NSError *error)) fail{
-    __weak typeof(self) weakself = self;
-    [[self.wilddog childByAppendingPath:@"ShortComments"] observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
-        if (![snapshot hasChild:bookId]) {
-            for (int i=1; i<=10; i++) {
-                [[JZNewWorkTool workTool]datawithshortComments:bookId page:i success:^(id obj) {
-                    JZShortCommentsStore *store = obj;
+//    Wilddog *dog = [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"book/ShortComment/%@",bookId]]childByAutoId];
+//    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/ShortComment/%@",[userStroe loadUser].uid,bookId]]updateChildValues:dict withCompletionBlock:^(NSError *error, Wilddog *ref) {
+//
+//    }];
+    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/ShortComment/%@",[userStroe loadUser].uid,bookId]] observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
+        __weak typeof(self) weekSelf = self;
+        if (snapshot.value == NULL) {
+            Wilddog *dog = [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"book/ShortComment/%@",bookId]]childByAutoId];
+            NSString *key = dog.key;
+            [dog setValue:dict withCompletionBlock:^(NSError *error, Wilddog *ref) {
+                [[weekSelf.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/ShortComment/%@",[userStroe loadUser].uid,bookId]]setValue:key withCompletionBlock:^(NSError *error, Wilddog *ref) {
+                        suceess();
                     
-                    for (JZShortComment *comment in store.shortComments) {
-                        NSDictionary *dict = [comment mj_keyValues];
-                        [[weakself.wilddog childByAppendingPath:[NSString stringWithFormat:@"ShortComments/%@/%@",bookId,comment.ID]]updateChildValues:dict];
-                    }
-                    
-                }];
-            }
+                }];;
 
+            }];
         }else{
-            WQuery *query = [self.wilddog childByAppendingPath:[NSString stringWithFormat:@"ShortComments/%@",bookId]];
-            [query observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
+            Wilddog *dog = [weekSelf.wilddog childByAppendingPath:[NSString stringWithFormat:@"book/ShortComment/%@/%@",bookId,snapshot.value]];
+            [dog setValue:dict withCompletionBlock:^(NSError *error, Wilddog *ref) {
+                suceess();
+            }];
+            
+        }
+    }];
+}
 
-                    [[JZNewWorkTool workTool]datawithshortComments:bookId page:page success:^(id obj) {
-                        JZShortCommentsStore *store = obj;
-                        suceess(store);
-                        for (JZShortComment *comment in store.shortComments) {
-                            NSDictionary *dict = [comment mj_keyValues];
-                            [[weakself.wilddog childByAppendingPath:[NSString stringWithFormat:@"ShortComments/%@/%@",bookId,comment.ID]]updateChildValues:dict];
-                        }
-                        
+
+
+- (void)getGradeWihtBookId:(NSString *)bookId withSuccess:(void (^)(JZComment *data))suceess fail:(void(^)()) fail{
+    
+    userStroe *user = [userStroe loadUser];
+    if (user) {
+        NSArray *comments = [self.helper searchCommentWihtBookId:bookId];
+        if (comments.count>0) {
+            NSLog(@"数据库有评价啊数据");
+
+            suceess(comments.firstObject);
+            return;
+        }else{
+            [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/ShortComment/%@",user.uid,bookId]] observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
+                __weak typeof(self) weekself = self;
+                if (snapshot.value == NULL) {
+
+                    NSLog(@"网上没有评价啊数据");
+
+                    fail();
+                }else{
+                    NSLog(@"网上有评价啊数据");
+                    [[weekself.wilddog childByAppendingPath:[NSString stringWithFormat:@"book/ShortComment/%@/%@",bookId,snapshot.value]]observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
+                        NSLog(@"%@",snapshot.value);
+                        [self.helper removeCommentWithBookId:bookId];
+                        JZComment *data = [JZComment mj_objectWithKeyValues:snapshot.value context:weekself.helper.context];
+                        [weekself.helper addComment:data];
+                        suceess(data);
                     }];
 
-
-//                JZShortCommentsStore *store =[[JZShortCommentsStore alloc]init];
-//                store.shortComments = [NSMutableArray array];
-//                for (WDataSnapshot *data in snapshot.children) {
-//                    NSLog(@"%@",snapshot.value);
-//                    JZShortComment *comment =[JZShortComment mj_objectWithKeyValues:data.value];
-//                    [store.shortComments addObject:comment];
-//                }
-//                suceess(store);
+                }
             }];
-
         }
-    }];
+    }else{
+
+    }
 
 }
 
-- (void)getGradeWihtBookId:(NSString *)bookId withSuccess:(void (^)(book *data))suceess fail:(void(^)()) fail{
-    userStroe *user = [userStroe loadUser];
-    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/books/%@",user.uid,bookId]] observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
-        if (snapshot.value == [NSNull null]) {
-            fail();
-        }else{
-            book *data = [book mj_objectWithKeyValues:snapshot.value];
-            suceess(data);
-        }
-    }];
-}
-
-- (void)WirteBookGradeWihtBookId:(NSString *)bookId range:(NSInteger)range tags:(NSArray *)tags content:(NSString *)content withSuccess:(void (^)())suceess fail:(void(^)(NSError *error)) fail{
-    userStroe *user = [userStroe loadUser];
-    NSDictionary *dict =@{
-                          @"star":@(range),
-                          @"tag":tags,
-                          @"content":content
-                          };
-    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/shortComments/%@",user.uid,bookId]]setValue:dict];
-    suceess();
-}
 
 
 

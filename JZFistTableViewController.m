@@ -14,26 +14,23 @@
 #import "JZGradeViewController.h"
 #import "JZWildDog.h"
 #import "userStroe.h"
-
+#import "JZComment.h"
 @interface JZFistTableViewController ()<JZGradeViewControllerDeleage>
 @property (weak, nonatomic) IBOutlet UILabel *bookTitle;
 @property (weak, nonatomic) IBOutlet UILabel *otherData;
 @property (weak, nonatomic) IBOutlet starView *star;
 @property (weak, nonatomic) IBOutlet UILabel *average;
 @property (weak, nonatomic) IBOutlet UITableViewCell *collectView;
-@property (nonatomic, assign)GradeType type;
+@property (nonatomic,strong)JZComment *comment;
 @property (weak, nonatomic) IBOutlet UIView *gradeView;
 
 @end
 
 @implementation JZFistTableViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self setUpData];
-//    [JZWildDog WildDog]
-
-
 }
 - (void)setUpData{
     if (_bookDataModel) {
@@ -41,28 +38,24 @@
         self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
         self.average.text = [NSString stringWithFormat:@"%@(%@人评价)",[self.bookDataModel bookViewaverage],[self.bookDataModel bookViewnumRaters]];
         self.otherData.text = [self.bookDataModel bookViewAuthor];
-        [[JZWildDog WildDog]getGradeWihtBookId:[self.bookDataModel bookViewId]withSuccess:^(book *data) {
-            GradeType type = data.type;
-            self.type = data.type;
+        [[JZWildDog WildDog]getGradeWihtBookId:[self.bookDataModel bookViewId]withSuccess:^(JZComment *data) {
+            GradeType type = (GradeType)[data.gradeType intValue];
+            self.comment = data;
             switch (type) {
                 case GradeTypeYiDu:
                     self.gradeView.hidden = YES;
                     break;
-                    
                 default:
                     break;
             }
-        } fail:^{
-            
+            NSLog(@"成功");
+
+            self.view.hidden = NO;
+        } fail:^() {
         }];
     }
 
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-}
-
 
 
 - (void)didReceiveMemoryWarning {
@@ -93,6 +86,7 @@
 - (IBAction)pushGradeView:(UIButton *)sender {
     JZGradeViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"JZGradeViewController"];
     vc.gradeType = sender.tag;
+    vc.comment = self.comment;
     vc.bookId = [self.bookDataModel bookViewId];
     NSLog(@"%@",vc.bookId);
     vc.deleage = self;

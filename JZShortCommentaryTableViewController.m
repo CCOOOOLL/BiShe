@@ -43,25 +43,6 @@ static NSString *const more = @"moreCell";
             [self.commentDeleage tableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
         }
     }];
-//    [[JZWildDog WildDog]updeBookShortCommentWithBookId:self.BookID page:1 withSuccess:^(JZShortCommentsStore *store) {
-//        self.commentStore = store;
-//        self.tableView.estimatedRowHeight = 155.0;
-//        self.tableView.rowHeight = UITableViewAutomaticDimension;
-//        [self.tableView reloadData];
-//        if ([self.commentDeleage respondsToSelector:@selector(tableViewWihtHegiht:)]) {
-//            [self.commentDeleage tableViewWihtHegiht:1500];
-//            CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:self.indexpath];
-//            [self.commentDeleage tableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
-//        }
-//    } fail:^(NSError *error) {
-//        
-//    }];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,40 +77,6 @@ static NSString *const more = @"moreCell";
     return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Navigation
 
