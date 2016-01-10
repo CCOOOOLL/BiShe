@@ -10,4 +10,5 @@
 
 @interface JZButton : UIButton
 
+- (void)setColor:(UIColor *)color andTitle:(NSString *)title;
 @end

@@ -615,6 +615,7 @@
                             <constraint firstItem="Qmp-S8-lOt" firstAttribute="top" secondItem="zis-6k-92z" secondAttribute="bottom" id="wRW-vE-41p"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="z4v-JZ-uSB"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="contextView" destination="wgX-51-rsK" id="FWK-Hs-lLc"/>
@@ -624,7 +625,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8hA-Sy-k8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="498" y="-838"/>
+            <point key="canvasLocation" x="486" y="-943"/>
         </scene>
         <!--图书信息界面-->
         <scene sceneID="YEY-8M-EQd">
@@ -777,6 +778,7 @@
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="oxW-Nv-vAj" secondAttribute="trailing" constant="16" id="3Qh-gy-kad"/>
                                                         <constraint firstItem="gsd-AK-rCD" firstAttribute="top" secondItem="6xq-0Y-bzA" secondAttribute="top" id="9qr-T3-uoa"/>
@@ -788,35 +790,35 @@
                                                         <constraint firstItem="oxW-Nv-vAj" firstAttribute="centerY" secondItem="6xq-0Y-bzA" secondAttribute="centerY" id="iJX-4n-QeV"/>
                                                         <constraint firstItem="oxW-Nv-vAj" firstAttribute="leading" secondItem="roZ-tM-PXv" secondAttribute="trailing" constant="8" id="sfs-cr-N2R"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="cIt-Bg-JAF" appends="YES" id="a4E-Mm-URO"/>
+                                                    </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxG-pd-GI2">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xxV-g7-674" customClass="JZButton">
-                                                            <rect key="frame" x="8" y="9" width="80" height="30"/>
-                                                            <state key="normal" title="想读">
-                                                                <color key="titleColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="pushGradeView:" destination="bPj-CY-CBo" eventType="touchUpInside" id="q4O-eK-Nwc"/>
-                                                            </connections>
-                                                        </button>
                                                         <button opaque="NO" tag="2" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZr-nX-eER" customClass="JZButton">
                                                             <rect key="frame" x="232" y="9" width="80" height="30"/>
-                                                            <state key="normal" title="读过">
-                                                                <color key="titleColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
+                                                            <color key="tintColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <state key="normal" title="读过"/>
                                                             <connections>
                                                                 <action selector="pushGradeView:" destination="bPj-CY-CBo" eventType="touchUpInside" id="Rt5-G8-b6d"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" tag="1" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bP-Ms-gVL" customClass="JZButton">
                                                             <rect key="frame" x="120" y="9" width="80" height="30"/>
-                                                            <state key="normal" title="在读">
-                                                                <color key="titleColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
+                                                            <color key="tintColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <state key="normal" title="在读"/>
                                                             <connections>
                                                                 <action selector="pushGradeView:" destination="bPj-CY-CBo" eventType="touchUpInside" id="h59-8h-YdM"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xxV-g7-674" customClass="JZButton">
+                                                            <rect key="frame" x="8" y="9" width="80" height="30"/>
+                                                            <color key="tintColor" red="1" green="0.80000001190000003" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <state key="normal" title="想读"/>
+                                                            <connections>
+                                                                <action selector="pushGradeView:" destination="bPj-CY-CBo" eventType="touchUpInside" id="q4O-eK-Nwc"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -855,17 +857,26 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="Xiangdu" destination="xxV-g7-674" id="bEo-QD-n9Z"/>
+                        <outlet property="Zaidu" destination="8bP-Ms-gVL" id="Q4N-Cv-MFa"/>
                         <outlet property="average" destination="KnT-gQ-e1e" id="wWv-qQ-3IU"/>
+                        <outlet property="bookStar" destination="os8-ep-9zX" id="sdI-ZI-JZO"/>
                         <outlet property="bookTitle" destination="wwu-WL-aNz" id="WEp-up-CbJ"/>
                         <outlet property="collectView" destination="XBe-Q0-Z6U" id="se9-4S-vfn"/>
+                        <outlet property="content" destination="roZ-tM-PXv" id="ilR-MS-dcH"/>
                         <outlet property="gradeView" destination="nxG-pd-GI2" id="ZOI-ov-opA"/>
                         <outlet property="otherData" destination="AVs-l9-Bn3" id="Inb-3L-0LZ"/>
-                        <outlet property="star" destination="os8-ep-9zX" id="x0h-MW-G5z"/>
+                        <outlet property="star" destination="oxW-Nv-vAj" id="mSP-5P-C9Y"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uit-sk-bu3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="cIt-Bg-JAF">
+                    <connections>
+                        <segue destination="uxL-HE-Ibv" kind="push" identifier="fistView2gradeView" id="nZd-eS-FMK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="995" y="-1141"/>
+            <point key="canvasLocation" x="987" y="-1135"/>
         </scene>
         <!--图书详细信息-->
         <scene sceneID="qBh-ly-joU">
@@ -1758,7 +1769,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1514" y="1778"/>
+            <point key="canvasLocation" x="-1612" y="1780"/>
         </scene>
         <!--修改用户信息-->
         <scene sceneID="OWx-d9-7B0">
@@ -2191,7 +2202,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qWM-5a-vx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="142"/>
+            <point key="canvasLocation" x="492" y="307"/>
         </scene>
         <!--更多书评界面-->
         <scene sceneID="kHn-YX-wRu">
@@ -2745,14 +2756,14 @@
                         <viewControllerLayoutGuide type="bottom" id="8Ax-Ac-W6b"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sae-Z3-aC9">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OP4-xB-8bP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="498" y="-349"/>
+            <point key="canvasLocation" x="486" y="-338"/>
         </scene>
     </scenes>
     <resources>

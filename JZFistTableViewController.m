@@ -7,7 +7,7 @@
 //
 
 #import "JZFistTableViewController.h"
-#import "starView.h"
+
 #import "JZBooksStore.h"
 #import "JZWebViewController.h"
 #import "JZBookDataViewController.h"
@@ -15,6 +15,9 @@
 #import "JZWildDog.h"
 #import "userStroe.h"
 #import "JZComment.h"
+#import "starView.h"
+#import "JZButton.h"
+
 @interface JZFistTableViewController ()<JZGradeViewControllerDeleage>
 @property (weak, nonatomic) IBOutlet UILabel *bookTitle;
 @property (weak, nonatomic) IBOutlet UILabel *otherData;
@@ -23,6 +26,11 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *collectView;
 @property (nonatomic,strong)JZComment *comment;
 @property (weak, nonatomic) IBOutlet UIView *gradeView;
+@property (weak, nonatomic) IBOutlet UILabel *content;
+@property (weak, nonatomic) IBOutlet starView *bookStar;
+@property (weak, nonatomic) IBOutlet JZButton *Xiangdu;
+@property (weak, nonatomic) IBOutlet JZButton *Zaidu;
+
 
 @end
 
@@ -35,7 +43,7 @@
 - (void)setUpData{
     if (_bookDataModel) {
         self.bookTitle.text = [self.bookDataModel bookViewtitle];
-        self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
+        self.bookStar.showStar = (NSNumber*)[self.bookDataModel bookViewaverage];
         self.average.text = [NSString stringWithFormat:@"%@(%@人评价)",[self.bookDataModel bookViewaverage],[self.bookDataModel bookViewnumRaters]];
         self.otherData.text = [self.bookDataModel bookViewAuthor];
         [[JZWildDog WildDog]getGradeWihtBookId:[self.bookDataModel bookViewId]withSuccess:^(JZComment *data) {
@@ -44,6 +52,18 @@
             switch (type) {
                 case GradeTypeYiDu:
                     self.gradeView.hidden = YES;
+                    self.star.showStar = self.comment.average;
+                    self.content.text = self.comment.shortContent;
+                    self.star.maxStar = 5;
+                    self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
+                    break;
+                case GradeTypeXiangDu:
+                    [self.Xiangdu setColor:[UIColor colorWithRed:185/255.0 green:183/255.0 blue:186/255.0 alpha:1]andTitle:@"已想读"];
+                    [self.Zaidu setColor:[UIColor colorWithRed:255/255.0 green:204/255.0 blue:102/255.0 alpha:1] andTitle:@"在读"];
+                    break;
+                case GradeTypeZaiDu:
+                    [self.Zaidu setColor:[UIColor colorWithRed:185/255.0 green:183/255.0 blue:186/255.0 alpha:1] andTitle:@"已在读"];
+                    [self.Xiangdu setColor:[UIColor colorWithRed:255/255.0 green:204/255.0 blue:102/255.0 alpha:1] andTitle:@"想读"];
                     break;
                 default:
                     break;
@@ -81,6 +101,13 @@
         JZBookDataViewController *vc = segue.destinationViewController;
         vc.bookData = self.bookDataModel;
 
+    }else if ([segue.identifier isEqualToString:@"fistView2gradeView"]){
+        JZGradeViewController *vc = segue.destinationViewController;
+        vc.gradeType = GradeTypeYiDu;
+        vc.comment = self.comment;
+        vc.bookId = [self.bookDataModel bookViewId];
+        NSLog(@"%@",vc.bookId);
+        vc.deleage = self;
     }
 }
 - (IBAction)pushGradeView:(UIButton *)sender {

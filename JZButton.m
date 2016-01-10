@@ -24,8 +24,13 @@ IB_DESIGNABLE
     [self.layer setMasksToBounds:YES];
     self.layer.borderWidth = 1;
     self.layer.borderColor = [UIColor colorWithRed:1 green:204/255.0 blue:102/255.0 alpha:1].CGColor;
+    [self setTintColor:[UIColor colorWithRed:1 green:204/255.0 blue:102/255.0 alpha:1]];
     [self.layer setCornerRadius:5.0];
     
 }
-
+- (void)setColor:(UIColor *)color andTitle:(NSString *)title{
+    self.layer.borderColor = color.CGColor;
+    [self setTintColor:color];
+    [self setTitle:title forState:UIControlStateNormal];
+}
 @end

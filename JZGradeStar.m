@@ -26,6 +26,7 @@ IB_DESIGNABLE
     // Drawing code
 }
 */
+
 - (id)initWithFrame:(CGRect)frame EmptyImage:(NSString *)Empty StarImage:(NSString *)Star{
     
     
