@@ -13,13 +13,14 @@
 #import "JZLoadingView.h"
 #import "MJRefresh.h"
 #import "JZBasicBookViewController.h"
+#import "JZPromptView.h"
 
 @interface JZSearchViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchView;
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
 @property (weak, nonatomic) IBOutlet UITableView *searchTableView;
 @property (weak, nonatomic) IBOutlet UIView *nullView;
-
+@property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @property (nonatomic,strong)JZLoadingView *loadingView;/**< 加载动画 */
 @property(nonatomic,strong) JZBooksStore * booksStore;/**<数据源 */
 @property(nonatomic, assign)NSNumber *start;
@@ -35,7 +36,12 @@ static NSString *const Identifier = @"cell";
     }
     return _start;
 }
-
+- (JZPromptView *)promptView{
+    if (!_promptView) {
+        _promptView = [JZPromptView prompt];
+    }
+    return _promptView;
+}
 - (JZBooksStore *)booksStore{
     if (!_booksStore) {
         _booksStore = [[JZBooksStore alloc]init];
@@ -151,6 +157,10 @@ static NSString *const Identifier = @"cell";
         
         self.searchTableView.hidden = YES;
        
+    }fail:^(NSError *error) {
+        [self.promptView setError:error];
+        [self.promptView starShow];
+        [self.loadingView stopAnimating];
     }];
 }
 
@@ -168,12 +178,16 @@ static NSString *const Identifier = @"cell";
         [self.searchTableView reloadData];
         self.searchTableView.hidden = NO;
         [self.searchTableView.mj_footer endRefreshing];
+    } fail:^(NSError *error) {
+        [self.promptView setError:error];
+        [self.promptView starShow];
+        [self.loadingView stopAnimating];
     }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.searchView resignFirstResponder];
-    return YES;
+    return NO;
 }
 
 - (IBAction)dissWIthController:(id)sender {
@@ -189,5 +203,6 @@ static NSString *const Identifier = @"cell";
         vc.idUrl = vc.bookData.ID;
     }
 }
+
 
 @end

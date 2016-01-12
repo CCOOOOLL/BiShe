@@ -62,6 +62,8 @@ static NSString *const identifier = @"shortCommentCell";
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
 
+    }fail:^(NSError *error) {
+        
     }];
 //    [[JZWildDog WildDog]updeBookShortCommentWithBookId:self.BookID page:self.start withSuccess:^(JZShortCommentsStore *store) {
 //        if (!self.commentStore.shortComments) {

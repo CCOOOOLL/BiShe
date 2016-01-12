@@ -33,11 +33,12 @@ static NSString *const more = @"moreCell";
     self.tableView.mj_header = refresh;
     refresh.stateLabel.hidden = YES;
     refresh.lastUpdatedTimeLabel.hidden = YES;
+     [self.tableView.mj_header beginRefreshing];
 
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
+   
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -56,6 +57,8 @@ static NSString *const more = @"moreCell";
             [self.commentDeleage CommenttableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
             [self.tableView.mj_header endRefreshing];
         }
+    } fail:^(NSError *error) {
+        
     }];
 }
 #pragma mark - Table view data source

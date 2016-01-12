@@ -25,23 +25,23 @@ typedef void(^block)();
  *  @param end     结束
  *  @param success 成功代码块
  */
-- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success;
+- (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
 
-- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(Jz_success) success;
-
-
-- (void)dataWithBookid:(NSString* )number  success:(Jz_success) success;
-
-- (void)datawithISBN:(NSString *)number success:(Jz_success)success;
-
-- (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success;
-
-- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success;
+- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
 
 
-- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(Jz_success)success;
+- (void)dataWithBookid:(NSString* )number  success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
 
-- (void)tagsDataWihtBookId:(NSString *)bookId success:(Jz_success)success;
+- (void)datawithISBN:(NSString *)number success:(Jz_success)success fail:(void(^)(NSError *error)) fail;
+
+- (void)datawithshortComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success fail:(void(^)(NSError *error)) fail;
+
+- (void)datawithComments:(NSString *)number page:(NSInteger)page success:(Jz_success)success fail:(void(^)(NSError *error)) fail;
+
+
+- (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(Jz_success)success fail:(void(^)(NSError *error)) fail;
+
+- (void)tagsDataWihtBookId:(NSString *)bookId success:(Jz_success)success fail:(void(^)(NSError *error)) fail;
 
 - (void)endRequest;
 

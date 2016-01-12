@@ -14,11 +14,13 @@
 #import "JZLoadingView.h"
 #import "JZBasicBookViewController.h"
 #import "JZWildDog.h"
+#import "JZPromptView.h"
 
 @interface JZBookCollectionViewController ()
 
 @property(nonatomic, strong)JZBooksStore *booksStore;/**< 图书模型操作数组 */
 @property(nonatomic,strong)JZLoadingView *loadingView;/**<<#text#> */
+@property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @end
 
 @implementation JZBookCollectionViewController
@@ -27,6 +29,13 @@ static NSString * const reuseIdentifier = @"cell";
 
 #pragma mark -属性设置
 
+
+- (JZPromptView *)promptView{
+    if (!_promptView) {
+        _promptView = [JZPromptView prompt];
+    }
+    return _promptView;
+}
 - (JZBooksStore *)booksStore{
     if (!_booksStore) {
         _booksStore = [[JZBooksStore alloc]init];
@@ -82,6 +91,10 @@ static NSString * const reuseIdentifier = @"cell";
         [self.loadingView stopAnimating];
         [self.collectionView reloadData];
         [self.collectionView.mj_footer endRefreshing];
+    }fail:^(NSError *error) {
+        [self.loadingView stopAnimating];
+        [self.promptView setError:error];
+        [self.promptView starShow];
     }];
 }
 /**

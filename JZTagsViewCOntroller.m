@@ -89,7 +89,6 @@
     CGRect rect = self.buttons.count<2?CGRectMake(0, 8, 0, 30):self.buttons[self.buttons.count-2].frame;
     CGFloat width         = [name boundingRectWithSize:CGSizeMake(1000, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width+25;
     
-    
     if (CGRectGetMaxX(rect)+width+8>self.view.bounds.size.width) {
         rect.origin.x = 8;
         rect.origin.y += 34;

@@ -12,8 +12,9 @@
 #import "JZNewWorkTool.h"
 #import "JZBasicBookViewController.h"
 #import "Wilddog.h"
+//#import "UIScrollView+JZ.h"
 IB_DESIGNABLE
-@interface JZHomeViewController ()<UIScrollViewDelegate,QRScanViewDelegate>
+@interface JZHomeViewController ()<UIScrollViewDelegate,QRScanViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *barScrollView;/**< 导航视图 */
 @property (weak, nonatomic) IBOutlet UIScrollView *contentView;/**< 内容视图 */
 @property (nonatomic,strong)NSArray<NSArray*> *barItems;/**< 导航名称数组 */
@@ -48,13 +49,27 @@ IB_DESIGNABLE
     [self setUpWithSlip];
     [self setUpWithContetView];
     [self barClickDidWithButton:self.buttons[0]];
-    
 
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
 
+}
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self.drawer cententViewAddGestureRecognizer];
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:74/255.0 green:184/255.0 blue:58/255.0 alpha:1]];
+    self.navigationController.navigationBar.tintColor   = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [super viewWillAppear:animated];
+}
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [self.drawer cententViewRemoveGestureRecognizer];
+    [super viewWillDisappear:animated];
+    
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle{
@@ -79,7 +94,7 @@ IB_DESIGNABLE
     self.navBarView.frame = self.navigationController.navigationBar.frame;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 
-    
+
 }
 
 /**
@@ -200,16 +215,22 @@ IB_DESIGNABLE
         UITableView *table =self.views[[NSString stringWithFormat:@"%d",i]];
         [self.contentView addSubview:table];
     }
+    self.contentView.delaysContentTouches = NO;
 }
 
 
 #pragma mark - scrollViewDelegate
 
+
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     NSInteger index = scrollView.contentOffset.x / scrollView.bounds.size.width;
     [self barClickDidWithButton:self.buttons[(int)index]];
-}
 
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+}
 #pragma mark -QRScanViewDelegate
 - (void)GKHScanQCodeViewController:(GKHScanQCodeViewController *)lhScanQCodeViewController readerScanResult:(NSString *)result{
     JZNewWorkTool *tool =[JZNewWorkTool workTool];
@@ -218,18 +239,36 @@ IB_DESIGNABLE
         vc.bookData = obj;
         vc.idUrl = vc.bookData.ID;
         [self.navigationController pushViewController:vc animated:YES];
+    }fail:^(NSError *error) {
+        
     }];
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (gestureRecognizer.state != 0)
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
 }
-*/
+
+#pragma mark - JZDrawerControllerProtocol
+- (IBAction)openDrawer:(id)sender {
+    [self.drawer open];
+}
+
+- (void)drawerControllerWillOpen:(JZRootViewController *)drawerController
+{
+    self.navigationController.view.userInteractionEnabled = NO;
+
+}
+
+- (void)drawerControllerDidClose:(JZRootViewController *)drawerController
+{
+    self.navigationController.view.userInteractionEnabled = YES;
+}
 
 @end

@@ -15,16 +15,18 @@
 #import "JZWildDog.h"
 #import "userStroe.h"
 #import "JZShortCommentsStore.h"
-
+#import "JZLoadingView.h"
 static NSString *const identifier = @"tabCell";
 static NSString *const addIdentifier = @"addCell";
 
-@interface JZGradeViewController ()<JZTagsViewCOntrollerDeleage>
+@interface JZGradeViewController ()<JZTagsViewCOntrollerDeleage,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet JZGradeStar *gradeStar;
 @property (weak, nonatomic) IBOutlet UITextView *contextView;
 @property(nonatomic,strong)NSMutableArray<tag *> *tags;/**<标签数组 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagsViewHeight;
 @property(nonatomic,strong)NSMutableSet *selectTags;/**< */
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *gradeStarHeight;
+@property (nonatomic, strong)JZLoadingView *loadingView;
 @end
 
 @implementation JZGradeViewController
@@ -41,10 +43,15 @@ static NSString *const addIdentifier = @"addCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(evaluateBook)];
+    self.contextView.delegate = self;
     if (self.comment) {
         self.gradeStar.grade = [self.comment.average integerValue];
         self.contextView.text = self.comment.shortContent;
     }
+    if (self.gradeType == GradeTypeXiangDu) {
+        self.gradeStarHeight.constant = 0;
+    }
+    self.loadingView = [JZLoadingView loadingWithParentView:self.view];
 
 
 }
@@ -83,6 +90,8 @@ static NSString *const addIdentifier = @"addCell";
 
             }
             
+        }fail:^(NSError *error) {
+            
         }];
     }
 }
@@ -119,9 +128,11 @@ static NSString *const addIdentifier = @"addCell";
     [self.selectTags removeObject:tag];
 }
 - (void)evaluateBook{
+    [self.loadingView startAnimation];
     NSArray *tags = [self.selectTags allObjects];
     [self.deleage evaluateBookData];
     [[JZWildDog WildDog]addBookWithType:self.gradeType bookId:self.bookId tags:tags average:self.gradeStar.grade+1 content:self.contextView.text withSuccess:^{
+        [self.loadingView stopAnimating];
         [self.navigationController popViewControllerAnimated:YES];
     } fail:nil];
 }

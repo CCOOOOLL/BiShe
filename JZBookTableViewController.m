@@ -16,13 +16,14 @@
 #import "JZBookCollectionViewController.h"
 #import "JZLoadingView.h"
 #import "JZBasicBookViewController.h"
+#import "JZPromptView.h"
 #define file [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.data",self.name]]
 
 @interface JZBookTableViewController ()
 
 @property (nonatomic, strong)NSMutableArray<JZBooksStore *> *section;
 @property (nonatomic, strong)JZLoadingView *loadingView;
-
+@property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @end
 
 @implementation JZBookTableViewController
@@ -34,7 +35,12 @@
     }
     return _section;
 }
-
+- (JZPromptView *)promptView{
+    if (!_promptView) {
+        _promptView = [JZPromptView prompt];
+    }
+    return _promptView;
+}
 #pragma mark -生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,7 +49,7 @@
     }];
     refresh.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = refresh;
-                                      
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -57,15 +63,14 @@
         [self.tableView reloadData];
     }
 }
+
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.loadingView removeFromSuperview];
 
 }
--  (void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    [self.loadingView removeFromSuperview];
-}
+
 
 #pragma mark -其他
 /**
@@ -87,6 +92,10 @@
             [NSKeyedArchiver archiveRootObject:self.section toFile:file];
             [self.loadingView stopAnimating];
         }
+    }fail:^(NSError *error) {
+        [self.loadingView stopAnimating];
+        [self.promptView setError:error];
+        [self.promptView starShow];
     }];
 }
 

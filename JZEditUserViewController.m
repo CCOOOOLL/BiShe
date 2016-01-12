@@ -74,8 +74,8 @@
     [self.userImage setBackgroundImage:image forState:UIControlStateNormal];
     [[JZWildDog WildDog]editUserIamge:image withSuccess:^{
         NSLog(@"成功");
-        
+        [self dismissViewControllerAnimated:YES completion:nil];
     } fail:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+   
 }
 @end

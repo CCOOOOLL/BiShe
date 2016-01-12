@@ -42,6 +42,8 @@ static NSString *const more = @"moreCell";
             CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:self.indexpath];
             [self.commentDeleage tableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
         }
+    } fail:^(NSError *error) {
+        
     }];
 }
 

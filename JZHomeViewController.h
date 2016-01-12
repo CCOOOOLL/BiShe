@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JZRootViewController.h"
 
+@interface JZHomeViewController : UIViewController<JZDrawerControllerProtocol>
 
-@interface JZHomeViewController : UIViewController
+@property(nonatomic, weak) JZRootViewController *drawer;
 
+- (void)drawerControllerWillOpen:(JZRootViewController *)drawerController;
+
+- (void)drawerControllerDidClose:(JZRootViewController *)drawerController;
 @end

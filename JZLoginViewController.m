@@ -33,8 +33,11 @@
 //        NSLog(@"%@",error.localizedDescription);
 //    }];
     [[JZWildDog WildDog]loginUser:self.userTextField.text password:self.passWordTextField.text WithBlock:^(NSError *error, WAuthData *authData) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"JZUserDataViewController"];
+        [self.drawer replaceCenterViewControllerWithViewController:vc];
     }];
+    
+
 }
 /*
 #pragma mark - Navigation
@@ -45,5 +48,11 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)drawerControllerWillOpen:(JZRootViewController *)drawerController{
+    self.view.userInteractionEnabled = NO;
+}
 
+- (void)drawerControllerDidClose:(JZRootViewController *)drawerController{
+    self.view.userInteractionEnabled = YES;
+}
 @end

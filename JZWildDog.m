@@ -103,12 +103,12 @@
  */
 - (void)editUserIamge:(UIImage *)image withSuccess:(void (^)()) suceess fail:(void(^)(NSError *error)) fail{
     userStroe *user = [userStroe loadUser];
-    user.imageString = [self UIImageToBase64Str:image];
-    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/imageString",user.uid]]setValue:user.imageString withCompletionBlock:^(NSError *error, Wilddog *ref) {
+    NSLog(@"%@",user.uid);
+    [[self.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/imageString",user.uid]]setValue:[user UIImageToBase64Str:image] withCompletionBlock:^(NSError *error, Wilddog *ref) {
         if (error) {
-
         }else{
             suceess();
+            [user saveUser];
         }
     }];
 }
@@ -208,19 +208,6 @@
 
 
 
--(NSString *)UIImageToBase64Str:(UIImage *) image
-{
-    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
-    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-    return encodedImageStr;
-}
-
--(UIImage *)Base64StrToUIImage:(NSString *)_encodedImageStr
-{
-    NSData *_decodedImageData   = [[NSData alloc]initWithBase64EncodedString:_encodedImageStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    UIImage *_decodedImage      = [UIImage imageWithData:_decodedImageData];
-    return _decodedImage;
-}
 
 
 @end

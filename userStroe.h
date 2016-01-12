@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "JZBooksStore.h"
-
+@class UIImage;
 @interface book : NSObject
 @property(nonatomic,assign)NSInteger average;/**<评分 */
 //@property(nonatomic,copy)NSString *type;/**<类型 */
@@ -25,7 +24,9 @@
 @property (nonatomic,strong)NSMutableDictionary *books;
 
 
-
+-(NSString *)UIImageToBase64Str:(UIImage *) image;
+-(UIImage *)Base64StrToUIImage;
 - (void)saveUser;
 + (instancetype)loadUser;
++ (void)removeUser;
 @end

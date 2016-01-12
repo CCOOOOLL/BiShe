@@ -90,9 +90,7 @@ static NSString *const fileName = @"douban.sqlite";
     resquest.predicate = predicate;
     NSError *error = nil;
     NSArray *array = [self.context executeFetchRequest:resquest error:&error];
-    NSLog(@"%ld",(unsigned long)array.count);
     JZComment *commment = array.firstObject;
-    NSLog(@"%@",commment.bookid);
     return array;
 }
 

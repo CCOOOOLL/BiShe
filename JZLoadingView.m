@@ -12,6 +12,7 @@
 
 @property(nonatomic, strong)CAShapeLayer *loadView;
 @property (nonatomic, readwrite) BOOL isAnimating;
+@property (nonatomic,weak)UIView *parentView;
 @end
 
 @implementation JZLoadingView
@@ -25,18 +26,19 @@
 */
 
 + (instancetype)loadingWithParentView:(UIView *)parentView andSize:(CGSize )viewSize{
-
     CGRect rect         = parentView.bounds;
     CGPoint point       = CGPointMake(rect.size.width/2.0,rect.size.height/2.0-viewSize.height/2.0);
     rect.size           = viewSize;
     JZLoadingView *view = [[JZLoadingView alloc]initWithFrame:rect];
     view.center         = point;
     [parentView addSubview:view];
+    view.parentView = parentView;
     return view;
 }
 
 + (instancetype)loadingWithParentView:(UIView *)parentView{
     JZLoadingView *view = [JZLoadingView loadingWithParentView:parentView andSize:CGSizeMake(60, 60)];
+
     return view;
 }
 
@@ -45,6 +47,7 @@
     if (!_isAnimating) {
         _isAnimating = NO;
     }
+
     return _isAnimating;
 }
 
@@ -66,6 +69,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self.layer addSublayer:self.loadView];
+        
     }
     return self;
 }
@@ -87,6 +91,7 @@
     if (self.isAnimating){
         return;
     }
+    self.parentView.userInteractionEnabled = NO;
     CAMediaTimingFunction *timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     CABasicAnimation *animation = [CABasicAnimation animation];
     animation.keyPath = @"transform.rotation";
@@ -142,6 +147,7 @@
     [self.loadView removeAnimationForKey:@"stroke"];
     [self.loadView removeAnimationForKey:@"rotation"];
     self.isAnimating = false;
+        self.parentView.userInteractionEnabled = YES;
     
 }
 @end

@@ -13,6 +13,7 @@
 #import <MJRefresh.h>
 #import "JZCommentsTableViewCell.h"
 #import "JZParticularComentViewController.h"
+#import "JZPromptView.h"
 
 @interface JZMoreCommentViewController ()
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
@@ -53,6 +54,7 @@ static NSString *const identifier = @"CommentCell";
         [self.loadingView stopAnimating];
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
+    }fail:^(NSError *error) {
     }];
     
 }

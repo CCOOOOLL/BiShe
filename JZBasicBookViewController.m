@@ -15,6 +15,7 @@
 #import "JZBookCommentViewController.h"
 #import "JZWildDog.h"
 #import "JZShortCommentsStore.h"
+#import "JZPromptView.h"
 @interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage,JZBookCommentViewControllerhDeleage>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
@@ -27,12 +28,20 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentVIewHeght;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *BookReviewViewHeight;
 @property (nonatomic, strong)JZLoadingView *loadingView;
+@property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @end
 
 @implementation JZBasicBookViewController
 
 
 #pragma mark懒加载
+
+- (JZPromptView *)promptView{
+    if (!_promptView) {
+        _promptView = [JZPromptView prompt];
+    }
+    return _promptView;
+}
 
 - (JZLoadingView *)loadingView{
     if (!_loadingView) {
@@ -124,6 +133,10 @@
                 [self setUpWithData];
                 vc.bookDataModel = obj;
                 
+            }fail:^(NSError *error) {
+                [self.loadingView stopAnimating];
+                [self.promptView setError:error];
+                [self.promptView starShow];
             }];
         }else{
             [self setUpWithData];

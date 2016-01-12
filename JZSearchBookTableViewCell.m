@@ -11,12 +11,14 @@
 #import "starView.h"
 #import "YYWebImage.h"
 
+
 @interface JZSearchBookTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图片 */
 @property (weak, nonatomic) IBOutlet UILabel *bookName;/**< 书名 */
 @property (weak, nonatomic) IBOutlet starView *star;/**< 星星 */
 @property (weak, nonatomic) IBOutlet UILabel *average;
 @property (weak, nonatomic) IBOutlet UILabel *otherData;
+
 
 @end
 
