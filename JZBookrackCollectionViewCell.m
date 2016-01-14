@@ -14,5 +14,7 @@
 
 @end
 @implementation JZBookrackCollectionViewCell
-
+- (void)setData:(JZBook *)data{
+    [self.contentView setData:data];
+}
 @end

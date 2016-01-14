@@ -51,7 +51,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXG-UO-Bcb">
-                    <rect key="frame" x="0.0" y="0.0" width="118" height="177"/>
+                    <rect key="frame" x="0.0" y="0.0" width="118" height="225"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -59,6 +59,7 @@
                 <constraint firstItem="Sh5-xc-T5S" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="6jQ-7l-ugi"/>
                 <constraint firstItem="AXG-UO-Bcb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BAh-7V-8Id"/>
                 <constraint firstItem="Sh5-xc-T5S" firstAttribute="top" secondItem="Abe-Gl-ABr" secondAttribute="bottom" id="Ecs-AG-mju"/>
+                <constraint firstAttribute="bottom" secondItem="AXG-UO-Bcb" secondAttribute="bottom" id="OUt-06-jtd"/>
                 <constraint firstAttribute="trailing" secondItem="lp7-W6-SKa" secondAttribute="trailing" constant="8" id="Q2p-vV-Lyr"/>
                 <constraint firstItem="wdO-FC-XSj" firstAttribute="top" secondItem="Sh5-xc-T5S" secondAttribute="bottom" id="TYa-Ik-EMF"/>
                 <constraint firstAttribute="trailing" secondItem="Sh5-xc-T5S" secondAttribute="trailing" id="cOY-f0-L6N"/>
@@ -77,6 +78,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="uk0-zc-tpY"/>
                     <exclude reference="ugf-hZ-ygM"/>
                     <exclude reference="Q2p-vV-Lyr"/>
                 </mask>

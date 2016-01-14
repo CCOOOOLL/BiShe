@@ -4,6 +4,7 @@
         <attribute name="author" optional="YES" attributeType="Transformable" valueTransformerName="NSArrayTransformable" syncable="YES"/>
         <attribute name="binding" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bookID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gradeType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isbn10" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isbn13" optional="YES" attributeType="String" syncable="YES"/>
@@ -44,13 +45,14 @@
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="JZBook" inverseName="tags" inverseEntity="JZBook" syncable="YES"/>
     </entity>
     <entity name="JZUser" representedClassName="JZUser" syncable="YES">
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JZBook" syncable="YES"/>
         <relationship name="shortComments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JZComment" inverseName="user" inverseEntity="JZComment" syncable="YES"/>
     </entity>
     <elements>
-        <element name="JZBook" positionX="-13158" positionY="-527265" width="128" height="311"/>
-        <element name="JZComment" positionX="-13160" positionY="-526923" width="128" height="163"/>
-        <element name="JZRating" positionX="-12890" positionY="-527256" width="128" height="103"/>
-        <element name="JZTag" positionX="-12881" positionY="-527049" width="128" height="103"/>
-        <element name="JZUser" positionX="-13365" positionY="-526909" width="128" height="58"/>
+        <element name="JZBook" positionX="-13194" positionY="-528174" width="128" height="326"/>
+        <element name="JZComment" positionX="-13187" positionY="-527716" width="128" height="163"/>
+        <element name="JZRating" positionX="-12836" positionY="-527733" width="128" height="103"/>
+        <element name="JZTag" positionX="-12870" positionY="-528066" width="128" height="103"/>
+        <element name="JZUser" positionX="-13439" positionY="-527737" width="128" height="73"/>
     </elements>
 </model>

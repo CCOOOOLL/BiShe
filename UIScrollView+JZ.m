@@ -14,7 +14,7 @@
     if([self isMemberOfClass:[UIScrollView class]]){
         CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:self];
         CGPoint location = [gestureRecognizer locationInView:self];
-        if (velocity.x > 0.0f&&(int)location.x%(int)[UIScreen mainScreen].bounds.size.width<60) {
+        if (velocity.x > 0.0f&&(int)location.x%(int)[UIScreen mainScreen].bounds.size.width<100) {
             return NO;
         }
     }

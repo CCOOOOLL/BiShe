@@ -34,6 +34,8 @@
     [[JZWildDog WildDog]createUser:self.email.text password:self.password.text name:self.name.text withSuccess:^{
         [[JZWildDog WildDog] loginUser:weakself.email.text password:weakself.password.text WithBlock:^(NSError *error, WAuthData *authData) {
             [weakself.navigationController popToRootViewControllerAnimated:YES];
+        } fail:^(NSError *error) {
+            
         }];
         
     } fail:^(NSError *error) {

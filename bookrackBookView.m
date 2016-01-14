@@ -7,6 +7,7 @@
 //
 
 #import "bookrackBookView.h"
+#import "UIImageView+YYWebImage.h"
 
 IB_DESIGNABLE
 @interface bookrackBookView ()
@@ -30,7 +31,7 @@ IB_DESIGNABLE
 - (instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.contentView = [[NSBundle mainBundle]loadNibNamed:@"JZBookView" owner:self options:nil].lastObject;
+        self.contentView = [[NSBundle mainBundle]loadNibNamed:@"bookrackBookView" owner:self options:nil].lastObject;
         [self addSubview:self.contentView];
         self.contentView.frame = self.bounds;
         
@@ -44,5 +45,9 @@ IB_DESIGNABLE
     // Drawing code
 }
 */
-
+- (void)setData:(JZBook *)data{
+    self.booTitle.text = data.title;
+    NSURL *url = [NSURL URLWithString:data.image];
+    [self.bookImage setYy_imageURL:url];
+}
 @end

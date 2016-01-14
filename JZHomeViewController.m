@@ -13,6 +13,7 @@
 #import "JZBasicBookViewController.h"
 #import "Wilddog.h"
 //#import "UIScrollView+JZ.h"
+#import "JZWildDog.h"
 IB_DESIGNABLE
 @interface JZHomeViewController ()<UIScrollViewDelegate,QRScanViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *barScrollView;/**< 导航视图 */
@@ -49,7 +50,7 @@ IB_DESIGNABLE
     [self setUpWithSlip];
     [self setUpWithContetView];
     [self barClickDidWithButton:self.buttons[0]];
-
+    [[JZWildDog WildDog]observeUserBook];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
 

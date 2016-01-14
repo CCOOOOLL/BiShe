@@ -10,6 +10,7 @@
 #import "GKHScanQCodeViewController.h"
 #import "JZSearchViewController.h"
 #import "CoreDataHelper.h"
+#import "JZWildDog.h"
 @interface AppDelegate ()
 @property(nonatomic,strong)CoreDataHelper *helper;
 @end
@@ -41,6 +42,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
     return YES;
 }
 

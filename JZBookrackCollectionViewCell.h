@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JZBook.h"
 
 @interface JZBookrackCollectionViewCell : UICollectionViewCell
 
+- (void)setData:(JZBook *)data;
 @end

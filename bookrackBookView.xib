@@ -19,13 +19,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tqX-GL-5zc">
-                    <rect key="frame" x="0.0" y="0.0" width="118" height="177"/>
+                    <rect key="frame" x="0.0" y="0.0" width="118" height="174"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="tqX-GL-5zc" secondAttribute="height" multiplier="2:3" id="P0b-ce-ZsP"/>
+                        <constraint firstAttribute="width" secondItem="tqX-GL-5zc" secondAttribute="height" multiplier="2:3" constant="2" id="P0b-ce-ZsP"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYk-nc-r2C">
-                    <rect key="frame" x="0.0" y="177" width="118" height="24"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYk-nc-r2C">
+                    <rect key="frame" x="0.0" y="174" width="118" height="31"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="YAf-Iy-vgd"/>
                     </constraints>
@@ -33,22 +33,15 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHe-65-gNX">
-                    <rect key="frame" x="0.0" y="0.0" width="118" height="177"/>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="tqX-GL-5zc" firstAttribute="top" secondItem="PhA-mn-SKh" secondAttribute="top" id="2l9-93-BVN"/>
                 <constraint firstItem="FYk-nc-r2C" firstAttribute="top" secondItem="tqX-GL-5zc" secondAttribute="bottom" id="4cY-vY-DnA"/>
-                <constraint firstAttribute="trailing" secondItem="hHe-65-gNX" secondAttribute="trailing" id="BxW-SN-5sp"/>
                 <constraint firstItem="FYk-nc-r2C" firstAttribute="leading" secondItem="PhA-mn-SKh" secondAttribute="leading" id="NZo-lF-b2n"/>
-                <constraint firstItem="hHe-65-gNX" firstAttribute="leading" secondItem="PhA-mn-SKh" secondAttribute="leading" id="T1R-9T-b2L"/>
-                <constraint firstItem="hHe-65-gNX" firstAttribute="top" secondItem="PhA-mn-SKh" secondAttribute="top" id="VdM-4n-Qlh"/>
-                <constraint firstAttribute="bottom" secondItem="FYk-nc-r2C" secondAttribute="bottom" constant="4" id="cBk-At-bFg"/>
+                <constraint firstAttribute="bottom" secondItem="FYk-nc-r2C" secondAttribute="bottom" id="cBk-At-bFg"/>
                 <constraint firstItem="tqX-GL-5zc" firstAttribute="leading" secondItem="PhA-mn-SKh" secondAttribute="leading" id="haE-x9-fLo"/>
                 <constraint firstAttribute="trailing" secondItem="tqX-GL-5zc" secondAttribute="trailing" id="jid-cF-fop"/>
-                <constraint firstItem="FYk-nc-r2C" firstAttribute="top" secondItem="hHe-65-gNX" secondAttribute="bottom" id="kOh-sD-XrP"/>
                 <constraint firstAttribute="trailing" secondItem="FYk-nc-r2C" secondAttribute="trailing" id="xyq-ld-XA9"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

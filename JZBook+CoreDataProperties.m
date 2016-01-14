@@ -2,7 +2,7 @@
 //  JZBook+CoreDataProperties.m
 //  BiShe
 //
-//  Created by Jz on 16/1/9.
+//  Created by Jz on 16/1/13.
 //  Copyright © 2016年 Jz. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,6 +13,7 @@
 
 @implementation JZBook (CoreDataProperties)
 
+@dynamic author;
 @dynamic binding;
 @dynamic bookID;
 @dynamic image;
@@ -26,7 +27,7 @@
 @dynamic summary;
 @dynamic title;
 @dynamic translator;
-@dynamic author;
+@dynamic gradeType;
 @dynamic rating;
 @dynamic tags;
 

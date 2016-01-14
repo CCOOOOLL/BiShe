@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @class JZComment;
-
+@class JZBook;
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JZUser : NSManagedObject

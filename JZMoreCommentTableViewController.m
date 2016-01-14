@@ -65,18 +65,6 @@ static NSString *const identifier = @"shortCommentCell";
     }fail:^(NSError *error) {
         
     }];
-//    [[JZWildDog WildDog]updeBookShortCommentWithBookId:self.BookID page:self.start withSuccess:^(JZShortCommentsStore *store) {
-//        if (!self.commentStore.shortComments) {
-//            self.commentStore.shortComments = [NSMutableArray array];
-//        }
-//        for (JZShortComment *comment in store.shortComments) {
-//            [self.commentStore.shortComments addObject:comment];
-//        }
-//        self.start += 1;
-//        [self.loadingView stopAnimating];
-//        [self.tableView reloadData];
-//        [self.tableView.mj_footer endRefreshing];
-//    } fail:nil];
 }
 
 -(void)setUpLoadView{

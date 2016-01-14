@@ -65,7 +65,12 @@ static NSString *const fileName = @"douban.sqlite";
 
 #pragma mark -数据操作
 
-
+- (NSArray<JZBook*> *)getuserBooks{
+    NSFetchRequest *resquest = [[NSFetchRequest alloc]initWithEntityName:@"JZBook"];
+    NSError *error = nil;
+    NSArray *array = [self.context executeFetchRequest:resquest error:&error];
+    return array;
+}
 
 - (JZBook *)searchDataWihtBookId:(NSString *)bookId{
     NSFetchRequest *resquest = [[NSFetchRequest alloc]initWithEntityName:@"JZBook"];
@@ -90,7 +95,6 @@ static NSString *const fileName = @"douban.sqlite";
     resquest.predicate = predicate;
     NSError *error = nil;
     NSArray *array = [self.context executeFetchRequest:resquest error:&error];
-    JZComment *commment = array.firstObject;
     return array;
 }
 
@@ -112,6 +116,7 @@ static NSString *const fileName = @"douban.sqlite";
         obj = comment;
     }
     return YES;
+    
 }
 - (void)saveContext{
     NSError *error = nil;

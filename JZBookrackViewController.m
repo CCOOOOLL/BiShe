@@ -7,92 +7,113 @@
 //
 
 #import "JZBookrackViewController.h"
+#import "Wilddog.h"
+#import "userStroe.h"
+#import "JZUserBook.h"
+#import "MJExtension.h"
+#import "JZBook.h"
+#import "JZWildDog.h"
+#import "JZBookrackTableViewCell.h"
+#import "bookListViewDataDeleage.h"
+#import "JZBasicBookViewController.h"
+
+
 
 @interface JZBookrackViewController ()
 
+@property(nonatomic,strong)NSMutableArray<NSMutableArray<JZBook *> *> *books;/**<<#text#> */
 @end
 
 @implementation JZBookrackViewController
 
+
+- (NSMutableArray *)books{
+    if (!_books) {
+        _books = [NSMutableArray array];
+    }
+    return _books;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+//    self.navigationController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStyleDone target:self.drawer action:@selector(open)];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    [[JZWildDog WildDog]observeUserBook];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.rowHeight = 220;
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[JZWildDog WildDog]getUserBookWithSuccess:^(NSMutableArray *array) {
+        self.books = array;
+    } andFail:^(NSError *error) {
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)drawerControllerWillOpen:(JZRootViewController *)drawerController
+{
+    self.navigationController.view.userInteractionEnabled = NO;
+    
+}
+
+- (void)drawerControllerDidClose:(JZRootViewController *)drawerController
+{
+    self.navigationController.view.userInteractionEnabled = YES;
+}
+
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    NSLog(@"%ld",self.books.count);
+//    return self.books.count;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.books.count;
 }
+static NSString *const identifer = @"bookClass";
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    JZBookrackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer forIndexPath:indexPath];
+    [cell setBooks:self.books[indexPath.row]];
+    NSString *str;
+    switch ((GradeType)[self.books[indexPath.row].firstObject.gradeType intValue]) {
+        case GradeTypeXiangDu:
+            str = @"想读的书";
+            break;
+        case GradeTypeYiDu:
+            str = @"已读的书";
+            break;
+        case GradeTypeZaiDu:
+            str = @"在读的书";
+            break;
+        default:
+            break;
+    }
+    __block typeof(self) weakSelf = self;
+    [cell setTitle:str andNumber:self.books[indexPath.row].count didSelectBook:^(NSIndexPath *index) {
+        JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
+        JZBook *data = weakSelf.books[indexPath.row][index.row];
+        vc.idUrl = data.bookID;
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    }];
     return cell;
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (IBAction)openDrawer:(id)sender {
+    [self.drawer open];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

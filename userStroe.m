@@ -24,7 +24,9 @@ MJCodingImplementation
     if (![[[NSFileManager alloc]init] removeItemAtPath:IWAccountFile error:&error]) {
         NSLog(@"%@",error);
     } ;
-    
+    if (![[[NSFileManager alloc]init] removeItemAtPath:[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"douban.sqlit"] error:&error]) {
+        NSLog(@"%@",error);
+    } ;
 }
 + (instancetype)loadUser{
     userStroe *user = [NSKeyedUnarchiver unarchiveObjectWithFile:IWAccountFile];

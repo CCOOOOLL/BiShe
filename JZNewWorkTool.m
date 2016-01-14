@@ -104,7 +104,7 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
 - (void)dataWithBookid:(NSString* )number  success:(Jz_success) success fail:(void(^)(NSError *error)) fail{
     
     JZBook *book = [self.helper searchDataWihtBookId:number];
-    if (book) {
+    if (book.summary) {
         success(book);
     }else{
         NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/%@",number];

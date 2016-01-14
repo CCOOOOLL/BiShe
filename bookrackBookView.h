@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JZBook.h"
 
 @interface bookrackBookView : UIView
-
+- (void)setData:(JZBook *)data;
 @end
