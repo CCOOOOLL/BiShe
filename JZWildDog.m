@@ -14,6 +14,7 @@
 #import "CoreDataHelper.h"
 #import "JZComment.h"
 #import "JZBook.h"
+#import "JZTag.h"
 @interface JZWildDog ()
 @property (nonatomic, strong)Wilddog *wilddog;
 @property (nonatomic, strong)Wilddog *userBooksWilDog;
@@ -164,7 +165,8 @@
                                        @"key":key,
                                        @"gradeType":@(type),
                                        @"image":[obj bookViewImageUrl],
-                                       @"bookID":[obj bookViewId]
+                                       @"bookID":[obj bookViewId],
+                                       @"usertags":tag
                                        };
             [[weekSelf.wilddog childByAppendingPath:[NSString stringWithFormat:@"users/%@/ShortComment/%@",[userStroe loadUser].uid,bookId]]setValue:userDict withCompletionBlock:^(NSError *error, Wilddog *ref) {
                 suceess();
@@ -217,11 +219,14 @@
      observeSingleEventOfType:WEventTypeValue withBlock:^(WDataSnapshot *snapshot) {
         for (WDataSnapshot *data in snapshot.children) {
             JZBook *book = [self.helper searchDataWihtBookId:data.value[@"bookID"]];
+            JZTag *tag = [JZTag mj_objectWithKeyValues:data.value[@"tags"] context:self.helper.context];
             if (book) {
                 [book mj_setKeyValues:data.value];
             }else{
-               [JZBook mj_objectWithKeyValues:data.value context:self.helper.context];
+              book = [JZBook mj_objectWithKeyValues:data.value context:self.helper.context];
             }
+            
+            NSLog(@"%@",book.tags);
 
         }
     }];
@@ -276,11 +281,18 @@
     }];
     [[self.userBooksWilDog childByAppendingPath:[NSString stringWithFormat:@"users/%@/ShortComment",[userStroe loadUser].uid]]observeEventType:WEventTypeChildAdded andPreviousSiblingKeyWithBlock:^(WDataSnapshot *snapshot, NSString *prevKey) {
         JZBook *book = [self.helper searchDataWihtBookId:snapshot.value[@"bookID"]];
+        [JZBook mj_setupObjectClassInArray:^NSDictionary *{
+            return @{
+                     @"tags" : @"JZTag",
+                     };
+        }];
         if (book) {
             [book mj_setKeyValues:snapshot.value];
         }else{
+            
             book = [JZBook mj_objectWithKeyValues:snapshot.value context:self.helper.context];
         }
+
     }];
 }
 

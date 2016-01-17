@@ -15,4 +15,5 @@ typedef void(^tagButtonCanCelClick)(NSString *tag);
 @property(nonatomic,copy) tagButtonCanCelClick ButtonCanCelClick;
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString *)title;
 - (void)ChangeBackgroudColor;
+- (void)setTitleFont:(CGFloat)size;
 @end

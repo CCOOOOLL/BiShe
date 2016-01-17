@@ -39,7 +39,9 @@ IB_DESIGNABLE
     };
     return self;
 }
-
+- (void)setTitleFont:(CGFloat)size{
+    self.titleLabel.font = [UIFont systemFontOfSize:size];
+}
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self.layer setMasksToBounds:YES];

@@ -7,11 +7,10 @@
 //
 
 #import "JZWebViewController.h"
-#import "JZLoadingView.h"
+#import "JZHUD.h"
 @interface JZWebViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
-@property (weak, nonatomic) IBOutlet JZLoadingView *loadingView;
 
 @end
 
@@ -50,12 +49,14 @@ static NSString *const basePath = @"http://frodo.douban.com/h5/book/%@/buylinks"
 
 -(void)webViewDidStartLoad:(UIWebView *)webView{
 
-    [self.loadingView startAnimation];
+    [JZHUD showHUDandTitle:@""];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self.loadingView stopAnimating];
+    [JZHUD showSuccessandTitle:@""];
 }
+
+
 
 
 /*

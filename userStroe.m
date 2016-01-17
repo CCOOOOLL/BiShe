@@ -48,7 +48,7 @@ MJCodingImplementation
 
 -(NSString *)UIImageToBase64Str:(UIImage *) image
 {
-    NSData *data = UIImageJPEGRepresentation(image, 1.0f);
+    NSData *data = UIImageJPEGRepresentation(image, 0.1f);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     self.imageString = encodedImageStr;
     return encodedImageStr;
@@ -57,7 +57,9 @@ MJCodingImplementation
 -(UIImage *)Base64StrToUIImage
 {
     NSData *_decodedImageData   = [[NSData alloc]initWithBase64EncodedString:self.imageString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+
     UIImage *_decodedImage      = [UIImage imageWithData:_decodedImageData];
+
     return _decodedImage;
 }
 

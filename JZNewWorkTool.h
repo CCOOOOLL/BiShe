@@ -25,6 +25,9 @@ typedef void(^block)();
  *  @param end     结束
  *  @param success 成功代码块
  */
+
++ (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
+
 - (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
 
 - (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(Jz_success) success fail:(void(^)(NSError *error)) fail;

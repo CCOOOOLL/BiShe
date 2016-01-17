@@ -10,12 +10,12 @@
 #import "YYWebImage.h"
 #import "JZFistTableViewController.h"
 #import "JZNewWorkTool.h"
-#import "JZLoadingView.h"
 #import "JZShortCommentaryTableViewController.h"
 #import "JZBookCommentViewController.h"
 #import "JZWildDog.h"
 #import "JZShortCommentsStore.h"
 #import "JZPromptView.h"
+#import "JZHUD.h"
 @interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage,JZBookCommentViewControllerhDeleage>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *contentView;/**< 内容容器 */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *commentVIewHeght;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *BookReviewViewHeight;
-@property (nonatomic, strong)JZLoadingView *loadingView;
 @property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @end
 
@@ -43,17 +42,6 @@
     return _promptView;
 }
 
-- (JZLoadingView *)loadingView{
-    if (!_loadingView) {
-        CGRect rect         = self.view.bounds;
-        CGPoint point       = CGPointMake(rect.size.width/2.0, rect.size.height/2.0-60);
-        rect.size           = CGSizeMake(60, 60);
-        _loadingView        = [[JZLoadingView alloc]initWithFrame:rect];
-        _loadingView.center = point;
-        [self.view addSubview:_loadingView];
-    }
-    return _loadingView;
-}
 
 #pragma mark 生命周期
 - (void)viewDidLoad {
@@ -104,7 +92,7 @@
         [self.backImage yy_setImageWithURL:path options:YYWebImageOptionAllowBackgroundTask];
         //加载简介
         self.synopsis.text = self.bookData.summary;
-        [self.loadingView stopAnimating];
+        [JZHUD dismissHUD];
         self.contentView.hidden = NO;
 
     
@@ -121,7 +109,7 @@
         JZFistTableViewController *vc= segue.destinationViewController;
         
         if (!_bookData) {
-            [self.loadingView startAnimation];
+            [JZHUD showHUDandTitle:@""];
             self.contentView.hidden = YES;
             JZNewWorkTool *tool = [JZNewWorkTool workTool];
             [tool dataWithBookid:self.idUrl success:^(id obj) {
@@ -130,7 +118,7 @@
                 vc.bookDataModel = obj;
                 
             }fail:^(NSError *error) {
-                [self.loadingView stopAnimating];
+                [JZHUD showFailandTitle:@""];
                 [self.promptView setError:error];
                 [self.promptView starShow];
             }];

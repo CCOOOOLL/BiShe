@@ -11,15 +11,15 @@
 #import "JZBooksStore.h"
 #import "JZTopBookCollectionViewCell.h"
 #import "MJRefresh.h"
-#import "JZLoadingView.h"
+
 #import "JZBasicBookViewController.h"
 #import "JZWildDog.h"
 #import "JZPromptView.h"
+#import "JZHUD.h"
 
 @interface JZBookCollectionViewController ()
 
 @property(nonatomic, strong)JZBooksStore *booksStore;/**< 图书模型操作数组 */
-@property(nonatomic,strong)JZLoadingView *loadingView;/**<<#text#> */
 @property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @end
 
@@ -78,7 +78,8 @@ static NSString * const reuseIdentifier = @"cell";
 
 - (void)loadMoreData{
      JZNewWorkTool *tool = [JZNewWorkTool workTool];
-    [self.loadingView startAnimation];
+//    [self.loadingView startAnimation];
+    [JZHUD showHUDandTitle:@"加载中"];
      NSNumber *start = [NSNumber numberWithInteger:self.booksStore.books.count];
      NSNumber *end = [NSNumber numberWithInteger:self.booksStore.books.count+20];
     [tool dataWithCategory:self.contentData[@"id"] start:start end:end success:^(JZBooksStore *booksStore) {
@@ -88,11 +89,13 @@ static NSString * const reuseIdentifier = @"cell";
         [booksStore.books enumerateObjectsUsingBlock:^(BookData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [self.booksStore.books addObject:obj];
         }];
-        [self.loadingView stopAnimating];
+//        [self.loadingView stopAnimating];
+        [JZHUD showSuccessandTitle:@"成功"];
         [self.collectionView reloadData];
         [self.collectionView.mj_footer endRefreshing];
     }fail:^(NSError *error) {
-        [self.loadingView stopAnimating];
+//        [self.loadingView stopAnimating];
+        [JZHUD showFailandTitle:@"加载失败"];
         [self.promptView setError:error];
         [self.promptView starShow];
     }];
@@ -107,7 +110,7 @@ static NSString * const reuseIdentifier = @"cell";
 //    _loadingView        = [[JZLoadingView alloc]initWithFrame:rect];
 //    _loadingView.center = point;
 //    [self.collectionView addSubview:_loadingView];
-    self.loadingView = [JZLoadingView loadingWithParentView:self.collectionView];
+
 }
 
 

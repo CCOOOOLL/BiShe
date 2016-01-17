@@ -25,7 +25,7 @@ IB_DESIGNABLE
 @property(nonatomic,strong)UIView *	slip;/**< 下滑快 */
 @property (weak, nonatomic) IBOutlet UITextField *searchView;/**< 搜索文本视图 */
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
-@property(nonatomic,strong)NSMutableDictionary *views;/**< 缓存数组 */
+@property(nonatomic,strong)NSMutableDictionary *cacheViews;/**< 缓存数组 */
 @end
 
 @implementation JZHomeViewController
@@ -150,12 +150,14 @@ IB_DESIGNABLE
         JZBookTableViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBookTableViewController"];
         [self.controllers addObject:vc];
         [self addChildViewController:vc];
+        [vc didMoveToParentViewController:self];
         vc.Category = self.barItems[index].lastObject;
         vc.name = self.barItems[index].firstObject;
+        
     }
     self.contentView.contentSize = CGSizeMake(self.controllers.count*self.view.bounds.size.width, 0);
     self.contentView.delegate = self;
-    self.views = [NSMutableDictionary dictionary];
+    self.cacheViews = [NSMutableDictionary dictionary];
 }
 
 #pragma mark -其他
@@ -206,17 +208,18 @@ IB_DESIGNABLE
 /**< 显示内容界面 */
 - (void)showViewByNumber:(NSInteger)number{
     self.contentView.contentOffset =CGPointMake((number)*self.view.bounds.size.width, 0) ;
-    self.views[[NSString stringWithFormat:@"%ld",(long)number]] = self.controllers[number].tableView;
+    self.cacheViews[[NSString stringWithFormat:@"%ld",(long)number]] = self.controllers[number].tableView;
      self.controllers[number].tableView.frame = self.contentView.bounds;
-    [self.views enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-        UIView *view = obj;
+    for (UIView *view in self.contentView.subviews) {
         [view removeFromSuperview];
-    }];
+    }
+    
     for (int i=(int)number-2; i<number+2; i++) {
-        UITableView *table =self.views[[NSString stringWithFormat:@"%d",i]];
+        UITableView *table =self.cacheViews[[NSString stringWithFormat:@"%d",i]];
         [self.contentView addSubview:table];
     }
     self.contentView.delaysContentTouches = NO;
+    NSLog(@"%d",self.contentView.subviews.count);
 }
 
 

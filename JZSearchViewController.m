@@ -15,6 +15,7 @@
 #import "JZBasicBookViewController.h"
 #import "JZPromptView.h"
 
+
 @interface JZSearchViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextField *searchView;
 @property (weak, nonatomic) IBOutlet UIView *navBarView;
@@ -123,18 +124,18 @@ static NSString *const Identifier = @"cell";
 }
 
 - (IBAction)searchTextDidChanged:(id)sender {
-    [[JZNewWorkTool workTool] endRequest];
-    self.searchTableView.hidden =YES;
-    self.booksStore = nil;
-    self.start = @0;
-    if ([self.searchView.text isEqualToString:@""]) {
-        return;
-    }
-    [self.loadingView startAnimation];
-    [self loadData];
-    CGPoint point = self.searchTableView.contentOffset;
-    point.y = 0;
-    self.searchTableView.contentOffset = point;
+//    [[JZNewWorkTool workTool] endRequest];
+//    self.searchTableView.hidden =YES;
+//    self.booksStore = nil;
+//    self.start = @0;
+//    if ([self.searchView.text isEqualToString:@""]) {
+//        return;
+//    }
+//    [self.loadingView startAnimation];
+//    [self loadData];
+//    CGPoint point = self.searchTableView.contentOffset;
+//    point.y = 0;
+//    self.searchTableView.contentOffset = point;
 }
 
 - (void)loadData{
@@ -181,12 +182,23 @@ static NSString *const Identifier = @"cell";
     } fail:^(NSError *error) {
         [self.promptView setError:error];
         [self.promptView starShow];
-        [self.loadingView stopAnimating];
     }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [self.searchView resignFirstResponder];
+    [[JZNewWorkTool workTool] endRequest];
+    self.searchTableView.hidden =YES;
+    self.booksStore = nil;
+    self.start = @0;
+    if ([self.searchView.text isEqualToString:@""]) {
+        return YES;
+    }
+    [self.loadingView startAnimation];
+    [self loadData];
+    CGPoint point = self.searchTableView.contentOffset;
+    point.y = 0;
+    self.searchTableView.contentOffset = point;
     return NO;
 }
 

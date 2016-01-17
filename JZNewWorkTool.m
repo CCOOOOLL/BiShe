@@ -13,6 +13,7 @@
 #import "JZShortCommentsStore.h"
 #import "CoreDataHelper.h"
 #import "JZBook.h"
+#import "JZTag.h"
 @interface JZNewWorkTool()
 
 @property(nonatomic,strong)CoreDataHelper *helper;
@@ -48,7 +49,7 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
     if (!_mymanager) {
         _mymanager    = [AFHTTPSessionManager manager];
         _mymanager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        _mymanager.operationQueue.maxConcurrentOperationCount = 1;
+//        _mymanager.operationQueue.maxConcurrentOperationCount = 3;
     }
     return _mymanager;
 }
@@ -73,7 +74,29 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
     }];
     
 }
-
++ (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success fail:(void(^)(NSError *error)) fail{
+    AFHTTPSessionManager *manage = [AFHTTPSessionManager manager];
+    manage.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSString *url = [NSString stringWithFormat:@"http://topbook.zconly.com/v1/top/category/%@/books?start=%@&count=%@",number,start,end];
+    
+    
+    [JZBooksStore mj_setupObjectClassInArray:^NSDictionary *{
+        return @{
+                 @"books" : @"BookData",
+                 };
+    }];
+    NSLog(@"%@",url);
+    [manage GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+        JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
+        
+        success(booksStore);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        fail(error);
+    }];
+    
+}
 /**
  *  搜索图书名
  */
@@ -106,6 +129,7 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
     JZBook *book = [self.helper searchDataWihtBookId:number];
     if (book.summary) {
         success(book);
+        NSLog(@"%@",[book.tags anyObject]);
     }else{
         NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/%@",number];
         [JZBook mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
@@ -117,10 +141,12 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
             JZBook *obj = [JZBook mj_objectWithKeyValues:responseObject context:self.helper.context];
             [self.helper addBook:obj]; 
             success(obj);
+
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         fail(error);
         }];
     }
+
 
 }
 /**
@@ -211,15 +237,27 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
  *  获取tags
  */
 - (void)tagsDataWihtBookId:(NSString *)bookId success:(Jz_success)success fail:(void(^)(NSError *error)) fail{
+     JZBook *book = [self.helper searchDataWihtBookId:bookId];
+//    if (book.tags.count>0) {
+//        success(book.tags);
+//        return;
+//    }
     NSString *url = [NSString stringWithFormat:tagsData,bookId];
+    
     [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [Book mj_setupObjectClassInArray:^NSDictionary *{
             return @{
                      @"tags" : @"tag",
                      };
         }];
+       
         Book *booksStore = [Book mj_objectWithKeyValues:responseObject];
         success(booksStore.tags);
+        for (tag *obj in booksStore.tags) {
+            JZTag *tag =   [NSEntityDescription insertNewObjectForEntityForName:@"JZTag" inManagedObjectContext:self.helper.context];
+            tag.title = obj.title;
+            [book addTagsObject:tag];
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         fail(error);
 

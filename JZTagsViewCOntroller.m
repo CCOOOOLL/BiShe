@@ -17,6 +17,11 @@
 @end
 
 
+static CGFloat const tagHeight = 20;
+static CGFloat const topSpace = 3;
+static CGFloat const leftSpace = 4;
+
+
 
 @implementation JZTagsViewCOntroller
 
@@ -76,9 +81,10 @@
 
 - (void) setAllTag{
 
-    JZTabButton *button = [[JZTabButton alloc]initWithFrame:CGRectMake(8, 8,150, 30)];
+    JZTabButton *button = [[JZTabButton alloc]initWithFrame:CGRectMake(leftSpace,topSpace,150, tagHeight)];
     [self.view addSubview:button];
     [button addTarget:self action:@selector(addTag) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitleFont:8];
     [button setTitle:@"添加新标签" forState:UIControlStateNormal];
     [self.buttons addObject:button];
     for (tag *tag in self.tags) {
@@ -86,17 +92,18 @@
     }
 }
 - (JZTabButton *)addTagButtonWithName:(NSString *)name isFist:(BOOL)isFist{
-    CGRect rect = self.buttons.count<2?CGRectMake(0, 8, 0, 30):self.buttons[self.buttons.count-2].frame;
-    CGFloat width         = [name boundingRectWithSize:CGSizeMake(1000, 30) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width+25;
+    CGRect rect = self.buttons.count<2?CGRectMake(0, topSpace, 0, tagHeight):self.buttons[self.buttons.count-2].frame;
+    CGFloat width         = [name boundingRectWithSize:CGSizeMake(1000, tagHeight) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} context:nil].size.width+10;
     
     if (CGRectGetMaxX(rect)+width+8>self.view.bounds.size.width) {
-        rect.origin.x = 8;
-        rect.origin.y += 34;
+        rect.origin.x = leftSpace;
+        rect.origin.y += topSpace+tagHeight;
     }else{
-        rect.origin.x = CGRectGetMaxX(rect)+8;
+        rect.origin.x = CGRectGetMaxX(rect)+leftSpace;
     }
     rect.size.width = width;
     JZTabButton *button = [[JZTabButton alloc]initWithFrame:rect title:name];
+    [button setTitleFont:8.f];
     [self.view addSubview:button];
     __weak typeof(self)weekSelf = self;
     button.ButtonCanCelClick = ^(NSString *tag){
@@ -108,13 +115,14 @@
     };
     isFist?[self.buttons addObject:button]:[self.buttons insertObject:button atIndex:self.buttons.count-1];
     if (!isFist) {
-        CGFloat x = CGRectGetMaxX(rect)+8;
+        CGFloat x = CGRectGetMaxX(rect)+leftSpace;
         CGFloat y = rect.origin.y;
         if (CGRectGetMaxX(rect)+CGRectGetWidth(self.buttons.lastObject.frame)+8>self.view.bounds.size.width) {
-            x = 8;
-            y+= 34;
+            x = leftSpace;
+            y+= topSpace+tagHeight;
         }
-         self.buttons.lastObject.frame = CGRectMake(x, y, self.buttons.lastObject.frame.size.width, 30);
+         self.buttons.lastObject.frame = CGRectMake(x, y, self.buttons.lastObject.frame.size.width, tagHeight);
+        
     }
 
 

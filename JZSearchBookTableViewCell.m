@@ -29,9 +29,7 @@
     self.star.showStar =  (NSNumber*)[bookDataModel bookViewaverage];
     self.average.text = [NSString stringWithFormat:@"%@(%@人评价)",[bookDataModel bookViewaverage],[bookDataModel bookViewnumRaters]];
     NSURL *path = [NSURL URLWithString:[bookDataModel bookViewImageUrl]];
-    [self.bookImage yy_setImageWithURL:path placeholder:nil options:YYWebImageOptionProgressive|YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
-        
-    }];
+    [self.bookImage yy_setImageWithURL:path  options:YYWebImageOptionIgnoreDiskCache|YYWebImageOptionSetImageWithFadeAnimation];
     self.otherData.text = [bookDataModel bookViewAuthor];
 }
 

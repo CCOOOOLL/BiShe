@@ -9,13 +9,13 @@
 #import "JZMoreCommentTableViewController.h"
 #import "JZNewWorkTool.h"
 #import "JZShortCommentsStore.h"
-#import "JZLoadingView.h"
 #import <MJRefresh.h>
 #import "JZShortCommentsTableViewCell.h"
 #import "JZWildDog.h"
+#import "JZHUD.h"
 @interface JZMoreCommentTableViewController ()
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
-@property(nonatomic,strong)JZLoadingView *loadingView;/**<<#text#> */
+
 @property(nonatomic,assign)NSInteger start;/**<<#text#> */
 
 @end
@@ -47,7 +47,7 @@ static NSString *const identifier = @"shortCommentCell";
 
 - (void)loadMoreData{
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
-    [self.loadingView startAnimation];
+    [JZHUD showHUDandTitle:@""];
 //
     [tool datawithshortComments:self.BookID page:self.start success:^(id obj) {
         if (!self.commentStore.shortComments) {
@@ -58,7 +58,7 @@ static NSString *const identifier = @"shortCommentCell";
             [self.commentStore.shortComments addObject:comment];
         }
         self.start += 1;
-        [self.loadingView stopAnimating];
+        [JZHUD showSuccessandTitle:@""];
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
 
@@ -71,9 +71,7 @@ static NSString *const identifier = @"shortCommentCell";
     CGRect rect         = self.tableView.bounds;
     CGPoint point       = CGPointMake(rect.size.width/2.0, rect.size.height/2.0-60);
     rect.size           = CGSizeMake(60, 60);
-    _loadingView        = [[JZLoadingView alloc]initWithFrame:rect];
-    _loadingView.center = point;
-    [self.tableView addSubview:_loadingView];
+
 }
 
 

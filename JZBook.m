@@ -84,4 +84,10 @@
     }
     
 }
+
+//- (void)addTagsObject:(JZTag *)value{
+//    NSMutableSet *set = (NSMutableSet *)self.tags;
+//    [set addObject:value];
+//    self.tags = set;
+//}
 @end

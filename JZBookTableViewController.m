@@ -14,15 +14,14 @@
 #import "JZBooksStore.h"
 #import "MJRefresh.h"
 #import "JZBookCollectionViewController.h"
-#import "JZLoadingView.h"
 #import "JZBasicBookViewController.h"
 #import "JZPromptView.h"
+#import "JZHUD.h"
 #define file [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.data",self.name]]
 
 @interface JZBookTableViewController ()
 
 @property (nonatomic, strong)NSMutableArray<JZBooksStore *> *section;
-@property (nonatomic, strong)JZLoadingView *loadingView;
 @property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @end
 
@@ -31,7 +30,11 @@
 #pragma mark -懒加载
 -(NSMutableArray<JZBooksStore *> *)section{
     if (!_section) {
+        
         _section = [NSMutableArray array];
+        for (int i=0; i<self.Category.count; i++) {
+            [_section addObject:[JZBooksStore new]];
+        }
     }
     return _section;
 }
@@ -45,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     MJRefreshNormalHeader *refresh = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self LoadDataWithnumber:0];
+        [self LoadData];
     }];
     refresh.lastUpdatedTimeLabel.hidden = YES;
     self.tableView.mj_header = refresh;
@@ -53,11 +56,10 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self setUpLoadView];
     if([NSKeyedUnarchiver unarchiveObjectWithFile:file] == nil){
         //    [self.tableView.mj_header beginRefreshing];
-        [self.loadingView startAnimation];
-        [self LoadDataWithnumber:0];
+        [JZHUD showHUDandTitle:@""];
+        [self LoadData];
     }else{
         self.section = [NSKeyedUnarchiver unarchiveObjectWithFile:file];
         [self.tableView reloadData];
@@ -67,7 +69,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.loadingView removeFromSuperview];
 
 }
 
@@ -77,31 +78,43 @@
  *  加载数据
  *
  */
-- (void) LoadDataWithnumber:(NSInteger)number{
-    
-    if (number == self.Category.count) {
-        return ;
-    }
+- (void) LoadData{
+
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
-    [tool dataWithCategory:self.Category[number][@"id"] start:@0 end:@3 success:^(JZBooksStore *booksStore) {
-        self.section[number] = booksStore;
-        [self LoadDataWithnumber:number+1];
-        if (number == self.Category.count-1) {
-            [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
-            [NSKeyedArchiver archiveRootObject:self.section toFile:file];
-            [self.loadingView stopAnimating];
-        }
-    }fail:^(NSError *error) {
-        [self.loadingView stopAnimating];
-        [self.promptView setError:error];
-        [self.promptView starShow];
-    }];
+//    [tool dataWithCategory:self.Category[number][@"id"] start:@0 end:@3 success:^(JZBooksStore *booksStore) {
+//        self.section[number] = booksStore;
+//        [self LoadDataWithnumber:number+1];
+//        if (number == self.Category.count-1) {
+//            [self.tableView reloadData];
+//            [self.tableView.mj_header endRefreshing];
+//            [NSKeyedArchiver archiveRootObject:self.section toFile:file];
+//            [self.loadingView stopAnimating];
+//        }
+//    }fail:^(NSError *error) {
+//        [self.loadingView stopAnimating];
+//        [self.promptView setError:error];
+//        [self.promptView starShow];
+//    }];
+    
+    dispatch_group_t group = dispatch_group_create();
+    for (int i=0; i<self.Category.count;i++) {
+        dispatch_group_enter(group);
+        [tool dataWithCategory:self.Category[i][@"id"] start:@0 end:@3 success:^(id obj) {
+            dispatch_group_leave(group);
+            NSLog(@"%@",((JZBooksStore*)obj).books.firstObject);
+            self.section[i] = obj;
+        } fail:^(NSError *error) {
+            dispatch_group_leave(group);
+        }];
+    }
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+        [NSKeyedArchiver archiveRootObject:self.section toFile:file];
+        [JZHUD showSuccessandTitle:@""];
+    });
 }
 
--(void)setUpLoadView{
-    self.loadingView =[JZLoadingView loadingWithParentView:[UIApplication sharedApplication].windows.lastObject];
-}
 
 
 #pragma mark - Table view data source
@@ -115,7 +128,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    JZTopBookTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    JZTopBookTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (self.section[indexPath.row]) {
         cell.bookViewModels = self.section[indexPath.row].books;
         cell.category.text = self.Category[indexPath.row][@"name"];

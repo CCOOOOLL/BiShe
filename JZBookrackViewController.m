@@ -16,6 +16,7 @@
 #import "JZBookrackTableViewCell.h"
 #import "bookListViewDataDeleage.h"
 #import "JZBasicBookViewController.h"
+#import "JZUserBookListViewController.h"
 
 
 
@@ -108,12 +109,15 @@ static NSString *const identifer = @"bookClass";
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    JZUserBookListViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"JZUserBookListViewController"];
+    vc.bookArray = self.books[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)openDrawer:(id)sender {
     [self.drawer open];
 }
+
 
 
 @end

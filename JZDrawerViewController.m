@@ -87,8 +87,12 @@
     }else{
         if (self.isHaveUser) {
             [self.drawer replaceCenterViewControllerWithViewController:self.userViewController];
+            
         }else{
-            [self.drawer replaceCenterViewControllerWithViewController:self.LoginViewController];
+            [self presentViewController:self.LoginViewController animated:YES completion:^{
+                
+            }];
+//            [self.drawer replaceCenterViewControllerWithViewController:self.LoginViewController];
 
         }
         self.number = 0;

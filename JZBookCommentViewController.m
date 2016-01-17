@@ -20,7 +20,7 @@ static NSString *const more = @"moreCell";
 
 @interface JZBookCommentViewController ()
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
-@property (nonatomic, assign)NSIndexPath *indexpath;
+@property (nonatomic, strong)NSIndexPath *indexpath;
 @end
 
 @implementation JZBookCommentViewController
@@ -34,6 +34,7 @@ static NSString *const more = @"moreCell";
     refresh.stateLabel.hidden = YES;
     refresh.lastUpdatedTimeLabel.hidden = YES;
      [self.tableView.mj_header beginRefreshing];
+    self.tableView.tableFooterView = [UIView new];
 
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -52,7 +53,8 @@ static NSString *const more = @"moreCell";
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         [self.tableView reloadData];
         if ([self.commentDeleage respondsToSelector:@selector(CommenttableViewWihtHegiht:)]) {
-            [self.commentDeleage CommenttableViewWihtHegiht:1500];
+            CGFloat height         = self.tableView.contentSize.height;
+             [self.commentDeleage CommenttableViewWihtHegiht:height];
             CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:self.indexpath];
             [self.commentDeleage CommenttableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
             [self.tableView.mj_header endRefreshing];
@@ -95,39 +97,7 @@ static NSString *const more = @"moreCell";
     [self.navigationController pushViewController:vc animated:YES];
     
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 
 #pragma mark - Navigation

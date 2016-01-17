@@ -15,7 +15,7 @@
 #import "JZWildDog.h"
 #import "userStroe.h"
 #import "JZShortCommentsStore.h"
-#import "JZLoadingView.h"
+#import "JZHUD.h"
 static NSString *const identifier = @"tabCell";
 static NSString *const addIdentifier = @"addCell";
 
@@ -26,7 +26,6 @@ static NSString *const addIdentifier = @"addCell";
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *tagsViewHeight;
 @property(nonatomic,strong)NSMutableSet *selectTags;/**< */
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *gradeStarHeight;
-@property (nonatomic, strong)JZLoadingView *loadingView;
 @end
 
 @implementation JZGradeViewController
@@ -51,7 +50,8 @@ static NSString *const addIdentifier = @"addCell";
     if (self.gradeType == GradeTypeXiangDu) {
         self.gradeStarHeight.constant = 0;
     }
-    self.loadingView = [JZLoadingView loadingWithParentView:self.view];
+
+
 
 
 }
@@ -98,7 +98,13 @@ static NSString *const addIdentifier = @"addCell";
 
 - (void)tableViewWihtHegiht:(CGFloat )heght{
     self.tagsViewHeight.constant = heght;
-    [self.view updateConstraints];
+//    [self.view updateConstraints];
+    [self.view layoutIfNeeded];
+//    [UIView animateWithDuration:1 animations:^{
+////        [self.view layoutIfNeeded];
+//            [self.view updateConstraints];
+//
+//    }];
 }
 
 - (void)addtag:(id)sender {
@@ -128,11 +134,11 @@ static NSString *const addIdentifier = @"addCell";
     [self.selectTags removeObject:tag];
 }
 - (void)evaluateBook{
-    [self.loadingView startAnimation];
+    [JZHUD showHUDandTitle:@""];
     NSArray *tags = [self.selectTags allObjects];
     [self.deleage evaluateBookData];
     [[JZWildDog WildDog]addBookWithType:self.gradeType bookId:self.bookId tags:tags average:self.gradeStar.grade+1 content:self.contextView.text withSuccess:^{
-        [self.loadingView stopAnimating];
+        [JZHUD showSuccessandTitle:@""];
         [self.navigationController popViewControllerAnimated:YES];
     } fail:nil];
 }

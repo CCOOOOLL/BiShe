@@ -48,6 +48,6 @@ IB_DESIGNABLE
 - (void)setData:(JZBook *)data{
     self.booTitle.text = data.title;
     NSURL *url = [NSURL URLWithString:data.image];
-    [self.bookImage setYy_imageURL:url];
+    [self.bookImage yy_setImageWithURL:url options:YYWebImageOptionIgnoreDiskCache];
 }
 @end

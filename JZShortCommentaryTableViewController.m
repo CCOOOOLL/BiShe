@@ -15,7 +15,7 @@
 @interface JZShortCommentaryTableViewController ()
 
 @property (nonatomic, strong)JZShortCommentsStore *commentStore;
-@property (nonatomic, assign)NSIndexPath *indexpath;
+@property (nonatomic, strong)NSIndexPath *indexpath;
 
 @end
 
@@ -38,7 +38,7 @@ static NSString *const more = @"moreCell";
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         [self.tableView reloadData];
         if ([self.commentDeleage respondsToSelector:@selector(tableViewWihtHegiht:)]) {
-            [self.commentDeleage tableViewWihtHegiht:1500];
+            [self.commentDeleage tableViewWihtHegiht:self.tableView.contentSize.height];
             CGRect rectInTableView = [self.tableView rectForRowAtIndexPath:self.indexpath];
             [self.commentDeleage tableViewWihtHegiht:CGRectGetMaxY(rectInTableView)];
         }
@@ -66,6 +66,7 @@ static NSString *const more = @"moreCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     self.indexpath = indexPath;
+//    NSLog(@"%@",self.indexpath)
     if (indexPath.row == 5) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:more forIndexPath:indexPath];
         
