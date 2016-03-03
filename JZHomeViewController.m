@@ -219,7 +219,7 @@ IB_DESIGNABLE
         [self.contentView addSubview:table];
     }
     self.contentView.delaysContentTouches = NO;
-    NSLog(@"%d",self.contentView.subviews.count);
+
 }
 
 

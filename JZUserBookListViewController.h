@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JZBook;
-@interface JZUserBookListViewController : UIViewController<UITabBarControllerDelegate,UITableViewDataSource>
+@class JZBook,JZComment;
+@interface JZUserBookListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)NSArray<JZBook*> *bookArray;/**<<#text#> */
+@property(nonatomic,strong)NSMutableArray<JZComment*> *bookArray;/**<<#text#> */
 @end

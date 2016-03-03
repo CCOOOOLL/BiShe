@@ -8,9 +8,11 @@
 
 #import "JZUserBookListViewController.h"
 #import "JZSearchBookTableViewCell.h"
-#import "JZBook.h"
+#import "JZComment.h"
 #import "JZUserTagsView.h"
 #import "JZTag.h"
+#import "JZBasicBookViewController.h"
+#import "JZBook.h"
 
 static NSString *const identifier = @"cell";
 
@@ -18,7 +20,7 @@ static NSString *const identifier = @"cell";
 @property (weak, nonatomic) IBOutlet UITableView *bookLIstView;
 @property (weak, nonatomic) IBOutlet UIImageView *arrowsImage;
 @property(nonatomic,strong)NSMutableArray *tagArray;/**<<#text#> */
-@property(nonatomic,strong)NSMutableArray<JZBook *> *dataArray;/**<<#text#> */
+@property(nonatomic,strong)NSMutableArray<JZComment *> *dataArray;/**<<#text#> */
 @property (weak, nonatomic) IBOutlet JZUserTagsView *userTagsView;
 @property (nonatomic, assign,getter=isShowTagsView)BOOL showTagsView;
 
@@ -28,9 +30,9 @@ static NSString *const identifier = @"cell";
 
 
 
-- (NSMutableArray<JZBook *> *)dataArray{
+- (NSMutableArray<JZComment *> *)dataArray{
     if (!_dataArray) {
-        _dataArray = self.bookArray;
+        _dataArray = [NSMutableArray arrayWithArray:self.bookArray];
     }
     return _dataArray;
 }
@@ -42,10 +44,12 @@ static NSString *const identifier = @"cell";
     self.userTagsView.tagsArray = self.bookArray;
     self.userTagsView.tagsViewDeleage = self;
     self.bookLIstView.tableFooterView = [UIView new];
+    self.bookLIstView.rowHeight = 104;
+
 }
 
-- (void)setBookArray:(NSArray<JZBook *> *)bookArray{
-    _bookArray = bookArray;
+- (void)setBookArray:(NSArray<JZComment *> *)bookArray{
+    _bookArray = (NSMutableArray *)bookArray;
 
 
 }
@@ -57,7 +61,7 @@ static NSString *const identifier = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JZSearchBookTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-    cell.bookDataModel = self.dataArray[indexPath.row];
+    cell.bookDataModel = self.dataArray[indexPath.row].book;
     return cell;
 }
 - (IBAction)showTags:(id)sender {
@@ -90,14 +94,25 @@ static NSString *const identifier = @"cell";
 
 - (void)searchDataWithTagName:(NSString *)tagName{
     self.dataArray = [NSMutableArray array];
-    for (JZBook *book in self.bookArray) {
-        for (NSString *tag in book.usertags) {
+    if ([tagName isEqualToString:@"全部"]) {
+        self.dataArray = self.bookArray;
+        [self.bookLIstView reloadData];
+        return;
+    }
+    for (JZComment *comment in self.bookArray) {
+        for (NSString *tag in comment.tags) {
             if ([tag isEqualToString:tagName]) {
-                [self.dataArray addObject:book];
+                [self.dataArray addObject:comment];
             }
         }
     }
+    [self showTags:nil];
     [self.bookLIstView reloadData];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
+    vc.idUrl = self.dataArray[indexPath.row].book.bookID;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

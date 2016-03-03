@@ -33,6 +33,6 @@
 - (void)setTitle:(NSString *)title andNumber:(NSInteger)number didSelectBook:(void (^)(NSIndexPath *))selectBook{
     self.booksData.selectBook = selectBook;
     self.title.text = title;
-    self.number.text = [NSString stringWithFormat:@"%d",number];
+    self.number.text = [NSString stringWithFormat:@"%ld",(long)number];
 }
 @end

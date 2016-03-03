@@ -30,7 +30,7 @@ typedef void(^block)();
 
 - (void)dataWithCategory:(NSNumber*)number start:(NSNumber*)start end:(NSNumber*)end success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
 
-- (void)dataWithBookName:(NSString *)name start:(NSNumber*)start count:(NSNumber*)count success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
+- (void)dataWithBookName:(NSString *)name start:(NSInteger )start count:(NSInteger )count success:(Jz_success) success fail:(void(^)(NSError *error)) fail;
 
 
 - (void)dataWithBookid:(NSString* )number  success:(Jz_success) success fail:(void(^)(NSError *error)) fail;

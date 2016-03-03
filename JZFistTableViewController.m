@@ -97,6 +97,7 @@
     if ([segue.identifier isEqualToString:@"fistView2WebView"]) {
         JZWebViewController *vc = segue.destinationViewController;
         vc.bookId = [self.bookDataModel bookViewId];
+        NSLog(@"%@",vc.bookId);
     }else if ([segue.identifier isEqualToString:@"fistTableVIew2BookDataView"]){
         JZBookDataViewController *vc = segue.destinationViewController;
         vc.bookData = self.bookDataModel;

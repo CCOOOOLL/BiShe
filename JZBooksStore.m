@@ -15,6 +15,10 @@
 
 MJCodingImplementation
 
+
+//+ (NSDictionary *)objectClassInArray{
+//    return @{@"author" : [Author class], @"tags" : [Tags class]};
+//}
 @end
 
 
@@ -127,6 +131,8 @@ MJCodingImplementation
 @implementation JZBooksStore
 
 MJCodingImplementation
+
+
 
 @end
 

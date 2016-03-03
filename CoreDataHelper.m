@@ -65,8 +65,8 @@ static NSString *const fileName = @"douban.sqlite";
 
 #pragma mark -数据操作
 
-- (NSArray<JZBook*> *)getuserBooks{
-    NSFetchRequest *resquest = [[NSFetchRequest alloc]initWithEntityName:@"JZBook"];
+- (NSArray<JZComment*> *)getuserBooks{
+    NSFetchRequest *resquest = [[NSFetchRequest alloc]initWithEntityName:@"JZComment"];
     NSError *error = nil;
     NSArray *array = [self.context executeFetchRequest:resquest error:&error];
     return array;
@@ -91,11 +91,12 @@ static NSString *const fileName = @"douban.sqlite";
 
 - (NSArray<JZComment*>*)searchCommentWihtBookId:(NSString *)bookId{
     NSFetchRequest *resquest = [[NSFetchRequest alloc]initWithEntityName:@"JZComment"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bookid=%@",bookId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"bookID=%@",bookId];
     resquest.predicate = predicate;
     NSError *error = nil;
     NSArray *array = [self.context executeFetchRequest:resquest error:&error];
     return array;
+    
 }
 
 - (BOOL)removeCommentWithBookId:(NSString *)bookId{
@@ -107,7 +108,7 @@ static NSString *const fileName = @"douban.sqlite";
 }
 
 - (BOOL)addComment:(JZComment *)comment{
-    NSArray<JZComment *> *array = [self searchCommentWihtBookId:comment.bookid];
+    NSArray<JZComment *> *array = [self searchCommentWihtBookId:comment.bookID];
     if (array.count==0) {
 
         [self.context insertObject:comment];

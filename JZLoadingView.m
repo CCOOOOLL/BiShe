@@ -8,6 +8,8 @@
 
 #import "JZLoadingView.h"
 
+CGFloat loadingViewSize = 20;
+
 @interface JZLoadingView ()
 
 @property(nonatomic, strong)CAShapeLayer *loadView;
@@ -37,7 +39,7 @@
 }
 
 + (instancetype)loadingWithParentView:(UIView *)parentView{
-    JZLoadingView *view = [JZLoadingView loadingWithParentView:parentView andSize:CGSizeMake(60, 60)];
+    JZLoadingView *view = [JZLoadingView loadingWithParentView:parentView andSize:CGSizeMake(loadingViewSize, loadingViewSize)];
 
     return view;
 }
@@ -55,7 +57,7 @@
     if (!_loadView) {
         _loadView = [[CAShapeLayer alloc]init];
         _loadView.frame = self.bounds;
-        _loadView.path =[[UIBezierPath bezierPathWithOvalInRect: CGRectMake(CGRectGetMinX(_loadView.frame), CGRectGetMinY(_loadView.frame), 60, 60)] CGPath];
+        _loadView.path =[[UIBezierPath bezierPathWithOvalInRect: CGRectMake(CGRectGetMinX(_loadView.frame), CGRectGetMinY(_loadView.frame), loadingViewSize, loadingViewSize)] CGPath];
         _loadView.lineWidth =5;
         _loadView.strokeColor = [UIColor colorWithRed:52/255.0 green:179/255.0 blue:64/255.0 alpha:1].CGColor;
         _loadView.fillColor = nil;

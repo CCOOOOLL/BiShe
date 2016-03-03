@@ -38,9 +38,8 @@ IB_DESIGNABLE
     self.average.text = [Model bookViewaverage];
     self.bookStar.showStar = [NSNumber numberWithFloat:[[Model bookViewaverage] floatValue]];
     NSURL *path = [NSURL URLWithString:[Model bookViewImageUrl]];
-    [self.BookImageView yy_setImageWithURL:path placeholder:nil options:YYWebImageOptionIgnoreDiskCache|YYWebImageOptionSetImageWithFadeAnimation completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+    [self.BookImageView yy_setImageWithURL:path options:YYWebImageOptionSetImageWithFadeAnimation];
 
-    }];
 
     
 }

@@ -11,7 +11,7 @@
 #import "userStroe.h"
 #import "JZUserBook.h"
 #import "MJExtension.h"
-#import "JZBook.h"
+#import "JZComment.h"
 #import "JZWildDog.h"
 #import "JZBookrackTableViewCell.h"
 #import "bookListViewDataDeleage.h"
@@ -22,23 +22,16 @@
 
 @interface JZBookrackViewController ()
 
-@property(nonatomic,strong)NSMutableArray<NSMutableArray<JZBook *> *> *books;/**<<#text#> */
+@property(nonatomic,strong)NSMutableArray<NSMutableArray<JZComment *> *> *comments;/**<<#text#> */
 @end
 
 @implementation JZBookrackViewController
 
 
-- (NSMutableArray *)books{
-    if (!_books) {
-        _books = [NSMutableArray array];
-    }
-    return _books;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStyleDone target:self.drawer action:@selector(open)];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
@@ -49,7 +42,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[JZWildDog WildDog]getUserBookWithSuccess:^(NSMutableArray *array) {
-        self.books = array;
+        self.comments = array;
+        [self.tableView reloadData];
     } andFail:^(NSError *error) {
         
     }];
@@ -78,15 +72,15 @@
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.books.count;
+    return self.comments.count;
 }
 static NSString *const identifer = @"bookClass";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JZBookrackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer forIndexPath:indexPath];
-    [cell setBooks:self.books[indexPath.row]];
+    [cell setBooks:self.comments[indexPath.row]];
     NSString *str;
-    switch ((GradeType)[self.books[indexPath.row].firstObject.gradeType intValue]) {
+    switch ((GradeType)[self.comments[indexPath.row].firstObject.gradeType intValue]) {
         case GradeTypeXiangDu:
             str = @"想读的书";
             break;
@@ -100,9 +94,9 @@ static NSString *const identifer = @"bookClass";
             break;
     }
     __block typeof(self) weakSelf = self;
-    [cell setTitle:str andNumber:self.books[indexPath.row].count didSelectBook:^(NSIndexPath *index) {
+    [cell setTitle:str andNumber:self.comments[indexPath.row].count didSelectBook:^(NSIndexPath *index) {
         JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
-        JZBook *data = weakSelf.books[indexPath.row][index.row];
+        JZComment *data = weakSelf.comments[indexPath.row][index.row];
         vc.idUrl = data.bookID;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     }];
@@ -110,7 +104,7 @@ static NSString *const identifer = @"bookClass";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     JZUserBookListViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"JZUserBookListViewController"];
-    vc.bookArray = self.books[indexPath.row];
+    vc.bookArray = self.comments[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

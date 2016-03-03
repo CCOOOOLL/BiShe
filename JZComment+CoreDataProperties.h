@@ -2,7 +2,7 @@
 //  JZComment+CoreDataProperties.h
 //  BiShe
 //
-//  Created by Jz on 16/1/9.
+//  Created by Jz on 16/1/17.
 //  Copyright © 2016年 Jz. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,14 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JZComment (CoreDataProperties)
 
+@property (nullable, nonatomic, retain) NSString *key;
 @property (nullable, nonatomic, retain) NSNumber *average;
-@property (nullable, nonatomic, retain) NSString *bookid;
+@property (nullable, nonatomic, retain) NSString *bookID;
 @property (nullable, nonatomic, retain) NSNumber *gradeType;
 @property (nullable, nonatomic, retain) NSString *longContent;
 @property (nullable, nonatomic, retain) NSString *shortContent;
-@property (nullable, nonatomic, retain) NSString *autoId;
 @property (nullable, nonatomic, retain) id tags;
-@property (nullable, nonatomic, retain) JZUser *user;
+@property (nullable, nonatomic, retain) JZBook *book;
 
 @end
 

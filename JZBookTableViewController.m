@@ -101,7 +101,6 @@
         dispatch_group_enter(group);
         [tool dataWithCategory:self.Category[i][@"id"] start:@0 end:@3 success:^(id obj) {
             dispatch_group_leave(group);
-            NSLog(@"%@",((JZBooksStore*)obj).books.firstObject);
             self.section[i] = obj;
         } fail:^(NSError *error) {
             dispatch_group_leave(group);

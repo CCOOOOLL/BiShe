@@ -1,0 +1,291 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0KM-jA-ULA"; */
+"0KM-jA-ULA.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "邮箱"; ObjectID = "2KN-Xn-SVy"; */
+"2KN-Xn-SVy.placeholder" = "邮箱";
+
+/* Class = "UICollectionViewController"; title = "更多图书界面"; ObjectID = "3SH-Kj-Kt1"; */
+"3SH-Kj-Kt1.title" = "更多图书界面";
+
+/* Class = "UIViewController"; title = "书评详细页"; ObjectID = "3Sv-oz-Z1S"; */
+"3Sv-oz-Z1S.title" = "书评详细页";
+
+/* Class = "UILabel"; text = "未填写"; ObjectID = "3ae-4C-bHx"; */
+"3ae-4C-bHx.text" = "未填写";
+
+/* Class = "UITableViewController"; title = "更多书评界面"; ObjectID = "4IQ-HX-9li"; */
+"4IQ-HX-9li.title" = "更多书评界面";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5aH-gu-hc0"; */
+"5aH-gu-hc0.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "5dd-MG-1Ho"; */
+"5dd-MG-1Ho.text" = "Label";
+
+/* Class = "UILabel"; text = "种类"; ObjectID = "6Pk-Wn-vYr"; */
+"6Pk-Wn-vYr.text" = "种类";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "789-0H-1tY"; */
+"789-0H-1tY.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "8Gu-LL-I91"; */
+"8Gu-LL-I91.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "在读"; ObjectID = "8bP-Ms-gVL"; */
+"8bP-Ms-gVL.normalTitle" = "在读";
+
+/* Class = "UILabel"; text = "首页"; ObjectID = "9Bu-g4-mIK"; */
+"9Bu-g4-mIK.text" = "首页";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9Yj-z9-TcX"; */
+"9Yj-z9-TcX.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9pc-ae-c9q"; */
+"9pc-ae-c9q.text" = "Label";
+
+/* Class = "UIViewController"; title = "首页"; ObjectID = "9pv-A4-QxB"; */
+"9pv-A4-QxB.title" = "首页";
+
+/* Class = "UILabel"; text = "退出登陆"; ObjectID = "BHk-2d-dHC"; */
+"BHk-2d-dHC.text" = "退出登陆";
+
+/* Class = "UILabel"; text = "未填写"; ObjectID = "BOC-Xh-tls"; */
+"BOC-Xh-tls.text" = "未填写";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FEY-xs-YfO"; */
+"FEY-xs-YfO.text" = "Label";
+
+/* Class = "UILabel"; text = "~登陆"; ObjectID = "FgZ-qh-wqr"; */
+"FgZ-qh-wqr.text" = "~登陆";
+
+/* Class = "UITextField"; placeholder = "书名、 isbn、 类型"; ObjectID = "Ghv-eo-ZcP"; */
+"Ghv-eo-ZcP.placeholder" = "书名、 isbn、 类型";
+
+/* Class = "UIButton"; normalTitle = "登陆"; ObjectID = "Gmo-uN-Rjk"; */
+"Gmo-uN-Rjk.normalTitle" = "登陆";
+
+/* Class = "UIViewController"; title = "登陆界面"; ObjectID = "HhH-gv-nKR"; */
+"HhH-gv-nKR.title" = "登陆界面";
+
+/* Class = "UIViewController"; title = "搜索界面"; ObjectID = "HuA-F8-nk6"; */
+"HuA-F8-nk6.title" = "搜索界面";
+
+/* Class = "UIButton"; normalTitle = "展开"; ObjectID = "IYc-Gw-AvN"; */
+"IYc-Gw-AvN.normalTitle" = "展开";
+
+/* Class = "UIButton"; selectedTitle = "收缩"; ObjectID = "IYc-Gw-AvN"; */
+"IYc-Gw-AvN.selectedTitle" = "收缩";
+
+/* Class = "UITextField"; placeholder = "重复密码"; ObjectID = "Idn-Xf-KSX"; */
+"Idn-Xf-KSX.placeholder" = "重复密码";
+
+/* Class = "UIViewController"; title = "图书信息基本页"; ObjectID = "K2Z-21-YKD"; */
+"K2Z-21-YKD.title" = "图书信息基本页";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "M92-t0-hNU"; */
+"M92-t0-hNU.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "更多评价"; ObjectID = "MK2-7n-aZb"; */
+"MK2-7n-aZb.normalTitle" = "更多评价";
+
+/* Class = "UILabel"; text = "想读的书"; ObjectID = "Mhb-mm-ALd"; */
+"Mhb-mm-ALd.text" = "想读的书";
+
+/* Class = "UILabel"; text = "原作名："; ObjectID = "NaZ-ql-8D3"; */
+"NaZ-ql-8D3.text" = "原作名：";
+
+/* Class = "UIViewController"; title = "图书详细信息"; ObjectID = "No0-y3-h07"; */
+"No0-y3-h07.title" = "图书详细信息";
+
+/* Class = "UILabel"; text = "头像"; ObjectID = "OHC-PJ-E4K"; */
+"OHC-PJ-E4K.text" = "头像";
+
+/* Class = "UITextField"; placeholder = "昵称(4-16字) "; ObjectID = "PCT-Or-d1K"; */
+"PCT-Or-d1K.placeholder" = "昵称(4-16字) ";
+
+/* Class = "UIButton"; normalTitle = "忘记密码？"; ObjectID = "PIV-6N-S8d"; */
+"PIV-6N-S8d.normalTitle" = "忘记密码？";
+
+/* Class = "UILabel"; text = "账号"; ObjectID = "Pjc-uC-c8W"; */
+"Pjc-uC-c8W.text" = "账号";
+
+/* Class = "UITableViewController"; title = "更多书评界面"; ObjectID = "QUD-uj-IAx"; */
+"QUD-uj-IAx.title" = "更多书评界面";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Qnv-ll-8DB"; */
+"Qnv-ll-8DB.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Riv-Dq-ho0"; */
+"Riv-Dq-ho0.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "标签筛选"; ObjectID = "TCO-au-lSJ"; */
+"TCO-au-lSJ.normalTitle" = "标签筛选";
+
+/* Class = "UIViewController"; title = "图书价格"; ObjectID = "U0D-Kl-y4Y"; */
+"U0D-Kl-y4Y.title" = "图书价格";
+
+/* Class = "UIButton"; normalTitle = "注册"; ObjectID = "Wfy-gc-XIw"; */
+"Wfy-gc-XIw.normalTitle" = "注册";
+
+/* Class = "UILabel"; text = "作者:"; ObjectID = "XTw-UR-lAG"; */
+"XTw-UR-lAG.text" = "作者:";
+
+/* Class = "UILabel"; text = "出版年:"; ObjectID = "Xnu-oI-dQK"; */
+"Xnu-oI-dQK.text" = "出版年:";
+
+/* Class = "UIButton"; normalTitle = "取消"; ObjectID = "YPg-Od-9Jm"; */
+"YPg-Od-9Jm.normalTitle" = "取消";
+
+/* Class = "UILabel"; text = "装帧:"; ObjectID = "Ya1-tx-gvO"; */
+"Ya1-tx-gvO.text" = "装帧:";
+
+/* Class = "UILabel"; text = "大家打的标签"; ObjectID = "ZWz-4o-7Tn"; */
+"ZWz-4o-7Tn.text" = "大家打的标签";
+
+/* Class = "UILabel"; text = "设置"; ObjectID = "bLp-rD-N45"; */
+"bLp-rD-N45.text" = "设置";
+
+/* Class = "UITableViewController"; title = "图书信息界面"; ObjectID = "bPj-CY-CBo"; */
+"bPj-CY-CBo.title" = "图书信息界面";
+
+/* Class = "UITextField"; placeholder = "密码(6-16位)"; ObjectID = "c55-5e-amN"; */
+"c55-5e-amN.placeholder" = "密码(6-16位)";
+
+/* Class = "UILabel"; text = "书单"; ObjectID = "cCC-Tm-9Bh"; */
+"cCC-Tm-9Bh.text" = "书单";
+
+/* Class = "UILabel"; text = "出版社:"; ObjectID = "cef-Kj-XuX"; */
+"cef-Kj-XuX.text" = "出版社:";
+
+/* Class = "UITableViewController"; title = "首页表格"; ObjectID = "cgd-Fa-qfh"; */
+"cgd-Fa-qfh.title" = "首页表格";
+
+/* Class = "UILabel"; text = "短评"; ObjectID = "d01-Gh-8ys"; */
+"d01-Gh-8ys.text" = "短评";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dFN-ga-Dqa"; */
+"dFN-ga-Dqa.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dGD-Qc-BZa"; */
+"dGD-Qc-BZa.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "dru-Wq-pZ4"; */
+"dru-Wq-pZ4.text" = "Label";
+
+/* Class = "UIViewController"; title = "注册界面"; ObjectID = "fkT-Vn-FX9"; */
+"fkT-Vn-FX9.title" = "注册界面";
+
+/* Class = "UITextField"; placeholder = "书名、 isbn、 类型"; ObjectID = "gU0-EX-mwu"; */
+"gU0-EX-mwu.placeholder" = "书名、 isbn、 类型";
+
+/* Class = "UILabel"; text = "我的评分/评论"; ObjectID = "gsd-AK-rCD"; */
+"gsd-AK-rCD.text" = "我的评分/评论";
+
+/* Class = "UILabel"; text = "页数:"; ObjectID = "guu-eB-2dY"; */
+"guu-eB-2dY.text" = "页数:";
+
+/* Class = "UINavigationItem"; title = "书单"; ObjectID = "gv0-qu-10I"; */
+"gv0-qu-10I.title" = "书单";
+
+/* Class = "UILabel"; text = "购买图书"; ObjectID = "gv6-zz-bIU"; */
+"gv6-zz-bIU.text" = "购买图书";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hAR-LO-6zb"; */
+"hAR-LO-6zb.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hNr-N7-yQ1"; */
+"hNr-N7-yQ1.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "更多"; ObjectID = "i3S-ZC-gWT"; */
+"i3S-ZC-gWT.normalTitle" = "更多";
+
+/* Class = "UILabel"; text = "定价"; ObjectID = "i9v-bB-Dyw"; */
+"i9v-bB-Dyw.text" = "定价";
+
+/* Class = "UILabel"; text = "昵称"; ObjectID = "inf-69-gOf"; */
+"inf-69-gOf.text" = "昵称";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "iq9-bP-qaw"; */
+"iq9-bP-qaw.text" = "Label";
+
+/* Class = "UILabel"; text = "出版信息"; ObjectID = "jAW-8e-NPY"; */
+"jAW-8e-NPY.text" = "出版信息";
+
+/* Class = "UIButton"; normalTitle = "读过"; ObjectID = "jZr-nX-eER"; */
+"jZr-nX-eER.normalTitle" = "读过";
+
+/* Class = "UILabel"; text = "书评"; ObjectID = "jcm-fh-K76"; */
+"jcm-fh-K76.text" = "书评";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jkR-8w-x6Q"; */
+"jkR-8w-x6Q.text" = "Label";
+
+/* Class = "UIViewController"; title = "侧滑栏"; ObjectID = "kb6-xa-KAG"; */
+"kb6-xa-KAG.title" = "侧滑栏";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "klj-z6-DeX"; */
+"klj-z6-DeX.text" = "Label";
+
+/* Class = "UILabel"; text = "账号"; ObjectID = "m0H-jl-Ic4"; */
+"m0H-jl-Ic4.text" = "账号";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "m1a-26-K01"; */
+"m1a-26-K01.text" = "0";
+
+/* Class = "UILabel"; text = "译者："; ObjectID = "mN5-Yq-WUj"; */
+"mN5-Yq-WUj.text" = "译者：";
+
+/* Class = "UILabel"; text = "签名"; ObjectID = "o2U-5V-qAQ"; */
+"o2U-5V-qAQ.text" = "签名";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "oci-yO-cR2"; */
+"oci-yO-cR2.text" = "Label";
+
+/* Class = "UILabel"; text = "isbn:"; ObjectID = "pYX-3a-SIg"; */
+"pYX-3a-SIg.text" = "isbn:";
+
+/* Class = "UILabel"; text = "您的评价"; ObjectID = "roZ-tM-PXv"; */
+"roZ-tM-PXv.text" = "您的评价";
+
+/* Class = "UIButton"; normalTitle = "更多书评"; ObjectID = "t1G-pe-Efr"; */
+"t1G-pe-Efr.normalTitle" = "更多书评";
+
+/* Class = "UITableViewController"; title = "短评界面"; ObjectID = "tUo-8w-SVo"; */
+"tUo-8w-SVo.title" = "短评界面";
+
+/* Class = "UILabel"; text = "性别"; ObjectID = "tvm-5N-BYq"; */
+"tvm-5N-BYq.text" = "性别";
+
+/* Class = "UIViewController"; title = "评分界面"; ObjectID = "uxL-HE-Ibv"; */
+"uxL-HE-Ibv.title" = "评分界面";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "vUB-se-Egn"; */
+"vUB-se-Egn.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "快速注册"; ObjectID = "vbv-Pa-D5N"; */
+"vbv-Pa-D5N.normalTitle" = "快速注册";
+
+/* Class = "UILabel"; text = "头像"; ObjectID = "wJQ-jf-Wbs"; */
+"wJQ-jf-Wbs.text" = "头像";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xQN-TC-61D"; */
+"xQN-TC-61D.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xVo-YH-Lba"; */
+"xVo-YH-Lba.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "想读"; ObjectID = "xxV-g7-674"; */
+"xxV-g7-674.normalTitle" = "想读";
+
+/* Class = "UITableViewController"; title = "书评界面"; ObjectID = "yjy-Cw-833"; */
+"yjy-Cw-833.title" = "书评界面";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "yqy-7r-N6K"; */
+"yqy-7r-N6K.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "书单"; ObjectID = "zLV-gX-RZi"; */
+"zLV-gX-RZi.title" = "书单";
+
+/* Class = "UILabel"; text = "简介"; ObjectID = "za5-dg-kMn"; */
+"za5-dg-kMn.text" = "简介";

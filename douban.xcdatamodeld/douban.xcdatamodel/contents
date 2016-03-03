@@ -4,7 +4,6 @@
         <attribute name="author" optional="YES" attributeType="Transformable" valueTransformerName="NSArrayTransformable" syncable="YES"/>
         <attribute name="binding" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="bookID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="gradeType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isbn10" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isbn13" optional="YES" attributeType="String" syncable="YES"/>
@@ -17,18 +16,19 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="translator" optional="YES" attributeType="Transformable" valueTransformerName="NSArrayTransformable" syncable="YES"/>
         <attribute name="usertags" optional="YES" attributeType="Transformable" valueTransformerName="NSArrayTransformable" syncable="YES"/>
+        <relationship name="comment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="JZComment" inverseName="book" inverseEntity="JZComment" syncable="YES"/>
         <relationship name="rating" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="JZRating" inverseName="book" inverseEntity="JZRating" syncable="YES"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JZTag" inverseName="book" inverseEntity="JZTag" syncable="YES"/>
     </entity>
     <entity name="JZComment" representedClassName="JZComment" syncable="YES">
-        <attribute name="autoId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="average" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="bookid" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bookID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="gradeType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="longContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="shortContent" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSArrayTransformable" syncable="YES"/>
-        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="JZUser" inverseName="shortComments" inverseEntity="JZUser" syncable="YES"/>
+        <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="JZBook" inverseName="comment" inverseEntity="JZBook" syncable="YES"/>
     </entity>
     <entity name="JZRating" representedClassName="JZRating" syncable="YES">
         <attribute name="average" optional="YES" attributeType="String" syncable="YES"/>
@@ -42,15 +42,10 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="book" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="JZBook" inverseName="tags" inverseEntity="JZBook" syncable="YES"/>
     </entity>
-    <entity name="JZUser" representedClassName="JZUser" syncable="YES">
-        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JZBook" syncable="YES"/>
-        <relationship name="shortComments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JZComment" inverseName="user" inverseEntity="JZComment" syncable="YES"/>
-    </entity>
     <elements>
-        <element name="JZBook" positionX="-13194" positionY="-528174" width="128" height="28"/>
-        <element name="JZComment" positionX="-13194" positionY="-527725" width="128" height="163"/>
+        <element name="JZBook" positionX="-13241" positionY="-528193" width="128" height="313"/>
+        <element name="JZComment" positionX="-13239" positionY="-527814" width="128" height="163"/>
         <element name="JZRating" positionX="-12863" positionY="-528151" width="128" height="103"/>
         <element name="JZTag" positionX="-12861" positionY="-527949" width="128" height="103"/>
-        <element name="JZUser" positionX="-13439" positionY="-527737" width="128" height="73"/>
     </elements>
 </model>

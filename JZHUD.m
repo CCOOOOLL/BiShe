@@ -171,7 +171,7 @@ static CGFloat const HUDLineWith = 3;
 - (void)hudCreate{
     CGRect rect = [UIScreen mainScreen].bounds;
     CGPoint point = CGPointMake(rect.size.width/2.0, rect.size.height/2.0);
-    rect.size = CGSizeMake(rect.size.width/3.0,rect.size.width/3.0);
+    rect.size = CGSizeMake(rect.size.width/5.0,rect.size.width/5.0);
     self.frame = rect;
     self.center = point;
     [self.layer addSublayer:self.underRoundLayer];

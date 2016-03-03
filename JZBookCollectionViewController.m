@@ -78,7 +78,6 @@ static NSString * const reuseIdentifier = @"cell";
 
 - (void)loadMoreData{
      JZNewWorkTool *tool = [JZNewWorkTool workTool];
-//    [self.loadingView startAnimation];
     [JZHUD showHUDandTitle:@"加载中"];
      NSNumber *start = [NSNumber numberWithInteger:self.booksStore.books.count];
      NSNumber *end = [NSNumber numberWithInteger:self.booksStore.books.count+20];

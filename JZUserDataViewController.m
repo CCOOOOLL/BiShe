@@ -54,8 +54,11 @@
 }
 - (IBAction)exitUser:(id)sender {
     UIViewController<JZDrawerControllerProtocol > *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"JZLoginViewController"];
-    [self.drawer replaceCenterViewControllerWithViewController:vc];
-    [userStroe removeUser];
+//    [self.drawer replaceCenterViewControllerWithViewController:vc];
+    [self presentViewController:vc animated:YES completion:^{
+        [userStroe removeUser];
+    }];
+    
 //    [self transitionFromViewController:self toViewController: duration:1 options:UIViewAnimationOptionAutoreverse animations:nil completion:nil];
 
     

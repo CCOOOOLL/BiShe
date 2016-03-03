@@ -93,8 +93,11 @@
 
 
 - (void)findShotCommentInHTML:(NSString *)html {
-
-
+    
+    
+//    [NSBlockOperation blockOperationWithBlock:^{
+//        
+//    }];
 
     NSString *pattern = @"<li class=\"comment-item\">.*?<a title=\"(.*?)\" href=.*?<img src=\"(.*?)\">.*?class=\"vote-count\">(.*?)</span>.*?data-cid=\"(.*?)\".*?</span>.*?user-stars allstar(.*?)0 rating.*?<span>(.*?)</span>.*?comment-content\">(.*?)</p>.*?";
     

@@ -1,14 +1,13 @@
 //
 //  JZComment.m
-//  
+//  BiShe
 //
-//  Created by Jz on 16/1/9.
-//
+//  Created by Jz on 16/1/17.
+//  Copyright © 2016年 Jz. All rights reserved.
 //
 
 #import "JZComment.h"
-#import "JZTag.h"
-#import "JZUser.h"
+#import "JZBook.h"
 
 @implementation JZComment
 

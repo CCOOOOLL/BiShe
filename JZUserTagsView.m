@@ -10,6 +10,7 @@
 #import "JZTabButton.h"
 #import "JZTag.h"
 #import "JZBook.h"
+#import "JZComment.h"
 
 @interface JZUserTagsView ()
 
@@ -32,8 +33,8 @@
     JZTabButton *button = [self addTagButtonWithName:@"全部"];
     [button ChangeBackgroudColor];
     self.selectButton = button;
-    for (JZBook *book in tagsArray) {
-        for (NSString *str in book.usertags) {
+    for (JZComment *comment in tagsArray) {
+        for (NSString *str in comment.tags) {
              [self addTagButtonWithName:str];
         }
     }

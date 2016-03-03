@@ -26,7 +26,7 @@ static NSString *const identifier = @"shortCommentCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.start = 1;
-    [self setUpLoadView];
+ 
     
     MJRefreshAutoNormalFooter *refresh = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         [self loadMoreData];
@@ -67,12 +67,7 @@ static NSString *const identifier = @"shortCommentCell";
     }];
 }
 
--(void)setUpLoadView{
-    CGRect rect         = self.tableView.bounds;
-    CGPoint point       = CGPointMake(rect.size.width/2.0, rect.size.height/2.0-60);
-    rect.size           = CGSizeMake(60, 60);
 
-}
 
 
 - (JZShortCommentsStore *)commentStore{

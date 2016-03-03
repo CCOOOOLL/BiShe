@@ -9,6 +9,7 @@
 #import "bookListViewDataDeleage.h"
 #import "JZBookrackCollectionViewCell.h"
 #import "JZBasicBookViewController.h"
+#import "JZComment.h"
 
 static NSString *const identifier = @"bookList";
 
@@ -17,7 +18,11 @@ static NSString *const identifier = @"bookList";
 - (instancetype)initWithData:(NSArray *)data{
     self = [super init];
     if (self) {
-        self.books = data;
+        NSMutableArray *array = [NSMutableArray array];
+        for (JZComment *comment in data) {
+            [array addObject:comment.book];
+        }
+        self.books = array;
     }
     return self;
 }

@@ -1,19 +1,20 @@
 //
 //  JZBook.m
-//  
+//  BiShe
 //
-//  Created by Jz on 16/1/9.
-//
+//  Created by Jz on 16/1/17.
+//  Copyright © 2016年 Jz. All rights reserved.
 //
 
 #import "JZBook.h"
+#import "JZComment.h"
 #import "JZRating.h"
 #import "JZTag.h"
 
 @implementation JZBook
 
 // Insert code here to add functionality to your managed object subclass
-
+// Insert code here to add functionality to your managed object subclass
 -(NSSet *)bookViewTags{
     return self.tags;
 }
@@ -84,10 +85,4 @@
     }
     
 }
-
-//- (void)addTagsObject:(JZTag *)value{
-//    NSMutableSet *set = (NSMutableSet *)self.tags;
-//    [set addObject:value];
-//    self.tags = set;
-//}
 @end

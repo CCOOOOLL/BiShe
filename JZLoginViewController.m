@@ -34,8 +34,8 @@
 - (IBAction)logining:(id)sender {
     [JZHUD showHUDandTitle:@""];
     [[JZWildDog WildDog]loginUser:self.userTextField.text password:self.passWordTextField.text WithBlock:^(NSError *error, WAuthData *authData) {
-        UIViewController<JZDrawerControllerProtocol> *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"JZUserDataViewController"];
-        [self.drawer replaceCenterViewControllerWithViewController:vc];
+//        UIViewController<JZDrawerControllerProtocol> *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"JZUserDataViewController"];
+        [self dismissViewControllerAnimated:YES completion:nil];
         [JZHUD showSuccessandTitle:@""];
     }fail:^(NSError *error) {
         [JZHUD showFailandTitle:@""];
@@ -54,6 +54,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)closeView:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 - (void)drawerControllerWillOpen:(JZRootViewController *)drawerController{
     self.view.userInteractionEnabled = NO;
 }
