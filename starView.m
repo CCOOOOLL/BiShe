@@ -23,7 +23,7 @@
         self.backgroundColor = [UIColor clearColor];
         self.maxStar         = 10.0;
         self.emptyColor      = [UIColor colorWithRed:217/255.0 green:217/255.0  blue:217/255.0  alpha:1];
-        self.fullColor       = [UIColor orangeColor];
+        self.fullColor       = [UIColor colorWithRed:1 green:173/255.0 blue:14/255.0 alpha:1];
         self.starSize        = 8;
         self.showStar        = 0;
     }
@@ -35,7 +35,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.maxStar         = 10.0;
     self.emptyColor      = [UIColor colorWithRed:217/255.0 green:217/255.0  blue:217/255.0  alpha:1];
-    self.fullColor       = [UIColor orangeColor];
+    self.fullColor       = [UIColor colorWithRed:1 green:173/255.0 blue:14/255.0 alpha:1];
     self.starSize        = 13;
 
 }

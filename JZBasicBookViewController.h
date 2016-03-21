@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JZBooksStore.h"
-@interface JZBasicBookViewController : UIViewController
+@interface JZBasicBookViewController : UIViewController<UINavigationControllerDelegate>
 @property(nonatomic,strong)Book *bookData;/**<图书信息 */
 @property(nonatomic,strong)NSString *idUrl;
 @property(nonatomic,strong)NSString *imageUrl;
-
+@property(nonatomic,weak)UIImageView *bookimage;
 @end

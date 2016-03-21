@@ -92,10 +92,8 @@
             [self presentViewController:self.LoginViewController animated:YES completion:^{
                 
             }];
-//            [self.drawer replaceCenterViewControllerWithViewController:self.LoginViewController];
-
         }
-        self.number = 0;
+        self.number = 1;
     }
 }
 - (IBAction)pushHome:(id)sender {

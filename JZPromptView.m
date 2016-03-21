@@ -105,7 +105,7 @@ typedef NS_ENUM(NSUInteger, JZPromptAnimateState){
 
     hide.animations = @[hideY,hideA];
     hide.fillMode=kCAFillModeForwards;
-    hide.duration = 1.f;
+    hide.duration = 0.5f;
     hide.beginTime = 2 +CACurrentMediaTime();
     hide.delegate = self;
     hide.fillMode=kCAFillModeForwards;

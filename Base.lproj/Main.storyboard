@@ -46,7 +46,7 @@
                     <navigationItem key="navigationItem" id="u0f-9w-1Ov">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="xdc-Lb-PkJ">
-                            <rect key="frame" x="8" y="6" width="304" height="33"/>
+                            <rect key="frame" x="8" y="5.5" width="304" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biW-2d-UXo">
@@ -87,8 +87,9 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAg-Sz-rjQ">
+                                <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAg-Sz-rjQ">
                                     <rect key="frame" x="33" y="2" width="230" height="30"/>
+                                    <color key="tintColor" red="0.19607843137254902" green="0.6705882352941176" blue="0.23921568627450981" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <segue destination="HuA-F8-nk6" kind="push" animates="NO" id="MWh-eC-xAW"/>
                                     </connections>
@@ -131,12 +132,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="263" id="zEh-PC-5Tg" customClass="JZTopBookTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="320" height="263"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="230" id="zEh-PC-5Tg" customClass="JZTopBookTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="320" height="230"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zEh-PC-5Tg" id="eW2-L8-LfL">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="262.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="229.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="种类" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Pk-Wn-vYr">
@@ -160,15 +162,15 @@
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wS5-XS-dLQ" customClass="JZBookView">
-                                            <rect key="frame" x="115" y="40" width="91" height="205"/>
+                                            <rect key="frame" x="115" y="40" width="91" height="172.5"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfU-Kn-Qk9" customClass="JZBookView">
-                                            <rect key="frame" x="221" y="40" width="91" height="205"/>
+                                            <rect key="frame" x="221" y="40" width="91" height="172.5"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VJW-w3-dH8" customClass="JZBookView">
-                                            <rect key="frame" x="8" y="40" width="91" height="205"/>
+                                            <rect key="frame" x="8" y="40" width="91" height="172.5"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -1294,7 +1296,7 @@
                     <navigationItem key="navigationItem" id="fqi-0I-Nbo">
                         <nil key="title"/>
                         <view key="titleView" contentMode="center" id="Rce-Rc-xtG">
-                            <rect key="frame" x="8" y="6" width="304" height="33"/>
+                            <rect key="frame" x="8" y="5.5" width="304" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPg-Od-9Jm">
@@ -1417,7 +1419,7 @@
                                             <constraint firstAttribute="height" constant="50" id="sS8-Sy-VOH"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="首页" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Bu-g4-mIK">
+                                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="首页" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Bu-g4-mIK">
                                         <rect key="frame" x="120" y="42" width="30" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1499,6 +1501,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书单" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cCC-Tm-9Bh">
                                         <rect key="frame" x="120" y="42" width="138" height="18"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1910,6 +1913,7 @@
                     <navigationItem key="navigationItem" id="7Qc-qc-axz"/>
                     <connections>
                         <outlet property="passWordTextField" destination="Ie5-s6-dNl" id="bc6-Su-apv"/>
+                        <outlet property="sumbitButton" destination="Gmo-uN-Rjk" id="vrs-NJ-miL"/>
                         <outlet property="userTextField" destination="8Vk-zO-3gQ" id="ZpD-74-rqr"/>
                     </connections>
                 </viewController>

@@ -102,7 +102,7 @@ IB_DESIGNABLE
     }
     
     int X = (int) point.x/(imageW);
-    self.grade = X;
+    self.grade = X+1;
 
     
     
@@ -110,7 +110,7 @@ IB_DESIGNABLE
 
 - (void)setGrade:(NSInteger)grade{
     _grade = grade;
-    self.starForegroundView.frame = CGRectMake(0, 0, (grade+1)*imageW, imageW);
+    self.starForegroundView.frame = CGRectMake(0, 0, (grade)*imageW, imageW);
     [self addSubview:self.starForegroundView];
 }
 

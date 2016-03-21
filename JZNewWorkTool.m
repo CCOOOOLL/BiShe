@@ -14,6 +14,7 @@
 #import "CoreDataHelper.h"
 #import "JZBook.h"
 #import "JZTag.h"
+#import "JZHUD.h"
 @interface JZNewWorkTool()
 
 @property(nonatomic,strong)CoreDataHelper *helper;
@@ -63,14 +64,21 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
                  @"books" : @"BookData",
                  };
     }];
+    if (start == 0) {
+        [JZHUD showHUDandTitle:nil];
+    }
     [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
 //        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
         JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
 
         success(booksStore);
+        [JZHUD showSuccessandTitle:nil];
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         fail(error);
+        [JZHUD showFailandTitle:nil];
+
     }];
     
 }
@@ -85,14 +93,20 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
                  @"books" : @"BookData",
                  };
     }];
+    if (start == 0) {
+        [JZHUD showHUDandTitle:nil];
+    }
     [manage GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         
         JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
         
         success(booksStore);
+        
+        [JZHUD showSuccessandTitle:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         fail(error);
+        [JZHUD showFailandTitle:nil];
     }];
     
 }
@@ -113,11 +127,16 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
                  @"ID" : @"id",
                  };
     }];
+    if (start == 0) {
+        [JZHUD showHUDandTitle:@""];
+    }
     [self.mymanager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         JZBooksStore *booksStore = [JZBooksStore mj_objectWithKeyValues:responseObject];
         success(booksStore);
+        [JZHUD showSuccessandTitle:@""];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         fail(error);
+        [JZHUD showFailandTitle:@""];
     }];
 }
 /**
@@ -126,9 +145,8 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
 - (void)dataWithBookid:(NSString* )number  success:(Jz_success) success fail:(void(^)(NSError *error)) fail{
     
    __block JZBook *book = [self.helper searchDataWihtBookId:number];
-    if (book.summary) {
+    if (book.bookID) {
         success(book);
-        NSLog(@"%@",[book.tags anyObject]);
     }else{
         NSString *url = [NSString stringWithFormat:@"http://api.douban.com/v2/book/%@",number];
         [JZBook mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
@@ -145,6 +163,7 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
         }];
     }
 
+   
 
 }
 /**
@@ -219,7 +238,6 @@ static NSString *const tagsData = @"http://api.douban.com/v2/book/%@/tags";/**< 
  */
 - (void)datawithCommentContentUrl:(NSString *)url page:(NSInteger)page success:(Jz_success)success fail:(void(^)(NSError *error)) fail{
     NSString *start = [NSString stringWithFormat:@"%ld",page*100];
-//    NSDictionary *parametes = @{@"start":start};
      NSString *urlpath = [NSString stringWithFormat:@"%@?start=%@",url,start];
     [self.mymanager GET:urlpath parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
          NSString *result = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];

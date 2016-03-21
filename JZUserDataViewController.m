@@ -9,6 +9,7 @@
 #import "JZUserDataViewController.h"
 #import "JZWildDog.h"
 #import "userStroe.h"
+#import "CoreDataHelper.h"
 @interface JZUserDataViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @end
@@ -57,9 +58,9 @@
 //    [self.drawer replaceCenterViewControllerWithViewController:vc];
     [self presentViewController:vc animated:YES completion:^{
         [userStroe removeUser];
+        [[CoreDataHelper helper]removeAllComment];
     }];
     
-//    [self transitionFromViewController:self toViewController: duration:1 options:UIViewAnimationOptionAutoreverse animations:nil completion:nil];
 
     
 }

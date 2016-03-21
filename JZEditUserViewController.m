@@ -67,14 +67,17 @@
 {
     
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    [image setValue:[NSValue valueWithCGSize:CGSizeMake(200, 200)] forKey:@"size"];
     if (!image){
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
     }
+    
     [self.userImage setBackgroundImage:image forState:UIControlStateNormal];
     [[JZWildDog WildDog]editUserIamge:image withSuccess:^{
         NSLog(@"成功");
         [self dismissViewControllerAnimated:YES completion:nil];
+
     } fail:nil];
    
 }

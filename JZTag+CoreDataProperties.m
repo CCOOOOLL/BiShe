@@ -2,7 +2,7 @@
 //  JZTag+CoreDataProperties.m
 //  BiShe
 //
-//  Created by Jz on 16/1/17.
+//  Created by Jz on 16/3/18.
 //  Copyright © 2016年 Jz. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu

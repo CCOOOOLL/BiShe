@@ -46,12 +46,12 @@ typedef NS_ENUM(NSUInteger, JZDrawerControllerState)
     self.leftViewController.drawer = self;
     self.centerViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZHomeViewController"];
     self.centerViewController.drawer = self;
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     // Initialize left and center view containers
     self.leftView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.centerView = [[JZRootCententView alloc] initWithFrame:self.view.bounds];
-    self.leftView.autoresizingMask = self.view.autoresizingMask;
-    self.centerView.autoresizingMask = self.view.autoresizingMask;
+//    self.leftView.autoresizingMask = self.view.autoresizingMask;
+//    self.centerView.autoresizingMask = self.view.autoresizingMask;
     
     // Add the center view container
     [self.view addSubview:self.centerView];
@@ -307,9 +307,7 @@ typedef NS_ENUM(NSUInteger, JZDrawerControllerState)
 
 - (void)didOpen
 {
-    NSParameterAssert(self.drawerState == JZDrawerControllerStateOpening);
-    NSParameterAssert(self.leftViewController);
-    NSParameterAssert(self.centerViewController);
+
     
     // Complete adding the left controller to the container
     [self.leftViewController didMoveToParentViewController:self];

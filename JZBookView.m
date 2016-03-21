@@ -21,7 +21,9 @@ IB_DESIGNABLE
 @end
 
 @implementation JZBookView
-
+- (UIImageView *)imageView{
+    return self.BookImageView;
+}
 
 - (void)awakeFromNib{
     [super awakeFromNib];
@@ -37,9 +39,12 @@ IB_DESIGNABLE
     self.bookTitle.text = [Model bookViewtitle];
     self.average.text = [Model bookViewaverage];
     self.bookStar.showStar = [NSNumber numberWithFloat:[[Model bookViewaverage] floatValue]];
-    NSURL *path = [NSURL URLWithString:[Model bookViewImageUrl]];
-    [self.BookImageView yy_setImageWithURL:path options:YYWebImageOptionSetImageWithFadeAnimation];
-
+    ///加载图片
+    [self.BookImageView yy_setImageWithURL:[NSURL URLWithString:[Model bookViewImageUrl]] options:YYWebImageOptionSetImageWithFadeAnimation];
+//    [self.BookImageView yy_setImageWithURL:[NSURL URLWithString:[Model bookViewImageUrl]] placeholder:nil options:YYWebImageOptionSetImageWithFadeAnimation progress:nil transform:^UIImage *(UIImage *image, NSURL *url) {
+//        return[image yy_imageByRoundCornerRadius:4];
+//        
+//    } completion:nil];
 
     
 }

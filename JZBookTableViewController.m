@@ -81,20 +81,7 @@
 - (void) LoadData{
 
     JZNewWorkTool *tool = [JZNewWorkTool workTool];
-//    [tool dataWithCategory:self.Category[number][@"id"] start:@0 end:@3 success:^(JZBooksStore *booksStore) {
-//        self.section[number] = booksStore;
-//        [self LoadDataWithnumber:number+1];
-//        if (number == self.Category.count-1) {
-//            [self.tableView reloadData];
-//            [self.tableView.mj_header endRefreshing];
-//            [NSKeyedArchiver archiveRootObject:self.section toFile:file];
-//            [self.loadingView stopAnimating];
-//        }
-//    }fail:^(NSError *error) {
-//        [self.loadingView stopAnimating];
-//        [self.promptView setError:error];
-//        [self.promptView starShow];
-//    }];
+
     
     dispatch_group_t group = dispatch_group_create();
     for (int i=0; i<self.Category.count;i++) {
@@ -157,6 +144,9 @@
     }
 }
 
+- (void)dealloc{
+    NSLog(@"已销毁");
+}
 
 
 /*

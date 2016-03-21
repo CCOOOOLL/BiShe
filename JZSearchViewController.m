@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *nullView;
 @property(nonatomic,strong)JZPromptView *promptView;/**<<#text#> */
 @property(nonatomic,strong) JZBooksStore * booksStore;/**<数据源 */
-@property(nonatomic, assign)NSNumber *start;
+//@property(nonatomic, assign)NSNumber *start;
 @end
 
 @implementation JZSearchViewController
@@ -54,18 +54,11 @@ static NSString *const Identifier = @"cell";
         [self loadBookDataWihtStart:self.booksStore.books.count andCount:10];
         
     }];
-    refresh.triggerAutomaticallyRefreshPercent = -20;
+//    refresh.triggerAutomaticallyRefreshPercent = -20;
     self.searchTableView.mj_footer = refresh;
 
 }
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /**
  *  初始化搜索框
@@ -95,7 +88,6 @@ static NSString *const Identifier = @"cell";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     self.searchTableView.hidden = self.booksStore.books.count==0?YES:NO;
-    
     return self.booksStore.books.count;
 }
 
@@ -114,31 +106,20 @@ static NSString *const Identifier = @"cell";
 }
 
 - (IBAction)searchTextDidChanged:(id)sender {
-//    [[JZNewWorkTool workTool] endRequest];
-//    self.searchTableView.hidden =YES;
-//    self.booksStore = nil;
-//    self.start = @0;
-//    if ([self.searchView.text isEqualToString:@""]) {
-//        return;
-//    }
-//    [self.loadingView startAnimation];
-//    [self loadData];
-//    CGPoint point = self.searchTableView.contentOffset;
-//    point.y = 0;
-//    self.searchTableView.contentOffset = point;
+
 }
 
 - (void)loadBookDataWihtStart:(NSInteger)start andCount:(NSInteger) count{
     [[JZNewWorkTool workTool]dataWithBookName:self.searchView.text start:start count:count success:^(id obj) {
         JZBooksStore *bookStore = (JZBooksStore *)obj;
         if (start == 0) {
-            self.booksStore = obj;
+            self.booksStore = bookStore;
         }else{
             [self.booksStore.books addObjectsFromArray:bookStore.books];
         }
         [self.searchTableView reloadData];
         self.searchTableView.hidden = NO;
-        
+        [self.searchTableView.mj_footer endRefreshing];
     } fail:^(NSError *error) {
         
     }];
@@ -148,16 +129,14 @@ static NSString *const Identifier = @"cell";
     [self.searchView resignFirstResponder];
     [[JZNewWorkTool workTool] endRequest];
     self.searchTableView.hidden =YES;
-    self.booksStore = nil;
     if ([self.searchView.text isEqualToString:@""]) {
         return YES;
     }
-
     [self loadBookDataWihtStart:0 andCount:10];
     CGPoint point = self.searchTableView.contentOffset;
     point.y = 0;
     self.searchTableView.contentOffset = point;
-    return NO;
+    return YES;
 }
 
 - (IBAction)dissWIthController:(id)sender {

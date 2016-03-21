@@ -10,6 +10,7 @@
 #import "JZBookrackCollectionViewCell.h"
 #import "JZBasicBookViewController.h"
 #import "JZComment.h"
+#import "JZNewWorkTool.h"
 
 static NSString *const identifier = @"bookList";
 
@@ -18,13 +19,17 @@ static NSString *const identifier = @"bookList";
 - (instancetype)initWithData:(NSArray *)data{
     self = [super init];
     if (self) {
-        NSMutableArray *array = [NSMutableArray array];
+        NSMutableArray *array = [NSMutableArray array];        
         for (JZComment *comment in data) {
+            NSLog(@"%@",comment);
+            if(!comment.book)
+                continue;
             [array addObject:comment.book];
         }
-        self.books = array;
+        self.books  = array;
     }
     return self;
+    
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

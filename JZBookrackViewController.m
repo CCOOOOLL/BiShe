@@ -35,7 +35,6 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    [[JZWildDog WildDog]observeUserBook];
     
     self.tableView.rowHeight = 220;
 }

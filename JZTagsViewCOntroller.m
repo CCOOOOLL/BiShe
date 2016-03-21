@@ -17,7 +17,7 @@
 @end
 
 
-static CGFloat const tagHeight = 20;
+static CGFloat const tagHeight = 25;
 static CGFloat const topSpace = 3;
 static CGFloat const leftSpace = 4;
 
@@ -84,7 +84,6 @@ static CGFloat const leftSpace = 4;
     JZTabButton *button = [[JZTabButton alloc]initWithFrame:CGRectMake(leftSpace,topSpace,150, tagHeight)];
     [self.view addSubview:button];
     [button addTarget:self action:@selector(addTag) forControlEvents:UIControlEventTouchUpInside];
-    [button setTitleFont:8];
     [button setTitle:@"添加新标签" forState:UIControlStateNormal];
     [self.buttons addObject:button];
     for (tag *tag in self.tags) {
@@ -103,7 +102,7 @@ static CGFloat const leftSpace = 4;
     }
     rect.size.width = width;
     JZTabButton *button = [[JZTabButton alloc]initWithFrame:rect title:name];
-    [button setTitleFont:8.f];
+
     [self.view addSubview:button];
     __weak typeof(self)weekSelf = self;
     button.ButtonCanCelClick = ^(NSString *tag){

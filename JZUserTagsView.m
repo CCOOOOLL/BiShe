@@ -42,7 +42,7 @@
 
 
 - (JZTabButton *)addTagButtonWithName:(NSString *)name{
-    CGRect rect = self.tagButtonsArray.count<1?CGRectMake(0, 8, 0, 20):self.tagButtonsArray.lastObject.frame;
+    CGRect rect = self.tagButtonsArray.count<1?CGRectMake(0, 8, 0, 25):self.tagButtonsArray.lastObject.frame;
     CGFloat width         = [name boundingRectWithSize:CGSizeMake(1000, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:8]} context:nil].size.width+25;
     
     if (CGRectGetMaxX(rect)+width+8>self.bounds.size.width) {
@@ -54,7 +54,6 @@
     rect.size.width = width;
     NSLog(@"%@",[NSValue valueWithCGRect:rect]);
     JZTabButton *button = [[JZTabButton alloc]initWithFrame:rect title:name];
-    [button setTitleFont:8];
     [self.tagButtonsArray addObject:button];
     __weak typeof(self)weekSelf = self;
 

@@ -55,7 +55,7 @@
                     self.star.showStar = self.comment.average;
                     self.content.text = self.comment.shortContent;
                     self.star.maxStar = 5;
-                    self.star.showStar =  (NSNumber*)[self.bookDataModel bookViewaverage];
+                    NSLog(@"%@",self.star.showStar);
                     break;
                 case GradeTypeXiangDu:
                     [self.Xiangdu setColor:[UIColor colorWithRed:185/255.0 green:183/255.0 blue:186/255.0 alpha:1]andTitle:@"已想读"];

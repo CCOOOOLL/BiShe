@@ -107,6 +107,15 @@ static NSString *const fileName = @"douban.sqlite";
     return YES;
 }
 
+- (BOOL)removeAllComment{
+    NSFetchRequest *resquest = [[NSFetchRequest alloc]initWithEntityName:@"JZComment"];
+    NSArray<JZComment *> *array = [self.context executeFetchRequest:resquest error:nil];
+    [array enumerateObjectsUsingBlock:^(JZComment * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.context deleteObject:obj];
+    }];
+    return YES;
+}
+
 - (BOOL)addComment:(JZComment *)comment{
     NSArray<JZComment *> *array = [self searchCommentWihtBookId:comment.bookID];
     if (array.count==0) {
@@ -123,7 +132,8 @@ static NSString *const fileName = @"douban.sqlite";
     NSError *error = nil;
     if ([self.context hasChanges]&&![self.context save:&error]) {
         NSLog(@"保存数据错误%@",error);
-    };
+    }else
+        NSLog(@"保存成功");
 }
 
 

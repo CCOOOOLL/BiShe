@@ -16,6 +16,9 @@
 #import "JZShortCommentsStore.h"
 #import "JZPromptView.h"
 #import "JZHUD.h"
+#import "testTransitonsAnimation.h"
+#import "JZTopBookCollectionViewCell.h"
+#import "JZBookCollectionViewController.h"
 @interface JZBasicBookViewController ()<UIGestureRecognizerDelegate,JZShortCommentaryTableViewControllerDeleage,JZBookCommentViewControllerhDeleage>
 @property (weak, nonatomic) IBOutlet UIImageView *backImage;/**< 背景图片 */
 @property (weak, nonatomic) IBOutlet UIImageView *bookImage;/**< 图书封面 */
@@ -34,6 +37,10 @@
 
 
 #pragma mark懒加载
+
+- (UIImageView *)bookimage{
+    return self.bookImage;
+}
 
 - (JZPromptView *)promptView{
     if (!_promptView) {
@@ -175,6 +182,13 @@
 - (IBAction)back:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
         self.navigationController.navigationBarHidden = NO;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC{
+    if (operation == UINavigationControllerOperationPush&&[fromVC isKindOfClass:[JZBookCollectionViewController class]]) {
+       return  [[testTransitonsAnimation alloc]init];
+    }else
+        return nil;
 }
 
 @end

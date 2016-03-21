@@ -137,7 +137,7 @@ static NSString *const addIdentifier = @"addCell";
     [JZHUD showHUDandTitle:@""];
     NSArray *tags = [self.selectTags allObjects];
     [self.deleage evaluateBookData];
-    [[JZWildDog WildDog]addBookWithType:self.gradeType bookId:self.bookId tags:tags average:self.gradeStar.grade+1 content:self.contextView.text withSuccess:^{
+    [[JZWildDog WildDog]addBookWithType:self.gradeType bookId:self.bookId tags:tags average:self.gradeStar.grade content:self.contextView.text withSuccess:^{
         [JZHUD showSuccessandTitle:@""];
         [self.navigationController popViewControllerAnimated:YES];
     } fail:nil];

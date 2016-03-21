@@ -45,14 +45,15 @@ IB_DESIGNABLE
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpWithTextFiled];
-    // Do any additional setup after loading the view.
     [self setUpWithTabView];
     [self setUpWithSlip];
     [self setUpWithContetView];
     [self barClickDidWithButton:self.buttons[0]];
-    [[JZWildDog WildDog]observeUserBook];
+//    [[JZWildDog WildDog]observeUserBook];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)
                                                          forBarMetrics:UIBarMetricsDefault];
+
+
 
 }
 
@@ -214,7 +215,7 @@ IB_DESIGNABLE
         [view removeFromSuperview];
     }
     
-    for (int i=(int)number-2; i<number+2; i++) {
+    for (int i=(int)number-1; i<number+1; i++) {
         UITableView *table =self.cacheViews[[NSString stringWithFormat:@"%d",i]];
         [self.contentView addSubview:table];
     }

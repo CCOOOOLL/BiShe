@@ -26,5 +26,6 @@
 - (BOOL)addBook:(JZBook *)book;
 - (BOOL)removeCommentWithBookId:(NSString *)bookId;
 - (NSArray<JZComment*> *)getuserBooks;
+- (BOOL)removeAllComment;
 
 @end

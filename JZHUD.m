@@ -186,7 +186,7 @@ static CGFloat const HUDLineWith = 3;
     self.barStyle = UIBarStyleDefault;
     [[[UIApplication sharedApplication].delegate window] addSubview:self];
     self.superstratumRoundLayer.transform = CATransform3DRotate(CATransform3DIdentity, -M_PI_4, 0, 0, 1);
-    NSLog(@"%@",[NSValue valueWithCGRect:self.superstratumRoundLayer.HUDBounds]);
+//    NSLog(@"%@",[NSValue valueWithCGRect:self.superstratumRoundLayer.HUDBounds]);
 //    self.superstratumRoundLayer.transform = CATransform3DTranslate(CATransform3DIdentity,17.5, 17.5, 0);
 }
 
@@ -217,7 +217,7 @@ static CGFloat const HUDLineWith = 3;
     
     CABasicAnimation *loadhideAnimation = [[CABasicAnimation alloc]init];
     loadhideAnimation.keyPath = @"opacity";
-    loadhideAnimation.duration = 1;
+    loadhideAnimation.duration = 0.2;
     loadhideAnimation.toValue = @(0);
     loadhideAnimation.removedOnCompletion = NO;
     loadhideAnimation.fillMode = kCAFillModeForwards;
@@ -226,19 +226,19 @@ static CGFloat const HUDLineWith = 3;
     group.animations = @[loadsuccessAnimation,loadhideAnimation];
     group.removedOnCompletion = NO;
     group.fillMode = kCAFillModeForwards;
-    group.duration = 1;
+    group.duration = 0.45;
     [self.superstratumRoundLayer addAnimation:group forKey:@"loadEndAnimationGroup"];
     
     
     CABasicAnimation *successAnimation = [[CABasicAnimation alloc]init];
     successAnimation.keyPath = @"strokeEnd";
     successAnimation.toValue = @(1);
-    successAnimation.duration = 1;
+    successAnimation.duration = 0.3;
     successAnimation.beginTime =0.25 + CACurrentMediaTime();
     successAnimation.removedOnCompletion = NO;
     successAnimation.fillMode = kCAFillModeForwards;
     [self.successLayer addAnimation:successAnimation forKey:@"successAnimation"];
-    [UIView animateWithDuration:0.5 delay:1.25 options:UIViewAnimationOptionOverrideInheritedDuration animations:^{
+    [UIView animateWithDuration:0.3 delay:1.25 options:UIViewAnimationOptionOverrideInheritedDuration animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
         self.hidden = YES;
@@ -257,7 +257,7 @@ static CGFloat const HUDLineWith = 3;
     self.underRoundLayer.strokeEnd = 0;
     CABasicAnimation *LoadFailAnimation = [[CABasicAnimation alloc]init];
     LoadFailAnimation.keyPath = @"strokeEnd";
-    LoadFailAnimation.duration = 0.5;
+    LoadFailAnimation.duration = 0.3;
     LoadFailAnimation.toValue = @(0);
     LoadFailAnimation.removedOnCompletion = NO;
     LoadFailAnimation.fillMode = kCAFillModeForwards;
@@ -267,12 +267,12 @@ static CGFloat const HUDLineWith = 3;
     //    _successLayer.strokeEnd
     failAnimation.keyPath = @"strokeEnd";
     failAnimation.toValue = @(1);
-    failAnimation.duration = 1;
+    failAnimation.duration = 0.3;
     failAnimation.beginTime =0.5 + CACurrentMediaTime();
     failAnimation.removedOnCompletion = NO;
     failAnimation.fillMode = kCAFillModeForwards;
     [self.failLayer addAnimation:failAnimation forKey:@"failAnimation"];
-    [UIView animateWithDuration:0.5 delay:2.5 options:UIViewAnimationOptionOverrideInheritedDuration animations:^{
+    [UIView animateWithDuration:0.3 delay:2.5 options:UIViewAnimationOptionOverrideInheritedDuration animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
         self.hidden = YES;

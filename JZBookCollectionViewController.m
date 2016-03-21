@@ -15,7 +15,7 @@
 #import "JZBasicBookViewController.h"
 #import "JZWildDog.h"
 #import "JZPromptView.h"
-#import "JZHUD.h"
+#import "testTransitonsAnimation.h"
 
 @interface JZBookCollectionViewController ()
 
@@ -62,7 +62,7 @@ static NSString * const reuseIdentifier = @"cell";
         [self loadMoreData];
 
     }];
-    refresh.triggerAutomaticallyRefreshPercent = -20;
+//    refresh.triggerAutomaticallyRefreshPercent = -20;
     refresh.refreshingTitleHidden = YES;
     self.collectionView.mj_footer = refresh;
     
@@ -77,8 +77,9 @@ static NSString * const reuseIdentifier = @"cell";
  */
 
 - (void)loadMoreData{
+
      JZNewWorkTool *tool = [JZNewWorkTool workTool];
-    [JZHUD showHUDandTitle:@"加载中"];
+
      NSNumber *start = [NSNumber numberWithInteger:self.booksStore.books.count];
      NSNumber *end = [NSNumber numberWithInteger:self.booksStore.books.count+20];
     [tool dataWithCategory:self.contentData[@"id"] start:start end:end success:^(JZBooksStore *booksStore) {
@@ -89,12 +90,12 @@ static NSString * const reuseIdentifier = @"cell";
             [self.booksStore.books addObject:obj];
         }];
 //        [self.loadingView stopAnimating];
-        [JZHUD showSuccessandTitle:@"成功"];
+
         [self.collectionView reloadData];
         [self.collectionView.mj_footer endRefreshing];
     }fail:^(NSError *error) {
 //        [self.loadingView stopAnimating];
-        [JZHUD showFailandTitle:@"加载失败"];
+
         [self.promptView setError:error];
         [self.promptView starShow];
     }];
@@ -137,10 +138,13 @@ static NSString * const reuseIdentifier = @"cell";
     JZTopBookCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.bookViewModels = self.booksStore.books[indexPath.row];
     __weak JZBookCollectionViewController * wself = self;
+    
     cell.clickBlock = ^{
         JZBasicBookViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]]instantiateViewControllerWithIdentifier:@"JZBasicBookViewController"];
+        wself.selectIndexPath = indexPath;
         BookData *data = wself.booksStore.books[indexPath.row];
         vc.idUrl = data.bookid;
+        self.navigationController.delegate = vc;
         [self.navigationController pushViewController:vc animated:YES];
     };
     return cell;
@@ -148,7 +152,6 @@ static NSString * const reuseIdentifier = @"cell";
 
 
 
-#pragma mark <UICollectionViewDelegate>
 
 
 

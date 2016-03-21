@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *userTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passWordTextField;
 @property(nonatomic,strong)JZPromptView *promptView;;/**<<#text#> */
+@property (weak, nonatomic) IBOutlet UIButton *sumbitButton;
 @end
 
 @implementation JZLoginViewController
@@ -23,18 +24,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.promptView = [JZPromptView prompt];
-    
-    // Do any additional setup after loading the view.
+    self.userTextField.transform = CGAffineTransformMakeTranslation(-300, 0);
+    self.passWordTextField.transform = CGAffineTransformMakeTranslation(300, 0);
+    self.sumbitButton.layer.cornerRadius = 5;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+
+    [UIView animateWithDuration:1.0f delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:2 options:0 animations:^{
+        self.userTextField.transform = CGAffineTransformIdentity;
+        self.passWordTextField.transform = CGAffineTransformIdentity;
+
+    } completion:nil];
+}
+
 - (IBAction)logining:(id)sender {
     [JZHUD showHUDandTitle:@""];
     [[JZWildDog WildDog]loginUser:self.userTextField.text password:self.passWordTextField.text WithBlock:^(NSError *error, WAuthData *authData) {
-//        UIViewController<JZDrawerControllerProtocol> *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"JZUserDataViewController"];
         [self dismissViewControllerAnimated:YES completion:nil];
         [JZHUD showSuccessandTitle:@""];
     }fail:^(NSError *error) {

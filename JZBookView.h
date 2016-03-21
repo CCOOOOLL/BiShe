@@ -12,4 +12,5 @@ IB_DESIGNABLE
 @interface JZBookView : UIView
 @property (nonatomic,strong) id<BookViewProtocol> Model;
 @property (weak, nonatomic) IBOutlet UIButton *button;
+@property(weak,nonatomic)UIImageView *imageView;
 @end
